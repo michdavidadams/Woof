@@ -9,13 +9,17 @@ import SwiftUI
 
 @main
 struct Woof_WalkApp: App {
+    @StateObject private var workoutManager = WorkoutManager()
+
     @SceneBuilder var body: some Scene {
         WindowGroup {
             NavigationView {
-                ContentView()
+                StartView()
             }
+            .sheet(isPresented: $workoutManager.showingSummaryView) {
+                SummaryView()
+            }
+            .environmentObject(workoutManager)
         }
-
-        WKNotificationScene(controller: NotificationController.self, category: "myCategory")
     }
 }

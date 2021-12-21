@@ -11,12 +11,20 @@
 		5807A21827716080002847DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5807A21727716080002847DF /* Assets.xcassets */; };
 		5807A21E27716080002847DF /* Woof Walk WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5807A21D27716080002847DF /* Woof Walk WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5807A22327716080002847DF /* Woof_WalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22227716080002847DF /* Woof_WalkApp.swift */; };
-		5807A22527716080002847DF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22427716080002847DF /* ContentView.swift */; };
+		5807A22527716080002847DF /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22427716080002847DF /* StartView.swift */; };
 		5807A22727716080002847DF /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22627716080002847DF /* NotificationController.swift */; };
 		5807A22927716080002847DF /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22827716080002847DF /* NotificationView.swift */; };
 		5807A22B27716080002847DF /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22A27716080002847DF /* ComplicationController.swift */; };
 		5807A22D27716081002847DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5807A22C27716081002847DF /* Assets.xcassets */; };
 		5807A23027716081002847DF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5807A22F27716081002847DF /* Preview Assets.xcassets */; };
+		5807A2452771611B002847DF /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5807A2442771611B002847DF /* HealthKit.framework */; };
+		5807A24727716398002847DF /* SessionPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A24627716398002847DF /* SessionPagingView.swift */; };
+		5807A24927716425002847DF /* MetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A24827716425002847DF /* MetricsView.swift */; };
+		5807A24B277164E9002847DF /* ElapsedTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A24A277164E9002847DF /* ElapsedTimeView.swift */; };
+		5807A24D27716503002847DF /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A24C27716503002847DF /* ControlsView.swift */; };
+		5807A24F27716572002847DF /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A24E27716572002847DF /* WorkoutManager.swift */; };
+		5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A2532771678C002847DF /* ActivityRingsView.swift */; };
+		5807A2562771679D002847DF /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A2552771679D002847DF /* SummaryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +75,7 @@
 		5807A21727716080002847DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5807A21D27716080002847DF /* Woof Walk WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Woof Walk WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5807A22227716080002847DF /* Woof_WalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Woof_WalkApp.swift; sourceTree = "<group>"; };
-		5807A22427716080002847DF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5807A22427716080002847DF /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		5807A22627716080002847DF /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		5807A22827716080002847DF /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		5807A22A27716080002847DF /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
@@ -75,6 +83,15 @@
 		5807A22F27716081002847DF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5807A23127716081002847DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5807A23227716081002847DF /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		5807A2422771611B002847DF /* Woof Walk WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Woof Walk WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		5807A2442771611B002847DF /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.3.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		5807A24627716398002847DF /* SessionPagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPagingView.swift; sourceTree = "<group>"; };
+		5807A24827716425002847DF /* MetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsView.swift; sourceTree = "<group>"; };
+		5807A24A277164E9002847DF /* ElapsedTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElapsedTimeView.swift; sourceTree = "<group>"; };
+		5807A24C27716503002847DF /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
+		5807A24E27716572002847DF /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
+		5807A2532771678C002847DF /* ActivityRingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRingsView.swift; sourceTree = "<group>"; };
+		5807A2552771679D002847DF /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5807A2452771611B002847DF /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +112,7 @@
 				5807A21627716076002847DF /* Woof Walk WatchKit App */,
 				5807A22127716080002847DF /* Woof Walk WatchKit Extension */,
 				5807A20F27716075002847DF /* Products */,
+				5807A2432771611B002847DF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,8 +137,10 @@
 		5807A22127716080002847DF /* Woof Walk WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				5807A2422771611B002847DF /* Woof Walk WatchKit Extension.entitlements */,
 				5807A22227716080002847DF /* Woof_WalkApp.swift */,
-				5807A22427716080002847DF /* ContentView.swift */,
+				5807A25027716619002847DF /* Views */,
+				5807A24E27716572002847DF /* WorkoutManager.swift */,
 				5807A22627716080002847DF /* NotificationController.swift */,
 				5807A22827716080002847DF /* NotificationView.swift */,
 				5807A22A27716080002847DF /* ComplicationController.swift */,
@@ -137,6 +158,28 @@
 				5807A22F27716081002847DF /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5807A2432771611B002847DF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5807A2442771611B002847DF /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5807A25027716619002847DF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5807A22427716080002847DF /* StartView.swift */,
+				5807A24627716398002847DF /* SessionPagingView.swift */,
+				5807A24A277164E9002847DF /* ElapsedTimeView.swift */,
+				5807A24C27716503002847DF /* ControlsView.swift */,
+				5807A24827716425002847DF /* MetricsView.swift */,
+				5807A2532771678C002847DF /* ActivityRingsView.swift */,
+				5807A2552771679D002847DF /* SummaryView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,10 +309,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5807A24727716398002847DF /* SessionPagingView.swift in Sources */,
 				5807A22727716080002847DF /* NotificationController.swift in Sources */,
-				5807A22527716080002847DF /* ContentView.swift in Sources */,
+				5807A22527716080002847DF /* StartView.swift in Sources */,
+				5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */,
+				5807A24F27716572002847DF /* WorkoutManager.swift in Sources */,
+				5807A2562771679D002847DF /* SummaryView.swift in Sources */,
 				5807A22B27716080002847DF /* ComplicationController.swift in Sources */,
 				5807A22327716080002847DF /* Woof_WalkApp.swift in Sources */,
+				5807A24927716425002847DF /* MetricsView.swift in Sources */,
+				5807A24B277164E9002847DF /* ElapsedTimeView.swift in Sources */,
+				5807A24D27716503002847DF /* ControlsView.swift in Sources */,
 				5807A22927716080002847DF /* NotificationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,6 +458,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "Woof Walk WatchKit Extension/Woof Walk WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Woof Walk WatchKit Extension/Preview Content\"";
@@ -440,6 +491,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "Woof Walk WatchKit Extension/Woof Walk WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Woof Walk WatchKit Extension/Preview Content\"";
