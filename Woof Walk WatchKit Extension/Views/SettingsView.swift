@@ -11,34 +11,44 @@ struct SettingsView: View {
     @ObservedObject var userSettings = UserSettings()
     
     var body: some View {
-        
-        Form {
-            Section(header: Text("DOG INFO")) {
-                TextField("Dog name", text: $userSettings.dogName)
-            }
-            
-            Section(header: Text("EXERCISE GOAL")) {
+        ScrollView {
+            LazyVStack {
                 
-                Text("\(userSettings.exerciseGoal)")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(1)
-                    .padding(.horizontal)
-                Button("+") {
-                    userSettings.exerciseGoal += 5
+                VStack {
+                    Text("DOG NAME")
+                    TextField("Dog name", text: $userSettings.dogName)
                 }
-                Button("-") {
-                    userSettings.exerciseGoal -= 5
+                .padding()
+                
+                VStack {
+                    Text("EXERCISE GOAL")
+                    HStack {
+                        Button("-") {
+                            userSettings.exerciseGoal -= 5
+                        }
+                        Text("\(userSettings.exerciseGoal)")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(1)
+                            .padding(.horizontal)
+                        Button("+") {
+                            userSettings.exerciseGoal += 5
+                        }
+                    }
                 }
+                .padding()
+                
+//                Button("Save") {
+//                    self.userSettings.dogName = userSettings.dogName
+//                    self.userSettings.exerciseGoal = userSettings.exerciseGoal
+//                }
+//                .padding()
             }
-            
-            Section {
-                Button("Save") {
-                    self.userSettings.dogName = userSettings.dogName
-                    self.userSettings.exerciseGoal = userSettings.exerciseGoal
-                }
-            }
+        }
+        .onDisappear() {
+            self.userSettings.dogName = userSettings.dogName
+            self.userSettings.exerciseGoal = userSettings.exerciseGoal
         }
     }
 }

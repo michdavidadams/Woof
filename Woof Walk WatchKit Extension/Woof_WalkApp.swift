@@ -14,7 +14,7 @@ struct Woof_WalkApp: App {
     @SceneBuilder var body: some Scene {
         WindowGroup {
             NavigationView {
-                MainMenuView()
+                StartView()
             }
             .sheet(isPresented: $workoutManager.showingSummaryView) {
                 SummaryView()
