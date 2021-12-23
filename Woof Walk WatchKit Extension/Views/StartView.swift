@@ -10,19 +10,25 @@ import HealthKit
 
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @StateObject var currentDog = dog
+    @State var dogName = dog.name
+    @State var todaysWalks = dog.todaysWalks
+    @State var exerciseGoal = dog.exerciseGoal
+    @State var goalProgress = dog.currentProgress()
     
     var workoutType: HKWorkoutActivityType = .walking
     
     var body: some View {
         
         LazyVStack {
-            Text("🦮🚶🏼‍♂️")
-                .padding()
-            NavigationLink(workoutType.name, destination: SessionPagingView(), tag: workoutType, selection: $workoutManager.selectedWorkout)
+            HStack {
+                Text("\(dogName)'s Walks:")
+                Gauge(value: goalProgress, in: 0...Double(exerciseGoal)) {
+                    Text("Exercise")
+                }
+            }
+            NavigationLink("Begin Walk", destination: SessionPagingView(), tag: workoutType, selection: $workoutManager.selectedWorkout)
         }
         .padding([.bottom, .trailing])
-        .navigationBarTitle($dog.name)
         .onAppear {
             workoutManager.requestAuthorization()
         }

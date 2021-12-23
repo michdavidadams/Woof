@@ -7,8 +7,12 @@
 
 import Foundation
 
-struct Dog {
-    var name: String
-    var exerciseGoal: Int
+class Dog: ObservableObject {
+    @Published var name: String = "Scooby"
+    @Published var exerciseGoal: Int = 30
+    @Published var todaysWalks: Int = 0
+    
+    func currentProgress() -> Double {
+        return Double(todaysWalks / exerciseGoal)
+    }
 }
-

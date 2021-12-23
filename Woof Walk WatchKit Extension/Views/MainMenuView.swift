@@ -13,6 +13,15 @@ struct MainMenuView: View {
 
     enum Tab {
         case start, settings
+        
+        func returnTitle() -> String {
+            switch self {
+            case .start:
+                return "Walk"
+            case .settings:
+                return "Settings"
+            }
+        }
     }
     
     var body: some View {
@@ -20,6 +29,7 @@ struct MainMenuView: View {
             StartView().tag(Tab.start)
             SettingsView().tag(Tab.settings)
         }
+        .navigationTitle(selection.returnTitle())
         
     }
 }
