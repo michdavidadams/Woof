@@ -8,45 +8,44 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @ObservedObject var dog: Dog
+    @ObservedObject var userSettings = UserSettings()
     
     var body: some View {
-        VStack {
-            VStack(alignment: .leading) {
-                Text("Dog name")
-                    .font(.caption)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(1)
-                TextField("\(dog.name)", text: $dog.name)
+        
+        Form {
+            Section(header: Text("DOG INFO")) {
+                TextField("Dog name", text: $userSettings.dogName)
             }
-            .padding()
-            VStack(alignment: .leading) {
-                Text("Dog's exercise goal")
-                    .font(.caption)
-                    .multilineTextAlignment(.leading)
+            
+            Section(header: Text("EXERCISE GOAL")) {
+                
+                Text("\(userSettings.exerciseGoal)")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.center)
                     .lineLimit(1)
-                HStack {
-                    Button("-") {
-                        dog.exerciseGoal -= 5
-                    }
-                    Text("\(dog.exerciseGoal)")
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(1)
-                        .padding(.horizontal)
-                    Button("+") {
-                        dog.exerciseGoal += 5
-                    }
+                    .padding(.horizontal)
+                Button("+") {
+                    userSettings.exerciseGoal += 5
+                }
+                Button("-") {
+                    userSettings.exerciseGoal -= 5
                 }
             }
-            .padding()
+            
+            Section {
+                Button("Save") {
+                    self.userSettings.dogName = userSettings.dogName
+                    self.userSettings.exerciseGoal = userSettings.exerciseGoal
+                }
+            }
         }
     }
 }
 
+
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(dog: dog)
+        SettingsView()
     }
 }

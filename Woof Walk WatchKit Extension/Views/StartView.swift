@@ -10,21 +10,18 @@ import HealthKit
 
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @State var dogName = dog.name
-    @State var todaysWalks = dog.todaysWalks
-    @State var exerciseGoal = dog.exerciseGoal
-    @State var goalProgress = dog.currentProgress()
+    @ObservedObject var userSettings = UserSettings()
+    @ObservedObject var walks = Walks()
     
     var workoutType: HKWorkoutActivityType = .walking
     
     var body: some View {
         
         LazyVStack {
-            HStack {
-                Text("\(dogName)'s Walks:")
-                Gauge(value: goalProgress, in: 0...Double(exerciseGoal)) {
-                    Text("Exercise")
-                }
+            VStack {
+                Text("\(userSettings.dogName)'s Walks:")
+                Text("\(Int(walks.todaysWalks)) minutes")
+                
             }
             NavigationLink("Begin Walk", destination: SessionPagingView(), tag: workoutType, selection: $workoutManager.selectedWorkout)
         }
