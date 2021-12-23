@@ -11,7 +11,7 @@
 		5807A21827716080002847DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5807A21727716080002847DF /* Assets.xcassets */; };
 		5807A21E27716080002847DF /* Woof Walk WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5807A21D27716080002847DF /* Woof Walk WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5807A22327716080002847DF /* Woof_WalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22227716080002847DF /* Woof_WalkApp.swift */; };
-		5807A22527716080002847DF /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22427716080002847DF /* StartView.swift */; };
+		5807A22527716080002847DF /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22427716080002847DF /* MainMenuView.swift */; };
 		5807A22727716080002847DF /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22627716080002847DF /* NotificationController.swift */; };
 		5807A22927716080002847DF /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22827716080002847DF /* NotificationView.swift */; };
 		5807A22B27716080002847DF /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22A27716080002847DF /* ComplicationController.swift */; };
@@ -25,6 +25,9 @@
 		5807A24F27716572002847DF /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A24E27716572002847DF /* WorkoutManager.swift */; };
 		5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A2532771678C002847DF /* ActivityRingsView.swift */; };
 		5807A2562771679D002847DF /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A2552771679D002847DF /* SummaryView.swift */; };
+		5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A25A2773E7DC002847DF /* SettingsView.swift */; };
+		5807A25D2773E878002847DF /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A25C2773E878002847DF /* StartView.swift */; };
+		5807A2612773F125002847DF /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A2602773F125002847DF /* SettingsData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +78,7 @@
 		5807A21727716080002847DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5807A21D27716080002847DF /* Woof Walk WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Woof Walk WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5807A22227716080002847DF /* Woof_WalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Woof_WalkApp.swift; sourceTree = "<group>"; };
-		5807A22427716080002847DF /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		5807A22427716080002847DF /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		5807A22627716080002847DF /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		5807A22827716080002847DF /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		5807A22A27716080002847DF /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
@@ -92,6 +95,9 @@
 		5807A24E27716572002847DF /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		5807A2532771678C002847DF /* ActivityRingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRingsView.swift; sourceTree = "<group>"; };
 		5807A2552771679D002847DF /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		5807A25A2773E7DC002847DF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5807A25C2773E878002847DF /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		5807A2602773F125002847DF /* SettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +146,7 @@
 				5807A2422771611B002847DF /* Woof Walk WatchKit Extension.entitlements */,
 				5807A22227716080002847DF /* Woof_WalkApp.swift */,
 				5807A25027716619002847DF /* Views */,
+				5807A2602773F125002847DF /* SettingsData.swift */,
 				5807A24E27716572002847DF /* WorkoutManager.swift */,
 				5807A22627716080002847DF /* NotificationController.swift */,
 				5807A22827716080002847DF /* NotificationView.swift */,
@@ -171,7 +178,9 @@
 		5807A25027716619002847DF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5807A22427716080002847DF /* StartView.swift */,
+				5807A22427716080002847DF /* MainMenuView.swift */,
+				5807A25C2773E878002847DF /* StartView.swift */,
+				5807A25A2773E7DC002847DF /* SettingsView.swift */,
 				5807A24627716398002847DF /* SessionPagingView.swift */,
 				5807A24A277164E9002847DF /* ElapsedTimeView.swift */,
 				5807A24C27716503002847DF /* ControlsView.swift */,
@@ -311,10 +320,13 @@
 			files = (
 				5807A24727716398002847DF /* SessionPagingView.swift in Sources */,
 				5807A22727716080002847DF /* NotificationController.swift in Sources */,
-				5807A22527716080002847DF /* StartView.swift in Sources */,
+				5807A2612773F125002847DF /* SettingsData.swift in Sources */,
+				5807A22527716080002847DF /* MainMenuView.swift in Sources */,
 				5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */,
 				5807A24F27716572002847DF /* WorkoutManager.swift in Sources */,
+				5807A25D2773E878002847DF /* StartView.swift in Sources */,
 				5807A2562771679D002847DF /* SummaryView.swift in Sources */,
+				5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */,
 				5807A22B27716080002847DF /* ComplicationController.swift in Sources */,
 				5807A22327716080002847DF /* Woof_WalkApp.swift in Sources */,
 				5807A24927716425002847DF /* MetricsView.swift in Sources */,
@@ -467,7 +479,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Woof Walk WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Woof Walk WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = Woof_Walk_WatchKit_Extension.ComplicationController;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "For writing workout data.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For reading workout data.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -500,7 +514,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Woof Walk WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Woof Walk WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = Woof_Walk_WatchKit_Extension.ComplicationController;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "For writing workout data.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For reading workout data.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (

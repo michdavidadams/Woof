@@ -10,11 +10,11 @@ import SwiftUI
 @main
 struct Woof_WalkApp: App {
     @StateObject private var workoutManager = WorkoutManager()
-
+    
     @SceneBuilder var body: some Scene {
         WindowGroup {
             NavigationView {
-                StartView()
+                MainMenuView()
             }
             .sheet(isPresented: $workoutManager.showingSummaryView) {
                 SummaryView()
