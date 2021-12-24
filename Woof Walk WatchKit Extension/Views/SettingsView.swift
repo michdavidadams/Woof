@@ -38,12 +38,6 @@ struct SettingsView: View {
                     }
                 }
                 .padding()
-                
-//                Button("Save") {
-//                    self.userSettings.dogName = userSettings.dogName
-//                    self.userSettings.exerciseGoal = userSettings.exerciseGoal
-//                }
-//                .padding()
             }
         }
         .onDisappear() {

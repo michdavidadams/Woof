@@ -23,9 +23,9 @@ struct SessionPagingView: View {
             MetricsView().tag(Tab.metrics)
             NowPlayingView().tag(Tab.nowPlaying)
         }
-        .navigationTitle(workoutManager.selectedWorkout?.name ?? "")
+        .navigationTitle("Walk")
         .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(selection == .nowPlaying)
+        .navigationBarHidden(selection == .nowPlaying || selection == .metrics)
         .onChange(of: workoutManager.running) { _ in
             displayMetricsView()
         }

@@ -28,6 +28,7 @@
 		5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A25A2773E7DC002847DF /* SettingsView.swift */; };
 		76D6AD7C2774E79D00B464E8 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD7B2774E79D00B464E8 /* UserSettings.swift */; };
 		76D6AD802774EB5A00B464E8 /* Walks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD7F2774EB5A00B464E8 /* Walks.swift */; };
+		76D6AD82277659F400B464E8 /* ExerciseGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD81277659F400B464E8 /* ExerciseGoalView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		5807A25A2773E7DC002847DF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		76D6AD7B2774E79D00B464E8 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		76D6AD7F2774EB5A00B464E8 /* Walks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Walks.swift; sourceTree = "<group>"; };
+		76D6AD81277659F400B464E8 /* ExerciseGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGoalView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				5807A2422771611B002847DF /* Woof Walk WatchKit Extension.entitlements */,
 				5807A22227716080002847DF /* Woof_WalkApp.swift */,
 				5807A25027716619002847DF /* Views */,
+				76D6AD83277659FC00B464E8 /* Complications */,
 				76D6AD7B2774E79D00B464E8 /* UserSettings.swift */,
 				76D6AD7F2774EB5A00B464E8 /* Walks.swift */,
 				5807A24E27716572002847DF /* WorkoutManager.swift */,
@@ -189,6 +192,14 @@
 				5807A2552771679D002847DF /* SummaryView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		76D6AD83277659FC00B464E8 /* Complications */ = {
+			isa = PBXGroup;
+			children = (
+				76D6AD81277659F400B464E8 /* ExerciseGoalView.swift */,
+			);
+			path = Complications;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,6 +336,7 @@
 				5807A24F27716572002847DF /* WorkoutManager.swift in Sources */,
 				5807A2562771679D002847DF /* SummaryView.swift in Sources */,
 				5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */,
+				76D6AD82277659F400B464E8 /* ExerciseGoalView.swift in Sources */,
 				76D6AD802774EB5A00B464E8 /* Walks.swift in Sources */,
 				5807A22B27716080002847DF /* ComplicationController.swift in Sources */,
 				5807A22327716080002847DF /* Woof_WalkApp.swift in Sources */,
