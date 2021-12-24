@@ -18,16 +18,40 @@ struct StartView: View {
     var body: some View {
         ScrollView {
             LazyVStack {
-                VStack {
-                    Text("\(userSettings.dogName)'s walks:")
-                        .fontWeight(.thin)
-                    Text("\(Int(walks.todaysWalks)) minutes")
-                        .fontWeight(.semibold)
+                VStack(alignment: .leading) {
+                    Text("\(userSettings.dogName) 🐶")
+                        .font(.title)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
                         .padding()
-                    
+                    NavigationLink("Begin Walk", destination: SessionPagingView(), tag: workoutType, selection: $workoutManager.selectedWorkout)
+                        .padding()
+                    Divider()
+                    Text("exercise")
+                        .font(.footnote)
+                        .foregroundColor(Color.gray)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
+                    Text("\(Int(walks.todaysWalks))/\(userSettings.exerciseGoal) MIN")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color.green)
+                        .multilineTextAlignment(.leading)
+                    Divider()
+                    Text("streak")
+                        .font(.footnote)
+                        .foregroundColor(Color.gray)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
+                    Text("\(Int(walks.streak)) DAYS")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color.yellow)
+                        .multilineTextAlignment(.leading)
+                    Divider()
                 }
-                NavigationLink("Begin Walk", destination: SessionPagingView(), tag: workoutType, selection: $workoutManager.selectedWorkout)
-                    .padding()
                 NavigationLink("Settings", destination: SettingsView())
                     .padding()
                 
@@ -35,6 +59,7 @@ struct StartView: View {
             .padding([.bottom, .trailing])
             .onAppear {
                 workoutManager.requestAuthorization()
+                walks.getTodaysWalks()
             }
         }
     }
@@ -43,6 +68,8 @@ struct StartView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         StartView().environmentObject(WorkoutManager())
+            .environmentObject(UserSettings())
+            .environmentObject(Walks())
     }
 }
 
