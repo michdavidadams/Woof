@@ -26,9 +26,15 @@
 		5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A2532771678C002847DF /* ActivityRingsView.swift */; };
 		5807A2562771679D002847DF /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A2552771679D002847DF /* SummaryView.swift */; };
 		5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A25A2773E7DC002847DF /* SettingsView.swift */; };
+		7624BF3327769C97007E9B28 /* BadgeSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7624BF3227769C97007E9B28 /* BadgeSymbol.swift */; };
+		7624BF3527769EDF007E9B28 /* RotatedBadgeSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7624BF3427769EDF007E9B28 /* RotatedBadgeSymbol.swift */; };
+		7624BF3727769EF9007E9B28 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7624BF3627769EF9007E9B28 /* Badge.swift */; };
+		7624BF3927769F3A007E9B28 /* BadgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7624BF3827769F3A007E9B28 /* BadgesView.swift */; };
 		76D6AD7C2774E79D00B464E8 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD7B2774E79D00B464E8 /* UserSettings.swift */; };
 		76D6AD802774EB5A00B464E8 /* Walks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD7F2774EB5A00B464E8 /* Walks.swift */; };
-		76D6AD82277659F400B464E8 /* ExerciseGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD81277659F400B464E8 /* ExerciseGoalView.swift */; };
+		76D6AD85277675D600B464E8 /* ExerciseGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD81277659F400B464E8 /* ExerciseGoalView.swift */; };
+		76D6AD8C27767D7E00B464E8 /* HexagonParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD8B27767D7E00B464E8 /* HexagonParameters.swift */; };
+		76D6AD8E27767DEE00B464E8 /* BadgeBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD8D27767DEE00B464E8 /* BadgeBackground.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,9 +103,15 @@
 		5807A2532771678C002847DF /* ActivityRingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRingsView.swift; sourceTree = "<group>"; };
 		5807A2552771679D002847DF /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		5807A25A2773E7DC002847DF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7624BF3227769C97007E9B28 /* BadgeSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeSymbol.swift; sourceTree = "<group>"; };
+		7624BF3427769EDF007E9B28 /* RotatedBadgeSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatedBadgeSymbol.swift; sourceTree = "<group>"; };
+		7624BF3627769EF9007E9B28 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		7624BF3827769F3A007E9B28 /* BadgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesView.swift; sourceTree = "<group>"; };
 		76D6AD7B2774E79D00B464E8 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		76D6AD7F2774EB5A00B464E8 /* Walks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Walks.swift; sourceTree = "<group>"; };
 		76D6AD81277659F400B464E8 /* ExerciseGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGoalView.swift; sourceTree = "<group>"; };
+		76D6AD8B27767D7E00B464E8 /* HexagonParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HexagonParameters.swift; path = "Woof Walk WatchKit Extension/Views/HexagonParameters.swift"; sourceTree = SOURCE_ROOT; };
+		76D6AD8D27767DEE00B464E8 /* BadgeBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeBackground.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +160,6 @@
 				5807A2422771611B002847DF /* Woof Walk WatchKit Extension.entitlements */,
 				5807A22227716080002847DF /* Woof_WalkApp.swift */,
 				5807A25027716619002847DF /* Views */,
-				76D6AD83277659FC00B464E8 /* Complications */,
 				76D6AD7B2774E79D00B464E8 /* UserSettings.swift */,
 				76D6AD7F2774EB5A00B464E8 /* Walks.swift */,
 				5807A24E27716572002847DF /* WorkoutManager.swift */,
@@ -182,7 +193,10 @@
 		5807A25027716619002847DF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				76D6AD83277659FC00B464E8 /* Complications */,
+				76D6AD8827767D1B00B464E8 /* Badges */,
 				5807A22427716080002847DF /* StartView.swift */,
+				7624BF3827769F3A007E9B28 /* BadgesView.swift */,
 				5807A25A2773E7DC002847DF /* SettingsView.swift */,
 				5807A24627716398002847DF /* SessionPagingView.swift */,
 				5807A24A277164E9002847DF /* ElapsedTimeView.swift */,
@@ -200,6 +214,18 @@
 				76D6AD81277659F400B464E8 /* ExerciseGoalView.swift */,
 			);
 			path = Complications;
+			sourceTree = "<group>";
+		};
+		76D6AD8827767D1B00B464E8 /* Badges */ = {
+			isa = PBXGroup;
+			children = (
+				7624BF3627769EF9007E9B28 /* Badge.swift */,
+				76D6AD8B27767D7E00B464E8 /* HexagonParameters.swift */,
+				76D6AD8D27767DEE00B464E8 /* BadgeBackground.swift */,
+				7624BF3227769C97007E9B28 /* BadgeSymbol.swift */,
+				7624BF3427769EDF007E9B28 /* RotatedBadgeSymbol.swift */,
+			);
+			path = Badges;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,15 +358,21 @@
 				5807A24727716398002847DF /* SessionPagingView.swift in Sources */,
 				5807A22727716080002847DF /* NotificationController.swift in Sources */,
 				5807A22527716080002847DF /* StartView.swift in Sources */,
+				7624BF3527769EDF007E9B28 /* RotatedBadgeSymbol.swift in Sources */,
 				5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */,
+				76D6AD8C27767D7E00B464E8 /* HexagonParameters.swift in Sources */,
 				5807A24F27716572002847DF /* WorkoutManager.swift in Sources */,
+				7624BF3727769EF9007E9B28 /* Badge.swift in Sources */,
+				7624BF3927769F3A007E9B28 /* BadgesView.swift in Sources */,
 				5807A2562771679D002847DF /* SummaryView.swift in Sources */,
 				5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */,
-				76D6AD82277659F400B464E8 /* ExerciseGoalView.swift in Sources */,
+				76D6AD85277675D600B464E8 /* ExerciseGoalView.swift in Sources */,
+				7624BF3327769C97007E9B28 /* BadgeSymbol.swift in Sources */,
 				76D6AD802774EB5A00B464E8 /* Walks.swift in Sources */,
 				5807A22B27716080002847DF /* ComplicationController.swift in Sources */,
 				5807A22327716080002847DF /* Woof_WalkApp.swift in Sources */,
 				5807A24927716425002847DF /* MetricsView.swift in Sources */,
+				76D6AD8E27767DEE00B464E8 /* BadgeBackground.swift in Sources */,
 				5807A24B277164E9002847DF /* ElapsedTimeView.swift in Sources */,
 				5807A24D27716503002847DF /* ControlsView.swift in Sources */,
 				76D6AD7C2774E79D00B464E8 /* UserSettings.swift in Sources */,
@@ -491,7 +523,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Woof Walk WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Woof Walk WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = Woof_Walk_WatchKit_Extension.ComplicationController;
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = ComplicationController;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "For writing workout data.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For reading workout data.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -526,7 +558,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Woof Walk WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Woof Walk WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = Woof_Walk_WatchKit_Extension.ComplicationController;
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = ComplicationController;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "For writing workout data.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For reading workout data.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";

@@ -14,7 +14,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 
     func getComplicationDescriptors(handler: @escaping ([CLKComplicationDescriptor]) -> Void) {
         let descriptors = [
-            CLKComplicationDescriptor(identifier: "complication", displayName: "Woof Walk", supportedFamilies: CLKComplicationFamily.allCases)
+            CLKComplicationDescriptor(identifier: "complication", displayName: "Woof Walk", supportedFamilies: CLKComplicationFamily.allCases),
+            CLKComplicationDescriptor(identifier: "ExerciseGoal", displayName: "Exercise Goal", supportedFamilies: CLKComplicationFamily.allCases)
             // Multiple complication support can be added here with more descriptors
         ]
         
@@ -46,7 +47,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
-        // Call the handler with the timeline entries after the given date
         handler(nil)
     }
 

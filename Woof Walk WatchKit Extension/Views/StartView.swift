@@ -52,6 +52,9 @@ struct StartView: View {
                         .multilineTextAlignment(.leading)
                     Divider()
                 }
+                NavigationLink("Badges", destination: BadgesView())
+                    .padding()
+                Divider()
                 NavigationLink("Settings", destination: SettingsView())
                     .padding()
                 
