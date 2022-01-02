@@ -63,6 +63,7 @@ struct StartView: View {
             .onAppear {
                 workoutManager.requestAuthorization()
                 walks.getTodaysWalks()
+                
             }
         }
     }

@@ -6,9 +6,12 @@
 //
 
 import ClockKit
-
+import SwiftUI
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
+    
+    @ObservedObject var userSettings = UserSettings()
+    @ObservedObject var walks = Walks()
     
     // MARK: - Complication Configuration
 
@@ -38,7 +41,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         // Call the handler with your desired behavior when the device is locked
         handler(.showOnLockScreen)
     }
-
+    
     // MARK: - Timeline Population
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
@@ -49,11 +52,25 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
         handler(nil)
     }
-
+    
     // MARK: - Sample Templates
+    let gaugeProvider = CLKSimpleGaugeProvider(style: .ring, gaugeColor: .green, fillFraction: 0)
+    let centerTextProvider = CLKSimpleTextProvider(text: "pawprint.fill")
     
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         // This method will be called once per supported complication, and the results will be cached
-        handler(nil)
+        
+        switch (complication.family) {
+        case (.graphicCircular):
+            handler(CLKComplicationTemplateGraphicCircularClosedGaugeText(gaugeProvider: gaugeProvider, centerTextProvider: centerTextProvider))
+        default:
+            handler(nil)
+        }
     }
+    
+    func createTemplate(for complication: CLKComplication, date: Date)
+    -> CLKComplicationTemplate? {
+        return CLKComplicationTemplateGraphicCircularClosedGaugeText(gaugeProvider: CLKSimpleGaugeProvider(style: .ring, gaugeColor: .green, fillFraction: Float(walks.todaysWalks / Double(userSettings.exerciseGoal))), centerTextProvider: centerTextProvider)
+    }
+    
 }
