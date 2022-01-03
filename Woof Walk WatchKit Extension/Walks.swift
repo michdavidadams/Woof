@@ -38,7 +38,8 @@ class Walks: ObservableObject {
         }
     }
     
-    func updateWalks(minutes: Double) {
+    func updateWalks(minutes: Double, lastWalk: Date) {
         todaysWalks += minutes
+        self.lastWalk = lastWalk
     }
 }

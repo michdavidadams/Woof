@@ -38,11 +38,15 @@ struct SettingsView: View {
                     }
                 }
                 .padding()
+                
+                VStack {
+                    Button("Save") {
+                        self.userSettings.dogName = userSettings.dogName
+                        self.userSettings.exerciseGoal = userSettings.exerciseGoal
+                    }
+                }
+                .padding()
             }
-        }
-        .onDisappear() {
-            self.userSettings.dogName = userSettings.dogName
-            self.userSettings.exerciseGoal = userSettings.exerciseGoal
         }
     }
 }

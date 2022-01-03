@@ -7,11 +7,8 @@
 
 import Foundation
 import HealthKit
-import SwiftUI
 
 class WorkoutManager: NSObject, ObservableObject {
-    
-    @ObservedObject var walks = Walks()
     
     var selectedWorkout: HKWorkoutActivityType? {
         didSet {
@@ -75,7 +72,6 @@ class WorkoutManager: NSObject, ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .heartRate)!,
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
-            HKQuantityType.quantityType(forIdentifier: .walkingSpeed)!,
             HKObjectType.activitySummaryType()
         ]
 
@@ -109,7 +105,6 @@ class WorkoutManager: NSObject, ObservableObject {
     func endWorkout() {
         session?.end()
         showingSummaryView = true
-        walks.updateWalks(minutes: workout?.duration ?? 0)
     }
 
     // MARK: - Workout Metrics
