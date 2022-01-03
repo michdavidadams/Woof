@@ -523,7 +523,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Woof Walk WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Woof Walk WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = ComplicationController;
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "For writing workout data.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For reading workout data.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -558,7 +558,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Woof Walk WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Woof Walk WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = ComplicationController;
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "For writing workout data.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For reading workout data.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";

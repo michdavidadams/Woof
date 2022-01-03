@@ -10,6 +10,8 @@ import SwiftUI
 @main
 struct Woof_WalkApp: App {
     @StateObject private var workoutManager = WorkoutManager()
+    @StateObject var walks = Walks()
+    @StateObject var userSettings = UserSettings()
     
     @SceneBuilder var body: some Scene {
         WindowGroup {

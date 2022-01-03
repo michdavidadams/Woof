@@ -53,6 +53,7 @@ struct SummaryView: View {
                         .frame(width: 50, height: 50)
                     Button("Done") {
                         walks.updateWalks(minutes: (workoutManager.workout?.duration ?? 0.0) * 0.016667, lastWalk: Date.now)
+                        walks.updateStreak()
                         dismiss()
                     }
                 }
