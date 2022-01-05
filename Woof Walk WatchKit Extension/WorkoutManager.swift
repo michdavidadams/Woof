@@ -7,6 +7,8 @@
 
 import Foundation
 import HealthKit
+import CoreLocation
+import SwiftUI
 
 class WorkoutManager: NSObject, ObservableObject {
     
@@ -28,6 +30,10 @@ class WorkoutManager: NSObject, ObservableObject {
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
+    var routeBuilder: HKWorkoutRouteBuilder?
+    var route: HKWorkoutRoute?
+    var locationManager = CLLocationManager()
+    var workoutMetadata: [String: Any]?
 
     // Start the workout.
     func startWorkout(workoutType: HKWorkoutActivityType) {
@@ -39,6 +45,9 @@ class WorkoutManager: NSObject, ObservableObject {
         do {
             session = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
             builder = session?.associatedWorkoutBuilder()
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+            routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: .local())
         } catch {
             // Handle any exceptions.
             return
@@ -47,10 +56,16 @@ class WorkoutManager: NSObject, ObservableObject {
         // Setup session and builder.
         session?.delegate = self
         builder?.delegate = self
+        locationManager.delegate = self
 
         // Set the workout builder's data source.
         builder?.dataSource = HKLiveWorkoutDataSource(healthStore: healthStore,
                                                      workoutConfiguration: configuration)
+        
+        // Create routerBuilder object to track location
+        routeBuilder = HKWorkoutRouteBuilder(healthStore: HKHealthStore(), device: .local())
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
 
         // Start the workout session and begin data collection.
         let startDate = Date()
@@ -58,13 +73,15 @@ class WorkoutManager: NSObject, ObservableObject {
         builder?.beginCollection(withStart: startDate) { (success, error) in
             // The workout has started.
         }
+        
     }
 
     // Request authorization to access HealthKit.
     func requestAuthorization() {
         // The quantity type to write to the health store.
         let typesToShare: Set = [
-            HKQuantityType.workoutType()
+            HKQuantityType.workoutType(),
+            HKSeriesType.workoutRoute()
         ]
 
         // The quantity types to read from the health store.
@@ -157,6 +174,12 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
 
         // Wait for the session to transition states before ending the builder.
         if toState == .ended {
+            locationManager.stopUpdatingLocation()
+            self.routeBuilder?.finishRoute(with: workout ?? HKWorkout(activityType: .other, start: Date(), end: Date()), metadata: workoutMetadata, completion: { route, error in
+                DispatchQueue.main.async {
+                    self.route = route
+                }
+            })
             builder?.endCollection(withEnd: date) { (success, error) in
                 self.builder?.finishWorkout { (workout, error) in
                     DispatchQueue.main.async {
@@ -188,6 +211,31 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
 
             // Update the published values.
             updateForStatistics(statistics)
+        }
+    }
+}
+
+// MARK: - Route Builder
+extension WorkoutManager: CLLocationManagerDelegate {
+    
+    func requestWhenInUseAuthorization() {
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        // Filter the raw data.
+        let filteredLocations = locations.filter { (location: CLLocation) -> Bool in
+            location.horizontalAccuracy <= 50.0
+        }
+        
+        guard !filteredLocations.isEmpty else { return }
+        
+        // Add the filtered data to the route.
+        routeBuilder?.insertRouteData(filteredLocations) { (success, error) in
+            if !success {
+                // Handle any errors here.
+            }
         }
     }
 }

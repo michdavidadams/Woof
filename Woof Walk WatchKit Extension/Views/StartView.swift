@@ -13,7 +13,7 @@ struct StartView: View {
     @ObservedObject var userSettings = UserSettings()
     @ObservedObject var walks = Walks()
     
-    var workoutType: HKWorkoutActivityType = .walking
+    var workoutType: HKWorkoutActivityType = .other
     
     var body: some View {
         ScrollView {
@@ -62,8 +62,8 @@ struct StartView: View {
             .padding([.bottom, .trailing])
             .onAppear {
                 workoutManager.requestAuthorization()
+                workoutManager.locationManager.requestWhenInUseAuthorization()
                 walks.getTodaysWalks()
-                
             }
         }
     }
@@ -86,6 +86,8 @@ extension HKWorkoutActivityType: Identifiable {
         switch self {
         case .walking:
             return "Walk"
+        case .other:
+            return "Other"
         default:
             return ""
         }

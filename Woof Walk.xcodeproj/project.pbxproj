@@ -523,10 +523,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Woof Walk WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Woof Walk WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = Woof_Walk_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "For writing workout data.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For reading workout data.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -558,10 +559,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Woof Walk WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Woof Walk WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = Woof_Walk_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "For writing workout data.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For reading workout data.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -591,6 +593,7 @@
 				DEVELOPMENT_TEAM = 5SVL2L4EZ6;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = Woof_Walk_WatchKit_Extension;
+				INFOPLIST_FILE = "Woof-Walk-WatchKit-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Woof Walk WatchKit App";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				MARKETING_VERSION = 1.0;
@@ -616,6 +619,7 @@
 				DEVELOPMENT_TEAM = 5SVL2L4EZ6;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = Woof_Walk_WatchKit_Extension;
+				INFOPLIST_FILE = "Woof-Walk-WatchKit-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Woof Walk WatchKit App";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				MARKETING_VERSION = 1.0;
