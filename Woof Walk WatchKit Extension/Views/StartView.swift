@@ -10,10 +10,11 @@ import HealthKit
 
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var locationManager: LocationManager
     @ObservedObject var userSettings = UserSettings()
     @ObservedObject var walks = Walks()
     
-    var workoutType: HKWorkoutActivityType = .other
+    var workoutType: HKWorkoutActivityType = .walking
     
     var body: some View {
         ScrollView {
@@ -62,7 +63,6 @@ struct StartView: View {
             .padding([.bottom, .trailing])
             .onAppear {
                 workoutManager.requestAuthorization()
-                workoutManager.locationManager.requestWhenInUseAuthorization()
                 walks.getTodaysWalks()
             }
         }
@@ -72,6 +72,7 @@ struct StartView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         StartView().environmentObject(WorkoutManager())
+            .environmentObject(LocationManager())
             .environmentObject(UserSettings())
             .environmentObject(Walks())
     }
@@ -86,8 +87,6 @@ extension HKWorkoutActivityType: Identifiable {
         switch self {
         case .walking:
             return "Walk"
-        case .other:
-            return "Other"
         default:
             return ""
         }
