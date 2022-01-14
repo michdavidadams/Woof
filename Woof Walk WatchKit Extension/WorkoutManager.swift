@@ -177,7 +177,9 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
                     }
                 }
             }
-            routeBuilder?.finishRoute(with: workout?, metadata: metadata, completion: <#T##(HKWorkoutRoute?, Error?) -> Void#>)
+            routeBuilder?.finishRoute(with: workout!, metadata: metadata) { (success, error) in
+                
+            }
         }
     }
 
@@ -210,7 +212,6 @@ class LocationManager: NSObject, ObservableObject {
   
   @Published var userLatitude: Double = 0
   @Published var userLongitude: Double = 0
-    var metadata: [String : Any]
   
   private let locationManager = CLLocationManager()
   
@@ -227,7 +228,6 @@ extension LocationManager: CLLocationManagerDelegate {
   
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     guard let location = locations.last else { return }
-      metadata[]
     userLatitude = location.coordinate.latitude
     userLongitude = location.coordinate.longitude
     print(location)

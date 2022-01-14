@@ -13,21 +13,26 @@ struct StartView: View {
     @EnvironmentObject var locationManager: LocationManager
     @ObservedObject var userSettings = UserSettings()
     @ObservedObject var walks = Walks()
+    var workoutTypes: [HKWorkoutActivityType] = [.walking, .play]
     
-    var workoutType: HKWorkoutActivityType = .walking
     
     var body: some View {
         ScrollView {
             LazyVStack {
                 VStack(alignment: .leading) {
+
+                    VStack {
+                    NavigationLink("Walk", destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout)
+                    NavigationLink("Play", destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout)
+                    }
+                    .padding()
+                    Divider()
                     Text("\(userSettings.dogName) 🐶")
                         .font(.title)
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
                         .padding()
-                    NavigationLink("Begin Walk", destination: SessionPagingView(), tag: workoutType, selection: $workoutManager.selectedWorkout)
-                        .padding()
-                    Divider()
+                    VStack(alignment: .leading) {
                     Text("exercise")
                         .font(.footnote)
                         .foregroundColor(Color.gray)
@@ -39,7 +44,8 @@ struct StartView: View {
                         .fontWeight(.semibold)
                         .foregroundColor(Color.green)
                         .multilineTextAlignment(.leading)
-                    Divider()
+                    }
+                    VStack(alignment: .leading) {
                     Text("streak")
                         .font(.footnote)
                         .foregroundColor(Color.gray)
@@ -51,6 +57,7 @@ struct StartView: View {
                         .fontWeight(.semibold)
                         .foregroundColor(Color.yellow)
                         .multilineTextAlignment(.leading)
+                    }
                     Divider()
                 }
 //                NavigationLink("Badges", destination: BadgesView())
@@ -87,6 +94,8 @@ extension HKWorkoutActivityType: Identifiable {
         switch self {
         case .walking:
             return "Walk"
+        case .play:
+            return "Play"
         default:
             return ""
         }
