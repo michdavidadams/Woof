@@ -31,9 +31,7 @@ class WorkoutManager: NSObject, ObservableObject {
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
     var routeBuilder: HKWorkoutRouteBuilder?
-    var route: HKWorkoutRoute?
-    let locationManager = LocationManager()
-    var metadata: [String: Any]?
+    var coordinates: [String: Any]?
 
     // Start the workout.
     func startWorkout(workoutType: HKWorkoutActivityType) {
@@ -45,7 +43,8 @@ class WorkoutManager: NSObject, ObservableObject {
         do {
             session = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
             builder = session?.associatedWorkoutBuilder()
-            routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: .local())
+            // Create the route builder.
+            routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: nil)
         } catch {
             // Handle any exceptions.
             return
@@ -59,9 +58,6 @@ class WorkoutManager: NSObject, ObservableObject {
         builder?.dataSource = HKLiveWorkoutDataSource(healthStore: healthStore,
                                                      workoutConfiguration: configuration)
         
-        // Create routerBuilder object to track location
-        routeBuilder = HKWorkoutRouteBuilder(healthStore: HKHealthStore(), device: .local())
-
         // Start the workout session and begin data collection.
         let startDate = Date()
         session?.startActivity(with: startDate)
@@ -83,7 +79,8 @@ class WorkoutManager: NSObject, ObservableObject {
         let typesToRead: Set = [
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
-            HKObjectType.activitySummaryType()
+            HKObjectType.activitySummaryType(),
+            HKSeriesType.workoutRoute()
         ]
 
         // Request authorization for those quantity types.
@@ -91,6 +88,24 @@ class WorkoutManager: NSObject, ObservableObject {
             // Handle error.
         }
         
+    }
+    
+    // MARK: - CLLocationManagerDelegate Methods.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        // Filter the raw data.
+        let filteredLocations = locations.filter { (location: CLLocation) -> Bool in
+            location.horizontalAccuracy <= 50.0
+        }
+        
+        guard !filteredLocations.isEmpty else { return }
+        
+        // Add the filtered data to the route.
+        routeBuilder?.insertRouteData(filteredLocations) { (success, error) in
+            if !success {
+                // Handle any errors here.
+            }
+        }
     }
 
     // MARK: - Session State Control
@@ -168,9 +183,6 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
                     }
                 }
             }
-            routeBuilder?.finishRoute(with: workout!, metadata: metadata) { (success, error) in
-                
-            }
         }
     }
 
@@ -199,27 +211,49 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
 }
 
 // MARK: - Location Manager
-class LocationManager: NSObject, ObservableObject {
-  
-  @Published var userLatitude: Double = 0
-  @Published var userLongitude: Double = 0
-  
-  private let locationManager = CLLocationManager()
-  
-  override init() {
-    super.init()
-    self.locationManager.delegate = self
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-    self.locationManager.requestWhenInUseAuthorization()
-    self.locationManager.startUpdatingLocation()
-  }
-}
-
-extension LocationManager: CLLocationManagerDelegate {
-  
-  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    guard let location = locations.last else { return }
-    userLatitude = location.coordinate.latitude
-    userLongitude = location.coordinate.longitude
-  }
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    @Published var authorizationStatus: CLAuthorizationStatus
+    @Published var lastSeenLocation: CLLocation?
+    @Published var currentPlacemark: CLPlacemark?
+    private var routeBuilder: HKWorkoutRouteBuilder?
+    
+    private let locationManager: CLLocationManager
+    
+    override init() {
+        locationManager = CLLocationManager()
+        authorizationStatus = locationManager.authorizationStatus
+        
+        super.init()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 0.4
+        locationManager.activityType = .fitness
+        
+        locationManager.startUpdatingLocation()
+    }
+    
+    func requestPermission() {
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        authorizationStatus = manager.authorizationStatus
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // Filter the raw data.
+        let filteredLocations = locations.filter { (location: CLLocation) -> Bool in
+            location.horizontalAccuracy <= 50.0
+        }
+        
+        guard !filteredLocations.isEmpty else { return }
+        
+        routeBuilder?.insertRouteData(filteredLocations, completion: { success, error in
+            if error != nil {
+                // throw alert due to error in saving route.
+                print("Error in \(#function) \(error?.localizedDescription ?? "Error in Route Builder")")
+            }
+        })
+    }
+    
 }

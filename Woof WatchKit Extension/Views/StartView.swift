@@ -7,6 +7,7 @@
 
 import SwiftUI
 import HealthKit
+import Combine
 
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
@@ -21,45 +22,20 @@ struct StartView: View {
             LazyVStack {
                 VStack(alignment: .leading) {
                     VStack {
-                    NavigationLink("Walk", destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout)
-                    NavigationLink("Play", destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout)
+                            Text("Workouts")
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(1)
+                            .padding()
+                        
+                        NavigationLink("Walk", destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout)
+                        NavigationLink("Play", destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout)
                     }
                     .padding()
                     Divider()
-                    Text(self.userSettings.dogName)
-                        .font(.title3)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(1)
-                        .padding()
-                    VStack(alignment: .leading) {
-                    Text("exercise")
-                        .font(.footnote)
-                        .foregroundColor(Color.gray)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(1)
-                        .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
-                    Text("\(Int(walks.todaysWalks))/\(userSettings.exerciseGoal) MIN")
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color.green)
-                        .multilineTextAlignment(.leading)
-                    }
-                    VStack(alignment: .leading) {
-                    Text("streak")
-                        .font(.footnote)
-                        .foregroundColor(Color.gray)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(1)
-                        .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
-                    Text("\(Int(walks.streak)) DAYS")
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color.yellow)
-                        .multilineTextAlignment(.leading)
-                    }
+                    DogStatsView()
                     Divider()
                 }
-
+                
                 NavigationLink("Settings", destination: SettingsView())
                     .padding()
                 
