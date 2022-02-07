@@ -11,7 +11,6 @@ import Combine
 
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var locationManager: LocationManager
     @EnvironmentObject var userSettings: UserSettings
     @EnvironmentObject var walks: Walks
     
@@ -53,7 +52,6 @@ struct StartView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         StartView().environmentObject(WorkoutManager())
-            .environmentObject(LocationManager())
             .environmentObject(UserSettings())
             .environmentObject(Walks())
     }

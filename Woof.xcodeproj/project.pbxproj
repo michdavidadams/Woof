@@ -507,7 +507,6 @@
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "For adding your dog walks to Health.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For reading your workout data.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "For tracking the route of your dog walks.";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -543,7 +542,6 @@
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "For adding your dog walks to Health.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For reading your workout data.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "For tracking the route of your dog walks.";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
