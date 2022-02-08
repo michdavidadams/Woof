@@ -5,13 +5,12 @@
 //  Created by Michael Adams on 12/20/21.
 //
 
+import Combine
 import SwiftUI
 import HealthKit
-import Combine
 
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var userSettings: UserSettings
     @EnvironmentObject var walks: Walks
     
     var workoutTypes: [HKWorkoutActivityType] = [.walking, .play]
@@ -52,7 +51,6 @@ struct StartView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         StartView().environmentObject(WorkoutManager())
-            .environmentObject(UserSettings())
             .environmentObject(Walks())
     }
 }

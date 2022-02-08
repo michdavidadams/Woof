@@ -9,11 +9,11 @@ import SwiftUI
 import ClockKit
 
 struct ExerciseGoalView: View {
-    @ObservedObject var userSettings = UserSettings()
+    @ObservedObject var dog = DogModel()
     @ObservedObject var walks = Walks()
     
     var body: some View {
-        ProgressView(value: (walks.todaysWalks / Double(userSettings.exerciseGoal))) {
+        ProgressView(value: (walks.todaysWalks / Double(dog.goal))) {
             Image(systemName: "pawprint.fill")
         }
         .progressViewStyle(CircularProgressViewStyle(tint: .green))

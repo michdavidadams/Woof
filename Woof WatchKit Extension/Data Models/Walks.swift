@@ -6,37 +6,20 @@
 //
 
 import Foundation
-import SwiftUI
 import Combine
+import SwiftUI
 
 class Walks: ObservableObject {
     
-    @Published var todaysWalks: Double {
-        didSet {
-            UserDefaults.standard.set(todaysWalks, forKey: "todaysWalks")
-        }
-    }
-    @Published var lastWalk: Date {
-        didSet {
-            UserDefaults.standard.set(lastWalk, forKey: "lastWalk")
-        }
-    }
-    @Published var streak: Int {
-        didSet {
-            UserDefaults.standard.set(streak, forKey: "streak")
-        }
-    }
-    var todaysStreak: Date {
-        didSet {
-            UserDefaults.standard.set(todaysStreak, forKey: "todaysStreak")
-        }
-    }
+    @Published var todaysWalks: Double = 0
+    @Published var lastWalk: Date = Date.yesterday
+    @Published var streak: Int = 0
     
     init() {
         self.todaysWalks = UserDefaults.standard.object(forKey: "todaysWalks") as? Double ?? 0.0
         self.streak = UserDefaults.standard.object(forKey: "streak") as? Int ?? 0
         self.lastWalk = UserDefaults.standard.object(forKey: "lastWalk") as? Date ?? Date()
-        self.todaysStreak = UserDefaults.standard.object(forKey: "todaysStreak") as? Date ?? Date.yesterday
+
     }
     
     func getTodaysWalks() {

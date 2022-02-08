@@ -9,7 +9,8 @@ import SwiftUI
 import Combine
 
 struct SettingsView: View {
-    @ObservedObject var userSettings = UserSettings()
+    @AppStorage("dog.name") var name: String = "Dog name"
+    @AppStorage("dog.goal") var goal: Int = 30
     
     var body: some View {
         ScrollView {
@@ -17,7 +18,7 @@ struct SettingsView: View {
                 
                 VStack {
                     Text("DOG NAME")
-                    TextField("Dog name", text: $userSettings.dogName)
+                    TextField("Dog name", text: $name)
                 }
                 .padding()
                 
@@ -25,16 +26,16 @@ struct SettingsView: View {
                     Text("EXERCISE GOAL")
                     HStack {
                         Button("-") {
-                            userSettings.exerciseGoal -= 5
+                            goal -= 5
                         }
-                        Text("\(userSettings.exerciseGoal)")
+                        Text("\(goal)")
                             .font(.title3)
                             .fontWeight(.semibold)
                             .multilineTextAlignment(.center)
                             .lineLimit(1)
                             .padding(.horizontal)
                         Button("+") {
-                            userSettings.exerciseGoal += 5
+                            goal += 5
                         }
                     }
                 }
@@ -42,8 +43,8 @@ struct SettingsView: View {
                 
                 VStack {
                     Button("Save") {
-                        self.userSettings.dogName = userSettings.dogName
-                        self.userSettings.exerciseGoal = userSettings.exerciseGoal
+                        name = name
+                        goal = goal
                     }
                 }
                 .padding()

@@ -5,15 +5,16 @@
 //  Created by Michael Adams on 2/1/22.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct DogStatsView: View {
-    @EnvironmentObject var userSettings: UserSettings
     @EnvironmentObject var walks: Walks
+    @AppStorage("dog.name") var name: String?
+    @AppStorage("dog.goal") var goal: Int?
     var body: some View {
         VStack(alignment: .leading) {
-            Text(userSettings.dogName)
+            Text("\(name ?? "Dog")")
                 .font(.title3)
                 .multilineTextAlignment(.leading)
                 .lineLimit(1)
@@ -25,7 +26,7 @@ struct DogStatsView: View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(1)
                     .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
-                Text("\(Int(walks.todaysWalks))/\(userSettings.exerciseGoal) MIN")
+                Text("\(Int(walks.todaysWalks))/\(goal ?? 30) MIN")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.green)
@@ -51,7 +52,6 @@ struct DogStatsView: View {
 struct DogStatsView_Previews: PreviewProvider {
     static var previews: some View {
         DogStatsView()
-            .environmentObject(UserSettings())
             .environmentObject(Walks())
     }
 }
