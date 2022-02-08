@@ -11,7 +11,9 @@ import HealthKit
 
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var walks: Walks
+    @EnvironmentObject var manager: DataManager
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: []) private var exerciseItems: FetchedResults<Exercise>
     
     var workoutTypes: [HKWorkoutActivityType] = [.walking, .play]
     
@@ -51,7 +53,6 @@ struct StartView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         StartView().environmentObject(WorkoutManager())
-            .environmentObject(Walks())
     }
 }
 

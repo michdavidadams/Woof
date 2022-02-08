@@ -10,8 +10,8 @@ import SwiftUI
 @main
 struct WoofApp: App {
     @StateObject private var workoutManager = WorkoutManager()
-    @StateObject var walks = Walks()
     @StateObject var dog = DogViewModel()
+    @StateObject private var manager: DataManager = DataManager()
     
     @SceneBuilder var body: some Scene {
         WindowGroup {
@@ -22,7 +22,8 @@ struct WoofApp: App {
                 SummaryView()
             }
             .environmentObject(workoutManager)
-            .environmentObject(walks)
+            .environmentObject(manager)
+            .environment(\.managedObjectContext, manager.container.viewContext)
         }
     }
 }

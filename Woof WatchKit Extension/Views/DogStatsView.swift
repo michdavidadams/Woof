@@ -9,9 +9,15 @@ import Combine
 import SwiftUI
 
 struct DogStatsView: View {
-    @EnvironmentObject var walks: Walks
     @AppStorage("dog.name") var name: String?
     @AppStorage("dog.goal") var goal: Int?
+    @EnvironmentObject var manager: DataManager
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: []) private var exerciseItems: FetchedResults<Exercise>
+    
+    @State var todaysExerciseMinutes: Int64 = 0
+    @State var streak: Int = 0
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("\(name ?? "Dog")")
@@ -47,11 +53,11 @@ struct DogStatsView: View {
             }
         }
     }
+
 }
 
 struct DogStatsView_Previews: PreviewProvider {
     static var previews: some View {
         DogStatsView()
-            .environmentObject(Walks())
     }
 }

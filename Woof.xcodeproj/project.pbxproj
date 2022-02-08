@@ -26,9 +26,11 @@
 		5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A2532771678C002847DF /* ActivityRingsView.swift */; };
 		5807A2562771679D002847DF /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A2552771679D002847DF /* SummaryView.swift */; };
 		5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A25A2773E7DC002847DF /* SettingsView.swift */; };
+		760CB84F27B2EBCA006815CC /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 760CB84D27B2EBCA006815CC /* Model.xcdatamodeld */; };
+		760CB85127B2EE27006815CC /* ExerciseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760CB85027B2EE27006815CC /* ExerciseItem.swift */; };
 		7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7619005E27A9D9C9006E3C6A /* DogStatsView.swift */; };
 		76D6AD7C2774E79D00B464E8 /* DogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD7B2774E79D00B464E8 /* DogModel.swift */; };
-		76D6AD802774EB5A00B464E8 /* Walks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD7F2774EB5A00B464E8 /* Walks.swift */; };
+		76D6AD802774EB5A00B464E8 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD7F2774EB5A00B464E8 /* DataManager.swift */; };
 		76D6AD85277675D600B464E8 /* ExerciseGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD81277659F400B464E8 /* ExerciseGoalView.swift */; };
 /* End PBXBuildFile section */
 
@@ -98,9 +100,11 @@
 		5807A2532771678C002847DF /* ActivityRingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRingsView.swift; sourceTree = "<group>"; };
 		5807A2552771679D002847DF /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		5807A25A2773E7DC002847DF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		760CB84E27B2EBCA006815CC /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		760CB85027B2EE27006815CC /* ExerciseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseItem.swift; sourceTree = "<group>"; };
 		7619005E27A9D9C9006E3C6A /* DogStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogStatsView.swift; sourceTree = "<group>"; };
 		76D6AD7B2774E79D00B464E8 /* DogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogModel.swift; sourceTree = "<group>"; };
-		76D6AD7F2774EB5A00B464E8 /* Walks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Walks.swift; sourceTree = "<group>"; };
+		76D6AD7F2774EB5A00B464E8 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		76D6AD81277659F400B464E8 /* ExerciseGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGoalView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,7 +203,9 @@
 			isa = PBXGroup;
 			children = (
 				76D6AD7B2774E79D00B464E8 /* DogModel.swift */,
-				76D6AD7F2774EB5A00B464E8 /* Walks.swift */,
+				76D6AD7F2774EB5A00B464E8 /* DataManager.swift */,
+				760CB85027B2EE27006815CC /* ExerciseItem.swift */,
+				760CB84D27B2EBCA006815CC /* Model.xcdatamodeld */,
 				5807A24E27716572002847DF /* WorkoutManager.swift */,
 			);
 			path = "Data Models";
@@ -340,16 +346,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				760CB85127B2EE27006815CC /* ExerciseItem.swift in Sources */,
 				5807A24727716398002847DF /* SessionPagingView.swift in Sources */,
 				5807A22727716080002847DF /* NotificationController.swift in Sources */,
 				5807A22527716080002847DF /* StartView.swift in Sources */,
 				5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */,
 				5807A24F27716572002847DF /* WorkoutManager.swift in Sources */,
+				760CB84F27B2EBCA006815CC /* Model.xcdatamodeld in Sources */,
 				7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */,
 				5807A2562771679D002847DF /* SummaryView.swift in Sources */,
 				5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */,
 				76D6AD85277675D600B464E8 /* ExerciseGoalView.swift in Sources */,
-				76D6AD802774EB5A00B464E8 /* Walks.swift in Sources */,
+				76D6AD802774EB5A00B464E8 /* DataManager.swift in Sources */,
 				5807A22B27716080002847DF /* ComplicationController.swift in Sources */,
 				5807A22327716080002847DF /* WoofApp.swift in Sources */,
 				5807A24927716425002847DF /* MetricsView.swift in Sources */,
@@ -678,6 +686,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		760CB84D27B2EBCA006815CC /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				760CB84E27B2EBCA006815CC /* Model.xcdatamodel */,
+			);
+			currentVersion = 760CB84E27B2EBCA006815CC /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5807A20827716075002847DF /* Project object */;
 }
