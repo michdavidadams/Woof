@@ -11,9 +11,6 @@ import HealthKit
 
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var manager: DataManager
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(sortDescriptors: []) private var exerciseItems: FetchedResults<Exercise>
     
     var workoutTypes: [HKWorkoutActivityType] = [.walking, .play]
     
@@ -32,7 +29,7 @@ struct StartView: View {
                     }
                     .padding()
                     Divider()
-                    DogStatsView()
+                    DogStatsView(workoutManager)
                     Divider()
                 }
                 
@@ -43,7 +40,6 @@ struct StartView: View {
             .padding([.bottom, .trailing])
             .onAppear {
                 workoutManager.requestAuthorization()
-                walks.getTodaysWalks()
             }
         }
         .navigationBarTitle("Woof")

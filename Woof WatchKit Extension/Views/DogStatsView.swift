@@ -7,13 +7,14 @@
 
 import Combine
 import SwiftUI
+import HealthKit
 
 struct DogStatsView: View {
+    @EnvironmentObject var workoutManager: WorkoutManager
     @AppStorage("dog.name") var name: String?
     @AppStorage("dog.goal") var goal: Int?
-    @EnvironmentObject var manager: DataManager
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(sortDescriptors: []) private var exerciseItems: FetchedResults<Exercise>
+    
+    @State var walkingWorkouts: [HKSample]?
     
     @State var todaysExerciseMinutes: Int64 = 0
     @State var streak: Int = 0
@@ -51,6 +52,12 @@ struct DogStatsView: View {
                     .foregroundColor(Color.yellow)
                     .multilineTextAlignment(.leading)
             }
+        }.onAppear {
+            workoutManager.loadWalkingWorkouts()
+            walkingWorkouts = workoutManager.walkingWorkouts
+            forEach(walkingWorkouts, id: \.self) {
+                
+            }
         }
     }
 
@@ -58,6 +65,6 @@ struct DogStatsView: View {
 
 struct DogStatsView_Previews: PreviewProvider {
     static var previews: some View {
-        DogStatsView()
+        DogStatsView().environmentObject(WorkoutManager())
     }
 }

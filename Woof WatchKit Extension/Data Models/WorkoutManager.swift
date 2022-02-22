@@ -17,7 +17,7 @@ class WorkoutManager: NSObject, ObservableObject {
             startWorkout(workoutType: selectedWorkout)
         }
     }
-
+    
     @Published var showingSummaryView: Bool = false {
         didSet {
             if showingSummaryView == false {
@@ -25,10 +25,71 @@ class WorkoutManager: NSObject, ObservableObject {
             }
         }
     }
-
+    
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
+    
+    var walkingWorkouts: [HKSample]?
+    
+    // Read previous workouts
+    func loadWalkingWorkouts() {
+        //1. Get all workouts with the "Other" activity type.
+        let workoutPredicate = HKQuery.predicateForWorkouts(with: .walking)
+        
+        //2. Get all workouts that only came from this app.
+        let sourcePredicate = HKQuery.predicateForObjects(from: .default())
+        
+        //3. Combine the predicates into a single predicate.
+        let compound = NSCompoundPredicate(andPredicateWithSubpredicates:
+                                            [workoutPredicate, sourcePredicate])
+        
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
+                                              ascending: true)
+        
+        let query = HKSampleQuery(
+            sampleType: .workoutType(),
+            predicate: compound,
+            limit: 0,
+            sortDescriptors: [sortDescriptor]) { (query, samples, error) in
+                DispatchQueue.main.async {
+                    self.walkingWorkouts = samples
+                }
+            }
+        
+        HKHealthStore().execute(query)
+    }
+    
+    // Sum previous workouts
+    func testStatisticsCollectionQueryCumulitive() {
+        guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
+            fatalError("*** Unable to get the step count type ***")
+        }
+        
+        var interval = DateComponents()
+        interval.day = 1
+        
+        let calendar = Calendar.current
+        let anchorDate = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: Date())
+
+        let query = HKStatisticsCollectionQuery.init(quantityType: stepCountType,
+                                                     quantitySamplePredicate: nil,
+                                                     options: .cumulativeSum,
+                                                     anchorDate: anchorDate!,
+                                                     intervalComponents: interval)
+        
+        query.initialResultsHandler = {
+            query, results, error in
+            
+            let startDate = calendar.startOfDay(for: Date())
+
+            results?.enumerateStatistics(from: startDate,
+                                         to: Date(), with: { (result, stop) in
+                                            print("Time: \(result.startDate), \(result.sumQuantity()?.doubleValue(for: HKUnit.count()) ?? 0)")
+            })
+        }
+        healthStore.execute(query)
+    }
 
     // Start the workout.
     func startWorkout(workoutType: HKWorkoutActivityType) {
