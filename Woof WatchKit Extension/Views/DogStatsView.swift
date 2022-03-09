@@ -16,7 +16,7 @@ struct DogStatsView: View {
     
     @State var walkingWorkouts: [HKSample]?
     
-    @State var todaysExerciseMinutes: Int64 = 0
+    @State var todaysExerciseMinutes: Int = 0
     @State var streak: Int = 0
     
     var body: some View {
@@ -33,7 +33,7 @@ struct DogStatsView: View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(1)
                     .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
-                Text("\(Int(walks.todaysWalks))/\(goal ?? 30) MIN")
+                Text("\(Int(todaysExerciseMinutes))/\(goal ?? 30) MIN")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.green)
@@ -46,18 +46,15 @@ struct DogStatsView: View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(1)
                     .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
-                Text("\(Int(walks.streak)) DAYS")
+                Text("\(Int(streak)) DAYS")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.yellow)
                     .multilineTextAlignment(.leading)
             }
         }.onAppear {
-            workoutManager.loadWalkingWorkouts()
-            walkingWorkouts = workoutManager.walkingWorkouts
-            forEach(walkingWorkouts, id: \.self) {
-                
-            }
+            workoutManager.testStatisticsCollectionQueryCumulitive()
+            todaysExerciseMinutes = workoutManager.todaysWalks ?? 0
         }
     }
 

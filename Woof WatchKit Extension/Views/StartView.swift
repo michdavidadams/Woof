@@ -29,7 +29,7 @@ struct StartView: View {
                     }
                     .padding()
                     Divider()
-                    DogStatsView(workoutManager)
+                    DogStatsView()
                     Divider()
                 }
                 

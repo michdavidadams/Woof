@@ -31,6 +31,7 @@ class WorkoutManager: NSObject, ObservableObject {
     var builder: HKLiveWorkoutBuilder?
     
     var walkingWorkouts: [HKSample]?
+    var todaysWalks: Int?
     
     // Read previous workouts
     func loadWalkingWorkouts() {
@@ -62,6 +63,7 @@ class WorkoutManager: NSObject, ObservableObject {
     
     // Sum previous workouts
     func testStatisticsCollectionQueryCumulitive() {
+        todaysWalks = 0
         guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
             fatalError("*** Unable to get the step count type ***")
         }
@@ -86,6 +88,7 @@ class WorkoutManager: NSObject, ObservableObject {
             results?.enumerateStatistics(from: startDate,
                                          to: Date(), with: { (result, stop) in
                                             print("Time: \(result.startDate), \(result.sumQuantity()?.doubleValue(for: HKUnit.count()) ?? 0)")
+                self.todaysWalks = Int(result.sumQuantity()?.doubleValue(for: HKUnit.count()) ?? 0)
             })
         }
         healthStore.execute(query)
