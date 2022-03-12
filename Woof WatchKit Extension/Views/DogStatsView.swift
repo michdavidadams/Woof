@@ -13,9 +13,9 @@ struct DogStatsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @AppStorage("dog.name") var name: String?
     @AppStorage("dog.goal") var goal: Int?
+    @AppStorage("streak") var streak: Int?
     
     @State var todaysExerciseMinutes: Int = 0
-    @State var streak: Int = 0
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -51,9 +51,9 @@ struct DogStatsView: View {
                     .multilineTextAlignment(.leading)
             }
         }.onAppear {
-            workoutManager.testStatisticsCollectionQueryCumulitive()
+            workoutManager.loadWalkingWorkouts()
             todaysExerciseMinutes = workoutManager.todaysWalks ?? 0
-            print(todaysExerciseMinutes)
+            
         }
     }
 

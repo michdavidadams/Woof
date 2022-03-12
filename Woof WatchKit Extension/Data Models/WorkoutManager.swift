@@ -35,7 +35,8 @@ class WorkoutManager: NSObject, ObservableObject {
     
     // Read previous workouts
     func loadWalkingWorkouts() {
-        //1. Get all workouts with the "Other" activity type.
+        todaysWalks = 0
+        //1. Get all workouts with the walking activity type.
         let workoutPredicate = HKQuery.predicateForWorkouts(with: .walking)
         
         //2. Get all workouts that only came from this app.
@@ -59,39 +60,13 @@ class WorkoutManager: NSObject, ObservableObject {
             }
         
         HKHealthStore().execute(query)
-    }
-    
-    // Sum previous workouts
-    func testStatisticsCollectionQueryCumulitive() {
-        todaysWalks = 0
-        guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
-            fatalError("*** Unable to get the step count type ***")
+        
+        walkingWorkouts?.forEach { workout in
+            if Calendar.current.isDateInToday(workout.startDate) {
+                todaysWalks! += (Int(workout.endDate.timeIntervalSince(workout.startDate) ) / 60)
+            }
         }
         
-        var interval = DateComponents()
-        interval.day = 1
-        
-        let calendar = Calendar.current
-        let anchorDate = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: Date())
-
-        let query = HKStatisticsCollectionQuery.init(quantityType: stepCountType,
-                                                     quantitySamplePredicate: nil,
-                                                     options: .cumulativeSum,
-                                                     anchorDate: anchorDate!,
-                                                     intervalComponents: interval)
-        
-        query.initialResultsHandler = {
-            query, results, error in
-            
-            let startDate = calendar.startOfDay(for: Date())
-
-            results?.enumerateStatistics(from: startDate,
-                                         to: Date(), with: { (result, stop) in
-                                            print("Time: \(result.startDate), \(result.sumQuantity()?.doubleValue(for: HKUnit.count()) ?? 0)")
-                self.todaysWalks = Int(result.sumQuantity()?.doubleValue(for: HKUnit.count()) ?? 0)
-            })
-        }
-        healthStore.execute(query)
     }
 
     // Start the workout.
