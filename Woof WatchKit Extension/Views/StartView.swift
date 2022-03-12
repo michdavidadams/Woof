@@ -24,8 +24,10 @@ struct StartView: View {
                             .lineLimit(1)
                             .padding()
                         
+                        HStack {
                         NavigationLink("Walk", destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout)
                         NavigationLink("Play", destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout)
+                        }
                     }
                     .padding()
                     Divider()

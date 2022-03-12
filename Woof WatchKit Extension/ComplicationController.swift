@@ -9,14 +9,12 @@ import ClockKit
 import SwiftUI
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
-    @ObservedObject var walks = Walks()
-    @ObservedObject var dog = DogModel()
     
     // MARK: - Complication Configuration
 
     func getComplicationDescriptors(handler: @escaping ([CLKComplicationDescriptor]) -> Void) {
         let descriptors = [
-            CLKComplicationDescriptor(identifier: "ExerciseGoal", displayName: "Exercise Goal", supportedFamilies: CLKComplicationFamily.allCases)
+            CLKComplicationDescriptor(identifier: "Woof", displayName: "Woof", supportedFamilies: CLKComplicationFamily.allCases)
             // Multiple complication support can be added here with more descriptors
         ]
         
@@ -44,9 +42,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
         // Call the handler with the current timeline entry
-        let gaugeProvider = CLKSimpleGaugeProvider(style: .ring, gaugeColor: .green, fillFraction: Float((walks.todaysWalks / Double(dog.goal))))
-        let centerTextProvider = CLKSimpleTextProvider(text: String("\(Image(systemName: "pawprint.fill"))"))
-        handler(CLKComplicationTimelineEntry(date: Date(), complicationTemplate: CLKComplicationTemplateGraphicCircularClosedGaugeText(gaugeProvider: gaugeProvider, centerTextProvider: centerTextProvider)))
     }
     
     func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
@@ -58,14 +53,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         // This method will be called once per supported complication, and the results will be cached
         
-        switch (complication.family) {
-        case (.graphicCircular):
-            let gaugeProvider = CLKSimpleGaugeProvider(style: .ring, gaugeColor: .green, fillFraction: Float((walks.todaysWalks / Double(dog.goal))))
-            let centerTextProvider = CLKSimpleTextProvider(text: String(format: "%0.f", walks.todaysWalks))
-            handler(CLKComplicationTemplateGraphicCircularClosedGaugeText(gaugeProvider: gaugeProvider, centerTextProvider: centerTextProvider))
-        default:
-            handler(nil)
-        }
     }
     
 }

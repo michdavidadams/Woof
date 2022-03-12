@@ -13,7 +13,6 @@ import WatchKit
 struct SummaryView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var walks = Walks()
     @State private var durationFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]
@@ -49,8 +48,6 @@ struct SummaryView: View {
                     ActivityRingsView(healthStore: workoutManager.healthStore)
                         .frame(width: 50, height: 50)
                     Button("Done") {
-                        walks.updateWalks(minutes: (workoutManager.workout?.duration ?? 0.0) * 0.016667, lastWalk: Date.now)
-                        walks.updateStreak()
                         dismiss()
                     }
                 }
@@ -65,7 +62,6 @@ struct SummaryView: View {
 struct SummaryView_Previews: PreviewProvider {
     static var previews: some View {
         SummaryView()
-            .environmentObject(Walks())
     }
 }
 
