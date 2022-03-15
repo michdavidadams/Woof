@@ -44,15 +44,15 @@ struct DogStatsView: View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(1)
                     .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
-                Text("\(Int(streak)) DAYS")
+                Text("\(Int(streak ?? 0)) DAYS")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.yellow)
                     .multilineTextAlignment(.leading)
             }
         }.onAppear {
-            workoutManager.loadWalkingWorkouts()
-            todaysExerciseMinutes = workoutManager.todaysWalks ?? 0
+            workoutManager.loadExercises()
+            todaysExerciseMinutes = workoutManager.todaysExercise ?? 0
             
         }
     }

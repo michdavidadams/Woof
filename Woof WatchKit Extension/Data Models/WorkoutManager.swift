@@ -30,43 +30,69 @@ class WorkoutManager: NSObject, ObservableObject {
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
     
+    @AppStorage("dog.goal") var goal: Int?
     var walkingWorkouts: [HKSample]?
-    var todaysWalks: Int?
+    var playWorkouts: [HKSample]?
+    var todaysExercise: Int?
+    var streak: Int?
+    var streakDateAwarded: Date?
     
     // Read previous workouts
-    func loadWalkingWorkouts() {
-        todaysWalks = 0
-        //1. Get all workouts with the walking activity type.
-        let workoutPredicate = HKQuery.predicateForWorkouts(with: .walking)
-        
-        //2. Get all workouts that only came from this app.
+    func loadExercises() {
+        todaysExercise = 0
+        // Only get workouts from this app
         let sourcePredicate = HKQuery.predicateForObjects(from: .default())
-        
-        //3. Combine the predicates into a single predicate.
-        let compound = NSCompoundPredicate(andPredicateWithSubpredicates:
-                                            [workoutPredicate, sourcePredicate])
-        
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
                                               ascending: true)
         
-        let query = HKSampleQuery(
+        // Get walking workouts
+        let walkingPredicate = HKQuery.predicateForWorkouts(with: .walking)
+        let walkingCompound = NSCompoundPredicate(andPredicateWithSubpredicates:
+                                            [walkingPredicate, sourcePredicate])
+        let walkingWorkoutsQuery = HKSampleQuery(
             sampleType: .workoutType(),
-            predicate: compound,
+            predicate: walkingCompound,
             limit: 0,
             sortDescriptors: [sortDescriptor]) { (query, samples, error) in
                 DispatchQueue.main.async {
                     self.walkingWorkouts = samples
                 }
             }
-        
-        HKHealthStore().execute(query)
-        
+        HKHealthStore().execute(walkingWorkoutsQuery)
         walkingWorkouts?.forEach { workout in
             if Calendar.current.isDateInToday(workout.startDate) {
-                todaysWalks! += (Int(workout.endDate.timeIntervalSince(workout.startDate) ) / 60)
+                todaysExercise! += (Int(workout.endDate.timeIntervalSince(workout.startDate) ) / 60)
             }
         }
         
+        // Get play workouts
+        let playPredicate = HKQuery.predicateForWorkouts(with: .play)
+        let playCompound = NSCompoundPredicate(andPredicateWithSubpredicates:
+                                            [playPredicate, sourcePredicate])
+        let playWorkoutsQuery = HKSampleQuery(
+            sampleType: .workoutType(),
+            predicate: playCompound,
+            limit: 0,
+            sortDescriptors: [sortDescriptor]) { (query, samples, error) in
+                DispatchQueue.main.async {
+                    self.playWorkouts = samples
+                }
+            }
+        HKHealthStore().execute(playWorkoutsQuery)
+        playWorkouts?.forEach { workout in
+            if Calendar.current.isDateInToday(workout.startDate) {
+                todaysExercise! += (Int(workout.endDate.timeIntervalSince(workout.startDate) ) / 60)
+            }
+        }
+        
+        // Get and set streak
+        guard !(todaysExercise == nil && goal == nil) else { return }
+        if todaysExercise! >= goal! {
+            if !(Calendar.current.isDateInToday(streakDateAwarded ?? Date.distantPast)) {
+                streak! += 1
+                streakDateAwarded! = Date()
+            }
+        }
     }
 
     // Start the workout.

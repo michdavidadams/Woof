@@ -27,7 +27,7 @@
 		5807A2562771679D002847DF /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A2552771679D002847DF /* SummaryView.swift */; };
 		5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A25A2773E7DC002847DF /* SettingsView.swift */; };
 		7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7619005E27A9D9C9006E3C6A /* DogStatsView.swift */; };
-		761B2A3227DD62BD004021AF /* StreakManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B2A3127DD62BD004021AF /* StreakManager.swift */; };
+		7651DF8827E12B7A005CA65B /* StreakModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7651DF8727E12B7A005CA65B /* StreakModel.swift */; };
 		76D6AD7C2774E79D00B464E8 /* DogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD7B2774E79D00B464E8 /* DogModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -98,7 +98,7 @@
 		5807A2552771679D002847DF /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		5807A25A2773E7DC002847DF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7619005E27A9D9C9006E3C6A /* DogStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogStatsView.swift; sourceTree = "<group>"; };
-		761B2A3127DD62BD004021AF /* StreakManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakManager.swift; sourceTree = "<group>"; };
+		7651DF8727E12B7A005CA65B /* StreakModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakModel.swift; sourceTree = "<group>"; };
 		76D6AD7B2774E79D00B464E8 /* DogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,8 +196,8 @@
 			isa = PBXGroup;
 			children = (
 				76D6AD7B2774E79D00B464E8 /* DogModel.swift */,
+				7651DF8727E12B7A005CA65B /* StreakModel.swift */,
 				5807A24E27716572002847DF /* WorkoutManager.swift */,
-				761B2A3127DD62BD004021AF /* StreakManager.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -332,11 +332,11 @@
 				5807A24727716398002847DF /* SessionPagingView.swift in Sources */,
 				5807A22727716080002847DF /* NotificationController.swift in Sources */,
 				5807A22527716080002847DF /* StartView.swift in Sources */,
-				761B2A3227DD62BD004021AF /* StreakManager.swift in Sources */,
 				5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */,
 				5807A24F27716572002847DF /* WorkoutManager.swift in Sources */,
 				7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */,
 				5807A2562771679D002847DF /* SummaryView.swift in Sources */,
+				7651DF8827E12B7A005CA65B /* StreakModel.swift in Sources */,
 				5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */,
 				5807A22B27716080002847DF /* ComplicationController.swift in Sources */,
 				5807A22327716080002847DF /* WoofApp.swift in Sources */,
