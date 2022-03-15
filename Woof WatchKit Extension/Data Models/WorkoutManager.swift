@@ -91,6 +91,7 @@ class WorkoutManager: NSObject, ObservableObject {
             if !(Calendar.current.isDateInToday(streakDateAwarded ?? Date.distantPast)) {
                 streak! += 1
                 streakDateAwarded! = Date()
+                print("Streak is now \(streak ?? 0)")
             }
         }
     }

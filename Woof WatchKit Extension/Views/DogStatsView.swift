@@ -13,9 +13,9 @@ struct DogStatsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @AppStorage("dog.name") var name: String?
     @AppStorage("dog.goal") var goal: Int?
-    @AppStorage("streak") var streak: Int?
     
     @State var todaysExerciseMinutes: Int = 0
+    @State var streak: Int = 0
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -44,7 +44,7 @@ struct DogStatsView: View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(1)
                     .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
-                Text("\(Int(streak ?? 0)) DAYS")
+                Text("\(Int(streak)) DAYS")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.yellow)
@@ -53,7 +53,7 @@ struct DogStatsView: View {
         }.onAppear {
             workoutManager.loadExercises()
             todaysExerciseMinutes = workoutManager.todaysExercise ?? 0
-            
+            streak = workoutManager.streak ?? 0
         }
     }
 
