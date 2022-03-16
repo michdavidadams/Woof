@@ -126,6 +126,7 @@ class WorkoutManager: NSObject, ObservableObject {
             // The workout has started.
         }
         
+        
     }
 
     // Request authorization to access HealthKit and location.

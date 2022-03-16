@@ -13,46 +13,48 @@ struct SettingsView: View {
     @AppStorage("dog.goal") var goal: Int = 30
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                
-                VStack {
-                    Text("DOG NAME")
-                    TextField("Dog name", text: $name)
-                }
-                .padding()
-                
-                VStack {
-                    Text("EXERCISE GOAL")
-                    HStack {
-                        Button("-") {
-                            goal -= 5
-                        }
-                        Text("\(goal)")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(1)
-                            .padding(.horizontal)
-                        Button("+") {
-                            goal += 5
+        NavigationView {
+            ScrollView {
+                LazyVStack {
+                    
+                    VStack {
+                        Text("DOG NAME")
+                        TextField("Dog name", text: $name)
+                    }
+                    .padding()
+                    
+                    VStack {
+                        Text("EXERCISE GOAL")
+                        HStack {
+                            Button("-") {
+                                goal -= 5
+                            }
+                            Text("\(goal)")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(1)
+                                .padding(.horizontal)
+                            Button("+") {
+                                goal += 5
+                            }
                         }
                     }
-                }
-                .padding()
-                
-                VStack {
-                    Button("Save") {
-                        name = name
-                        goal = goal
+                    .padding()
+                    
+                    VStack {
+                        Button("Save") {
+                            name = name
+                            goal = goal
+                        }
                     }
+                    .padding()
                 }
-                .padding()
             }
         }
+        .navigationTitle(Text("Settings"))
     }
 }
-
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {

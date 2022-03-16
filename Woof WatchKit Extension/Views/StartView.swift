@@ -15,36 +15,33 @@ struct StartView: View {
     var workoutTypes: [HKWorkoutActivityType] = [.walking, .play]
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                VStack(alignment: .leading) {
-                    VStack {
-                            Text("Workouts")
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(1)
-                            .padding()
-                        
-                        HStack {
-                        NavigationLink("Walk", destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout)
-                        NavigationLink("Play", destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout)
+        NavigationView {
+            ScrollView {
+                LazyVStack {
+                    VStack(alignment: .leading) {
+                        VStack {
+                            HStack {
+                                NavigationLink("Walk", destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout)
+                                NavigationLink("Play", destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout)
+                            }
                         }
+                        .padding()
+                        Divider()
+                        DogStatsView()
+                        Divider()
                     }
-                    .padding()
-                    Divider()
-                    DogStatsView()
-                    Divider()
+                    
+                    NavigationLink("Settings", destination: SettingsView())
+                        .padding()
+                    
                 }
-                
-                NavigationLink("Settings", destination: SettingsView())
-                    .padding()
-                
-            }
-            .padding([.bottom, .trailing])
-            .onAppear {
-                workoutManager.requestAuthorization()
+                .padding([.bottom, .trailing])
+                .onAppear {
+                    workoutManager.requestAuthorization()
+                }
             }
         }
-        .navigationBarTitle("Woof")
+        .navigationTitle(Text("Woof"))
     }
 }
 
