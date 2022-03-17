@@ -14,7 +14,7 @@ struct MetricsView: View {
     var body: some View {
         TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date())) { context in
             VStack(alignment: .leading) {
-                TotalTimeView()
+                TotalTimeView(totalTime: (workoutManager.builder?.startDate)?.timeIntervalSinceNow ?? 0)
                     .foregroundStyle(.green)
                     .minimumScaleFactor(0.5)
                     .scaledToFit()

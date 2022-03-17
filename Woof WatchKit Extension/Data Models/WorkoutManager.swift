@@ -11,6 +11,7 @@ import SwiftUI
 
 class WorkoutManager: NSObject, ObservableObject {
     
+    
     var selectedWorkout: HKWorkoutActivityType? {
         didSet {
             guard let selectedWorkout = selectedWorkout else { return }
