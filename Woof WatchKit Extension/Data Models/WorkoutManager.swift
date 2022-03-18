@@ -185,11 +185,12 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var activeEnergy: Double = 0
     @Published var distance: Double = 0
     @Published var workout: HKWorkout?
-
+    @Published var totalTime: TimeInterval = 0
+    
     func updateForStatistics(_ statistics: HKStatistics?) {
         guard let statistics = statistics else { return }
-
         DispatchQueue.main.async {
+            self.totalTime = -(statistics.startDate.timeIntervalSinceNow)
             switch statistics.quantityType {
             case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
                 let energyUnit = HKUnit.kilocalorie()

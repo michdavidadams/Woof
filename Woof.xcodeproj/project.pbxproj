@@ -204,8 +204,8 @@
 			isa = PBXGroup;
 			children = (
 				5807A24827716425002847DF /* MetricsView.swift */,
-				5807A24A277164E9002847DF /* ElapsedTimeView.swift */,
 				76B9A6E727E282F2009EA815 /* TotalTimeView.swift */,
+				5807A24A277164E9002847DF /* ElapsedTimeView.swift */,
 			);
 			path = "Metrics Views";
 			sourceTree = "<group>";

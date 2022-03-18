@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TotalTimeView: View {
-    @State var totalTime: TimeInterval = 0
+    var totalTime: TimeInterval = 0
     @State private var timeFormatter = TotalTimeFormatter()
     @AppStorage("dog.goal") var goal: Int?
 
