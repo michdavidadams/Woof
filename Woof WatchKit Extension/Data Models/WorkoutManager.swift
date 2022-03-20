@@ -126,8 +126,6 @@ class WorkoutManager: NSObject, ObservableObject {
         builder?.beginCollection(withStart: startDate) { (success, error) in
             // The workout has started.
         }
-        
-        
     }
 
     // Request authorization to access HealthKit and location.
