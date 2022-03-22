@@ -32,10 +32,10 @@ class WorkoutManager: NSObject, ObservableObject {
     var builder: HKLiveWorkoutBuilder?
     
     @AppStorage("dog.goal") var goal: Int?
+    @AppStorage("dog.currentStreak") var currentStreak: Int?
     var walkingWorkouts: [HKSample]?
     var playWorkouts: [HKSample]?
     var todaysExercise: Int?
-    var streak: Int?
     var streakDateAwarded: Date?
     
     // Read previous workouts
@@ -90,9 +90,9 @@ class WorkoutManager: NSObject, ObservableObject {
         guard !(todaysExercise == nil && goal == nil) else { return }
         if todaysExercise! >= goal! {
             if !(Calendar.current.isDateInToday(streakDateAwarded ?? Date.distantPast)) {
-                streak! += 1
+                currentStreak! += 1
                 streakDateAwarded! = Date()
-                print("Streak is now \(streak ?? 0)")
+                print("Streak is now \(currentStreak ?? 0)")
             }
         }
     }
