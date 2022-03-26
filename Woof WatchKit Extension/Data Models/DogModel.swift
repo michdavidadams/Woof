@@ -29,23 +29,15 @@ class DogModel: ObservableObject {
         }
     }
     
-    @Published var dateStreakAwarded: Date {
-        didSet {
-            UserDefaults.standard.set(dateStreakAwarded, forKey: "dateStreakAwarded")
-        }
-    }
-    
     init() {
         UserDefaults.standard.register(defaults: [
             "dog.name" : "Dog",
             "dog.goal" : 30,
-            "dog.currentStreak" : 0,
-            "dog.dateStreakAwarded" : Date.distantPast
+            "dog.currentStreak" : 0
         ])
         name = UserDefaults.standard.string(forKey: "dog.name") ?? "Dog"
         goal = UserDefaults.standard.integer(forKey: "dog.goal")
         currentStreak = UserDefaults.standard.integer(forKey: "dog.currentStreak")
-        dateStreakAwarded = UserDefaults.standard.object(forKey: "dog.dateStreakAwarded") as! Date
     }
 }
 
@@ -67,8 +59,4 @@ class DogViewModel: ObservableObject {
         set { dog.currentStreak = newValue}
     }
     
-    var dateStreakAwarded: Date {
-        get { dog.dateStreakAwarded }
-        set { dog.dateStreakAwarded = newValue }
-    }
 }

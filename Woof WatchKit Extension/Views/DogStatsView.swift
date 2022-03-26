@@ -13,11 +13,8 @@ struct DogStatsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @AppStorage("dog.name") var name: String?
     @AppStorage("dog.goal") var goal: Int?
-    @AppStorage("dog.currentStreak") var currentStreak: Int?
-    
-    @State var todaysExerciseMinutes: Int = 0
-    
-    
+    @EnvironmentObject var streak: Streak
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("\(name ?? "Dog") 🐶")
@@ -32,7 +29,7 @@ struct DogStatsView: View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(1)
                     .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
-                Text("\(Int(todaysExerciseMinutes))/\(goal ?? 30) MIN")
+                Text("\(Int(streak.todaysExercise))/\(goal ?? 30) MIN")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.green)
@@ -45,16 +42,12 @@ struct DogStatsView: View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(1)
                     .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
-                Text("\(currentStreak ?? 0) DAYS")
+                Text("\(streak.current) DAYS")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.yellow)
                     .multilineTextAlignment(.leading)
             }
-        }.onAppear {
-            workoutManager.loadExercises()
-            todaysExerciseMinutes = workoutManager.todaysExercise ?? 0
-            currentStreak = workoutManager.currentStreak ?? 0
         }
     }
 
@@ -62,6 +55,6 @@ struct DogStatsView: View {
 
 struct DogStatsView_Previews: PreviewProvider {
     static var previews: some View {
-        DogStatsView().environmentObject(WorkoutManager())
+        DogStatsView().environmentObject(WorkoutManager()).environmentObject(Streak())
     }
 }
