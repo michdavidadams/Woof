@@ -15,6 +15,7 @@ struct ControlsView: View {
             VStack {
                 Button {
                     workoutManager.endWorkout()
+                    workoutManager.updateStreak()
                 } label: {
                     Image(systemName: "xmark")
                 }

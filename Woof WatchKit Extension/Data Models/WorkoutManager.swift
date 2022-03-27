@@ -38,9 +38,31 @@ class WorkoutManager: NSObject, ObservableObject {
     var todaysExercise: Int?
     var streakDateAwarded: Date?
     
+    // MARK: - Update streak
+    func updateStreak() {
+        playWorkouts?.forEach { workout in
+            if Calendar.current.isDateInToday(workout.startDate) {
+                todaysExercise! += (Int(workout.endDate.timeIntervalSince(workout.startDate) ) / 60)
+            }
+        }
+        walkingWorkouts?.forEach { workout in
+            if Calendar.current.isDateInToday(workout.startDate) {
+                todaysExercise! += (Int(workout.endDate.timeIntervalSince(workout.startDate) ) / 60)
+            }
+        }
+        // If streak wasn't awarded yesterday or today, clear streak
+        if !Calendar.current.isDateInYesterday(streakDateAwarded ?? Date.distantFuture) && !Calendar.current.isDateInToday(streakDateAwarded ?? Date.distantPast) {
+            currentStreak = 0
+        }
+        // If exercise goal reached & streak hasn't been awarded today
+        if todaysExercise ?? 0 >= goal ?? 30 && !Calendar.current.isDateInToday(streakDateAwarded ?? Date.distantPast) {
+            currentStreak! += 1
+            streakDateAwarded = Date.now
+        }
+    }
+    
     // Read previous workouts
     func loadExercises() {
-        todaysExercise = 0
         // Only get workouts from this app
         let sourcePredicate = HKQuery.predicateForObjects(from: .default())
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
@@ -60,11 +82,6 @@ class WorkoutManager: NSObject, ObservableObject {
                 }
             }
         HKHealthStore().execute(walkingWorkoutsQuery)
-        walkingWorkouts?.forEach { workout in
-            if Calendar.current.isDateInToday(workout.startDate) {
-                todaysExercise! += (Int(workout.endDate.timeIntervalSince(workout.startDate) ) / 60)
-            }
-        }
         
         // Get play workouts
         let playPredicate = HKQuery.predicateForWorkouts(with: .play)
@@ -80,21 +97,6 @@ class WorkoutManager: NSObject, ObservableObject {
                 }
             }
         HKHealthStore().execute(playWorkoutsQuery)
-        playWorkouts?.forEach { workout in
-            if Calendar.current.isDateInToday(workout.startDate) {
-                todaysExercise! += (Int(workout.endDate.timeIntervalSince(workout.startDate) ) / 60)
-            }
-        }
-        
-        // Get and set streak
-        guard !(todaysExercise == nil && goal == nil) else { return }
-        if todaysExercise! >= goal! {
-            if !(Calendar.current.isDateInToday(streakDateAwarded ?? Date.distantPast)) {
-                currentStreak! += 1
-                streakDateAwarded! = Date()
-                print("Streak is now \(currentStreak ?? 0)")
-            }
-        }
     }
 
     // Start the workout.
