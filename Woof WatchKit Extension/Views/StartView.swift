@@ -38,6 +38,7 @@ struct StartView: View {
                 .padding([.bottom, .trailing])
                 .onAppear {
                     workoutManager.requestAuthorization()
+                    workoutManager.updateStreak()
                 }
             }
         }

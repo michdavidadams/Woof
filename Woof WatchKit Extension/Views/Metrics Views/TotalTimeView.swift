@@ -13,9 +13,16 @@ struct TotalTimeView: View {
     @AppStorage("dog.goal") var goal: Int?
 
     var body: some View {
-        Text("\(NSNumber(value: totalTime), formatter: timeFormatter)/\(goal ?? 30) Min")
+        HStack {
+        Text("\(NSNumber(value: totalTime), formatter: timeFormatter)/\(goal ?? 30)")
             .fontWeight(.semibold)
             .lineLimit(1)
+            Text("Min")
+                .fontWeight(.semibold)
+                .lineLimit(1)
+                .scaledToFit()
+                .dynamicTypeSize(.small)
+        }
     }
 }
 

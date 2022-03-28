@@ -11,7 +11,6 @@ import SwiftUI
 struct WoofApp: App {
     @StateObject private var workoutManager = WorkoutManager()
     @StateObject var dog = DogViewModel()
-    @StateObject var streak = Streak()
     
     @SceneBuilder var body: some Scene {
         WindowGroup {

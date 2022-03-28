@@ -36,19 +36,14 @@ class WorkoutManager: NSObject, ObservableObject {
     var walkingWorkouts: [HKSample]?
     var playWorkouts: [HKSample]?
     var todaysExercise: Int?
+    var newDay = Date.distantPast   // for tracking a new day; when to reset today's exercise
     var streakDateAwarded: Date?
     
     // MARK: - Update streak
     func updateStreak() {
-        playWorkouts?.forEach { workout in
-            if Calendar.current.isDateInToday(workout.startDate) {
-                todaysExercise! += (Int(workout.endDate.timeIntervalSince(workout.startDate) ) / 60)
-            }
-        }
-        walkingWorkouts?.forEach { workout in
-            if Calendar.current.isDateInToday(workout.startDate) {
-                todaysExercise! += (Int(workout.endDate.timeIntervalSince(workout.startDate) ) / 60)
-            }
+        // Reset today's exercise
+        if !Calendar.current.isDateInToday(newDay) {
+            todaysExercise = 0
         }
         // If streak wasn't awarded yesterday or today, clear streak
         if !Calendar.current.isDateInYesterday(streakDateAwarded ?? Date.distantFuture) && !Calendar.current.isDateInToday(streakDateAwarded ?? Date.distantPast) {
@@ -167,9 +162,13 @@ class WorkoutManager: NSObject, ObservableObject {
             resume()
         }
     }
-
+    
     func pause() {
         session?.pause()
+    }
+    
+    func autoPause() {
+        builder?.workoutSession?.pause()
     }
 
     func resume() {
@@ -177,6 +176,7 @@ class WorkoutManager: NSObject, ObservableObject {
     }
 
     func endWorkout() {
+        todaysExercise! += Int(totalTime / 60)
         session?.end()
         showingSummaryView = true
     }
@@ -190,7 +190,7 @@ class WorkoutManager: NSObject, ObservableObject {
     func updateForStatistics(_ statistics: HKStatistics?) {
         guard let statistics = statistics else { return }
         DispatchQueue.main.async {
-            self.totalTime = -(statistics.startDate.timeIntervalSinceNow)
+            self.totalTime = -(statistics.startDate.timeIntervalSinceNow) + TimeInterval((self.todaysExercise ?? 0) * 60)
             switch statistics.quantityType {
             case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
                 let energyUnit = HKUnit.kilocalorie()
@@ -241,7 +241,16 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
 // MARK: - HKLiveWorkoutBuilderDelegate
 extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     func workoutBuilderDidCollectEvent(_ workoutBuilder: HKLiveWorkoutBuilder) {
+        
+        let lastEvent = workoutBuilder.workoutEvents.last
+        DispatchQueue.main.async() {
+            if lastEvent?.type == .motionPaused {
+                workoutBuilder.workoutSession?.pause()
+            } else if lastEvent?.type == .motionResumed {
+                workoutBuilder.workoutSession?.resume()
+            }
 
+        }
     }
 
     func workoutBuilder(_ workoutBuilder: HKLiveWorkoutBuilder, didCollectDataOf collectedTypes: Set<HKSampleType>) {
