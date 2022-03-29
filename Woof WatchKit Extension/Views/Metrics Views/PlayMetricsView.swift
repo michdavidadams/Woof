@@ -1,19 +1,19 @@
 //
-//  MetricsView.swift
+//  PlayMetricsView.swift
 //  Woof WatchKit Extension
 //
-//  Created by Michael Adams on 12/20/21.
+//  Created by Michael Adams on 3/29/22.
 //
 
 import SwiftUI
 import HealthKit
 
-struct MetricsView: View {
+struct PlayMetricsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     
     var body: some View {
         VStack(alignment: .leading) {
-            Image(systemName: "pawprint.fill")
+            Image("tennisBall")
                 .foregroundColor(.accentColor)
                 .font(.system(size: 30.0))
                 .padding()
@@ -39,9 +39,9 @@ struct MetricsView: View {
     }
 }
 
-struct MetricsView_Previews: PreviewProvider {
+struct PlayMetricsView_Previews: PreviewProvider {
     static var previews: some View {
-        MetricsView().environmentObject(WorkoutManager())
+        WalkMetricsView().environmentObject(WorkoutManager())
     }
 }
 

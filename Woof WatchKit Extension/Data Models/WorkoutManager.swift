@@ -93,13 +93,17 @@ class WorkoutManager: NSObject, ObservableObject {
             }
         HKHealthStore().execute(playWorkoutsQuery)
     }
-
+    
     // Start the workout.
     func startWorkout(workoutType: HKWorkoutActivityType) {
         let configuration = HKWorkoutConfiguration()
-        configuration.activityType = workoutType
-        configuration.locationType = .outdoor
-
+        if workoutType == .walking {
+            configuration.activityType = workoutType
+            configuration.locationType = .outdoor
+        } else if workoutType == .play {
+            configuration.activityType = workoutType
+            configuration.locationType = .indoor
+        }
         // Create the session and obtain the workout builder.
         do {
             session = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
@@ -108,14 +112,14 @@ class WorkoutManager: NSObject, ObservableObject {
             // Handle any exceptions.
             return
         }
-
+        
         // Setup session and builder.
         session?.delegate = self
         builder?.delegate = self
-
+        
         // Set the workout builder's data source.
         builder?.dataSource = HKLiveWorkoutDataSource(healthStore: healthStore,
-                                                     workoutConfiguration: configuration)
+                                                      workoutConfiguration: configuration)
         
         // Start the workout session and begin data collection.
         let startDate = Date()

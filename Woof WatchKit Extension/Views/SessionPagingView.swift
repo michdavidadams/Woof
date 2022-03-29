@@ -20,7 +20,11 @@ struct SessionPagingView: View {
     var body: some View {
         TabView(selection: $selection) {
             ControlsView().tag(Tab.controls)
-            MetricsView().tag(Tab.metrics)
+            if workoutManager.selectedWorkout == .walking {
+                WalkMetricsView().tag(Tab.metrics)
+            } else if workoutManager.selectedWorkout == .play {
+                PlayMetricsView().tag(Tab.metrics)
+            }
             NowPlayingView().tag(Tab.nowPlaying)
         }
         .navigationTitle("Walk")
