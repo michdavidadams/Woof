@@ -29,7 +29,7 @@ struct DogStatsView: View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(1)
                     .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
-                Text("\(Int(workoutManager.todaysExercise ?? 0))/\(goal ?? 30) MIN")
+                Text("\(workoutManager.todaysExercise())/\(goal ?? 30) MIN")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.green)

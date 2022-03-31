@@ -8,9 +8,9 @@
 import Foundation
 import HealthKit
 import SwiftUI
+import CoreLocation
 
 class WorkoutManager: NSObject, ObservableObject {
-    
     
     var selectedWorkout: HKWorkoutActivityType? {
         didSet {
@@ -30,68 +30,20 @@ class WorkoutManager: NSObject, ObservableObject {
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
+    var myMetadata = ["Type of workout": "dog"]
+    
+    var routeBuilder: HKWorkoutRouteBuilder?
+    var locationManager = CLLocationManager()
     
     @AppStorage("dog.goal") var goal: Int?
     @AppStorage("dog.currentStreak") var currentStreak: Int?
-    var walkingWorkouts: [HKSample]?
-    var playWorkouts: [HKSample]?
-    var todaysExercise: Int?
-    var newDay = Date.distantPast   // for tracking a new day; when to reset today's exercise
-    var streakDateAwarded: Date?
+    var streakDateAwarded = Date.distantPast
+    var exerciseDates: [Date: Int] = [:]
     
-    // MARK: - Update streak
-    func updateStreak() {
-        // Reset today's exercise
-        if !Calendar.current.isDateInToday(newDay) {
-            todaysExercise = 0
-        }
-        // If streak wasn't awarded yesterday or today, clear streak
-        if !Calendar.current.isDateInYesterday(streakDateAwarded ?? Date.distantFuture) && !Calendar.current.isDateInToday(streakDateAwarded ?? Date.distantPast) {
-            currentStreak = 0
-        }
-        // If exercise goal reached & streak hasn't been awarded today
-        if todaysExercise ?? 0 >= goal ?? 30 && !Calendar.current.isDateInToday(streakDateAwarded ?? Date.distantPast) {
-            currentStreak! += 1
-            streakDateAwarded = Date.now
-        }
-    }
-    
-    // Read previous workouts
-    func loadExercises() {
-        // Only get workouts from this app
-        let sourcePredicate = HKQuery.predicateForObjects(from: .default())
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
-                                              ascending: true)
-        
-        // Get walking workouts
-        let walkingPredicate = HKQuery.predicateForWorkouts(with: .walking)
-        let walkingCompound = NSCompoundPredicate(andPredicateWithSubpredicates:
-                                            [walkingPredicate, sourcePredicate])
-        let walkingWorkoutsQuery = HKSampleQuery(
-            sampleType: .workoutType(),
-            predicate: walkingCompound,
-            limit: 0,
-            sortDescriptors: [sortDescriptor]) { (query, samples, error) in
-                DispatchQueue.main.async {
-                    self.walkingWorkouts = samples
-                }
-            }
-        HKHealthStore().execute(walkingWorkoutsQuery)
-        
-        // Get play workouts
-        let playPredicate = HKQuery.predicateForWorkouts(with: .play)
-        let playCompound = NSCompoundPredicate(andPredicateWithSubpredicates:
-                                            [playPredicate, sourcePredicate])
-        let playWorkoutsQuery = HKSampleQuery(
-            sampleType: .workoutType(),
-            predicate: playCompound,
-            limit: 0,
-            sortDescriptors: [sortDescriptor]) { (query, samples, error) in
-                DispatchQueue.main.async {
-                    self.playWorkouts = samples
-                }
-            }
-        HKHealthStore().execute(playWorkoutsQuery)
+    // MARK: - Update today's exercise
+    func todaysExercise() -> Int {
+        guard let minutes = exerciseDates[Date.now.stripTime()] else { return 0 }
+        return minutes
     }
     
     // Start the workout.
@@ -116,6 +68,7 @@ class WorkoutManager: NSObject, ObservableObject {
         // Setup session and builder.
         session?.delegate = self
         builder?.delegate = self
+        locationManager.delegate = self
         
         // Set the workout builder's data source.
         builder?.dataSource = HKLiveWorkoutDataSource(healthStore: healthStore,
@@ -126,7 +79,12 @@ class WorkoutManager: NSObject, ObservableObject {
         session?.startActivity(with: startDate)
         builder?.beginCollection(withStart: startDate) { (success, error) in
             // The workout has started.
+           
         }
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: nil)
+        
     }
 
     // Request authorization to access HealthKit and location.
@@ -142,9 +100,7 @@ class WorkoutManager: NSObject, ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
             HKObjectType.activitySummaryType(),
-            HKSeriesType.workoutRoute(),
-            HKQuantityType.workoutType(),
-            HKSeriesType.workoutType()
+            HKSeriesType.workoutRoute()
         ]
 
         // Request authorization for those quantity types.
@@ -152,6 +108,12 @@ class WorkoutManager: NSObject, ObservableObject {
             // Handle error.
         }
         
+        // Request location authorization
+        locationManager.requestWhenInUseAuthorization()
+        
+    }
+    
+    func speed() {
     }
 
     // MARK: - Session State Control
@@ -171,19 +133,44 @@ class WorkoutManager: NSObject, ObservableObject {
         session?.pause()
     }
     
-    func autoPause() {
-        builder?.workoutSession?.pause()
-    }
-
     func resume() {
         session?.resume()
     }
-
+    
     func endWorkout() {
-        todaysExercise! += Int(totalTime / 60)
+        if exerciseDates.keys.contains(Date.now.stripTime()) {
+            guard exerciseDates[Date.now.stripTime()] != nil else {
+                exerciseDates[Date.now.stripTime()]! += Int(workout?.duration ?? 0) / 60
+                return
+            }
+        } else {
+            exerciseDates[Date.now.stripTime()] = Int(workout?.duration ?? 0) / 60
+        }
+        if (exerciseDates[Date.now.stripTime()] ?? 0 >= goal ?? 30) && !Calendar.current.isDateInToday(streakDateAwarded) {
+            guard currentStreak != nil else {
+                currentStreak = 0
+                return
+            }
+            if currentStreak! >= 1 && Calendar.current.isDateInYesterday(streakDateAwarded) {
+            currentStreak! += 1
+            streakDateAwarded = Date.now
+            } else if currentStreak! >= 1 {
+                currentStreak = 0
+            }
+        }
         session?.end()
         showingSummaryView = true
+        if workout != nil {
+            routeBuilder?.finishRoute(with: workout!, metadata: myMetadata) { (newRoute, error) in
+                guard newRoute != nil else {
+                    // handle errors here
+                    return
+                }
+                // can do something with route here
+            }
+        }
     }
+    
 
     // MARK: - Workout Metrics
     @Published var activeEnergy: Double = 0
@@ -194,7 +181,7 @@ class WorkoutManager: NSObject, ObservableObject {
     func updateForStatistics(_ statistics: HKStatistics?) {
         guard let statistics = statistics else { return }
         DispatchQueue.main.async {
-            self.totalTime = -(statistics.startDate.timeIntervalSinceNow) + TimeInterval((self.todaysExercise ?? 0) * 60)
+            self.totalTime = -(statistics.startDate.timeIntervalSinceNow) + TimeInterval(self.todaysExercise() * 60)
             switch statistics.quantityType {
             case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
                 let energyUnit = HKUnit.kilocalorie()
@@ -245,16 +232,6 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
 // MARK: - HKLiveWorkoutBuilderDelegate
 extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     func workoutBuilderDidCollectEvent(_ workoutBuilder: HKLiveWorkoutBuilder) {
-        
-        let lastEvent = workoutBuilder.workoutEvents.last
-        DispatchQueue.main.async() {
-            if lastEvent?.type == .motionPaused {
-                workoutBuilder.workoutSession?.pause()
-            } else if lastEvent?.type == .motionResumed {
-                workoutBuilder.workoutSession?.resume()
-            }
-
-        }
     }
 
     func workoutBuilder(_ workoutBuilder: HKLiveWorkoutBuilder, didCollectDataOf collectedTypes: Set<HKSampleType>) {
@@ -269,4 +246,33 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
             updateForStatistics(statistics)
         }
     }
+}
+
+extension WorkoutManager: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        // filter raw data
+        let filteredLocations = locations.filter { (location: CLLocation) -> Bool in
+            location.horizontalAccuracy <= 50.0
+        }
+        
+        guard !filteredLocations.isEmpty else { return }
+        
+        // add filtered data to route
+        routeBuilder?.insertRouteData(filteredLocations) { (success, error) in
+            if !success {
+                // handle errors here
+            }
+        }
+    }
+}
+
+extension Date {
+
+    func stripTime() -> Date {
+        let components = Calendar.current.dateComponents([.year, .month, .day], from: self)
+        let date = Calendar.current.date(from: components)
+        return date!
+    }
+
 }
