@@ -37,13 +37,29 @@ class WorkoutManager: NSObject, ObservableObject {
     
     @AppStorage("dog.goal") var goal: Int?
     @AppStorage("dog.currentStreak") var currentStreak: Int?
-    var streakDateAwarded = Date.distantPast
     var exerciseDates: [Date: Int] = [:]
     
     // MARK: - Update today's exercise
     func todaysExercise() -> Int {
         guard let minutes = exerciseDates[Date.now.stripTime()] else { return 0 }
+        print("todaysExercise(): \(minutes)")
+        print("exerciseDates: \(exerciseDates)")
         return minutes
+    }
+    
+    // MARK: - Get/Update streak
+    func getStreak() -> Int {
+        var streak = 0
+        for i in 0...exerciseDates.keys.count {
+            guard let date = Calendar.current.date(byAdding: .day, value: i, to: Date.now) else { return streak }
+            guard let exerciseMinutes = exerciseDates[date.stripTime()] else { return streak }
+            if exerciseMinutes >= (goal ?? 30) {
+                streak += 1
+            } else {
+                return streak
+            }
+        }
+        return streak
     }
     
     // Start the workout.
@@ -100,6 +116,7 @@ class WorkoutManager: NSObject, ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
             HKObjectType.activitySummaryType(),
+            HKQuantityType.workoutType(),
             HKSeriesType.workoutRoute()
         ]
 
@@ -111,9 +128,6 @@ class WorkoutManager: NSObject, ObservableObject {
         // Request location authorization
         locationManager.requestWhenInUseAuthorization()
         
-    }
-    
-    func speed() {
     }
 
     // MARK: - Session State Control
@@ -138,25 +152,13 @@ class WorkoutManager: NSObject, ObservableObject {
     }
     
     func endWorkout() {
+        print(exerciseDates)
         if exerciseDates.keys.contains(Date.now.stripTime()) {
-            guard exerciseDates[Date.now.stripTime()] != nil else {
-                exerciseDates[Date.now.stripTime()]! += Int(workout?.duration ?? 0) / 60
-                return
-            }
+            print("builder elapsed time if: \(builder?.elapsedTime ?? 0)")
+            exerciseDates[Date.now.stripTime()]! += Int(builder?.elapsedTime ?? 0) / 60
         } else {
-            exerciseDates[Date.now.stripTime()] = Int(workout?.duration ?? 0) / 60
-        }
-        if (exerciseDates[Date.now.stripTime()] ?? 0 >= goal ?? 30) && !Calendar.current.isDateInToday(streakDateAwarded) {
-            guard currentStreak != nil else {
-                currentStreak = 0
-                return
-            }
-            if currentStreak! >= 1 && Calendar.current.isDateInYesterday(streakDateAwarded) {
-            currentStreak! += 1
-            streakDateAwarded = Date.now
-            } else if currentStreak! >= 1 {
-                currentStreak = 0
-            }
+            print("builder elapsed time else: \(builder?.elapsedTime ?? 0)")
+            exerciseDates[Date.now.stripTime()] = Int(builder?.elapsedTime ?? 0) / 60
         }
         session?.end()
         showingSummaryView = true
