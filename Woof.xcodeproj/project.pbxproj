@@ -508,6 +508,7 @@
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Allows Woof to read your workout metrics and update your dog's exercise streak.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allows Woof to track your route and pace.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "Allows Woof to automatically pause and resume walks based on pace.";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -544,6 +545,7 @@
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Allows Woof to read your workout metrics and update your dog's exercise streak.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allows Woof to track your route and pace.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "Allows Woof to automatically pause and resume walks based on pace.";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

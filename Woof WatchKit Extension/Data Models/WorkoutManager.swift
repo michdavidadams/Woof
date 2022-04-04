@@ -9,6 +9,8 @@ import Foundation
 import HealthKit
 import SwiftUI
 import CoreLocation
+import CoreMotion
+import Combine
 
 class WorkoutManager: NSObject, ObservableObject {
     
@@ -29,15 +31,19 @@ class WorkoutManager: NSObject, ObservableObject {
     
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
-    var builder: HKLiveWorkoutBuilder?
+    public var builder: HKLiveWorkoutBuilder?
     var myMetadata = ["Type of workout": "dog"]
+    var pedometer: CMPedometer?
+    var pace: Double = 0
     
     var routeBuilder: HKWorkoutRouteBuilder?
-    var locationManager = CLLocationManager()
+    var locationManager: CLLocationManager?
     
     @AppStorage("dog.goal") var goal: Int?
     @AppStorage("dog.currentStreak") var currentStreak: Int?
     var exerciseDates: [Date: Int] = [:]
+    var walkingWorkouts: [HKSample]?
+    var playWorkouts: [HKSample]?
     
     // MARK: - Update today's exercise
     func todaysExercise() -> Int {
@@ -84,7 +90,6 @@ class WorkoutManager: NSObject, ObservableObject {
         // Setup session and builder.
         session?.delegate = self
         builder?.delegate = self
-        locationManager.delegate = self
         
         // Set the workout builder's data source.
         builder?.dataSource = HKLiveWorkoutDataSource(healthStore: healthStore,
@@ -95,14 +100,18 @@ class WorkoutManager: NSObject, ObservableObject {
         session?.startActivity(with: startDate)
         builder?.beginCollection(withStart: startDate) { (success, error) in
             // The workout has started.
-           
+            
         }
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: nil)
         
+        // location support
+        locationManager = CLLocationManager()
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.startUpdatingLocation()
+        routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: nil)
+        pedometer = CMPedometer()
+        startPedometerUpdates()
     }
-
+    
     // Request authorization to access HealthKit and location.
     func requestAuthorization() {
         // The quantity type to write to the health store.
@@ -110,7 +119,7 @@ class WorkoutManager: NSObject, ObservableObject {
             HKQuantityType.workoutType(),
             HKSeriesType.workoutRoute(),
         ]
-
+        
         // The quantity types to read from the health store.
         let typesToRead: Set = [
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
@@ -119,23 +128,26 @@ class WorkoutManager: NSObject, ObservableObject {
             HKQuantityType.workoutType(),
             HKSeriesType.workoutRoute()
         ]
-
+        
         // Request authorization for those quantity types.
         healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { (success, error) in
             // Handle error.
         }
         
         // Request location authorization
-        locationManager.requestWhenInUseAuthorization()
+        locationManager?.requestWhenInUseAuthorization()
+        
+        
         
     }
-
+    
     // MARK: - Session State Control
-
+    
     // The app's workout state.
     @Published var running = false
-
+    
     func togglePause() {
+        print("togglePause()")
         if running == true {
             self.pause()
         } else {
@@ -144,10 +156,12 @@ class WorkoutManager: NSObject, ObservableObject {
     }
     
     func pause() {
+        print("pause()")
         session?.pause()
     }
     
     func resume() {
+        print("resume()")
         session?.resume()
     }
     
@@ -161,7 +175,6 @@ class WorkoutManager: NSObject, ObservableObject {
             exerciseDates[Date.now.stripTime()] = Int(builder?.elapsedTime ?? 0) / 60
         }
         session?.end()
-        showingSummaryView = true
         if workout != nil {
             routeBuilder?.finishRoute(with: workout!, metadata: myMetadata) { (newRoute, error) in
                 guard newRoute != nil else {
@@ -171,9 +184,10 @@ class WorkoutManager: NSObject, ObservableObject {
                 // can do something with route here
             }
         }
+        stopMotionUpdates()
+        showingSummaryView = true
     }
     
-
     // MARK: - Workout Metrics
     @Published var activeEnergy: Double = 0
     @Published var distance: Double = 0
@@ -196,7 +210,7 @@ class WorkoutManager: NSObject, ObservableObject {
             }
         }
     }
-
+    
     func resetWorkout() {
         selectedWorkout = nil
         builder = nil
@@ -204,6 +218,8 @@ class WorkoutManager: NSObject, ObservableObject {
         session = nil
         activeEnergy = 0
         distance = 0
+        locationManager = nil
+        routeBuilder = nil
     }
 }
 
@@ -214,7 +230,7 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
         DispatchQueue.main.async {
             self.running = toState == .running
         }
-
+        
         // Wait for the session to transition states before ending the builder.
         if toState == .ended {
             builder?.endCollection(withEnd: date) { (success, error) in
@@ -225,8 +241,9 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
                 }
             }
         }
+        
     }
-
+    
     func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: Error) {
     }
 }
@@ -235,15 +252,15 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
 extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     func workoutBuilderDidCollectEvent(_ workoutBuilder: HKLiveWorkoutBuilder) {
     }
-
+    
     func workoutBuilder(_ workoutBuilder: HKLiveWorkoutBuilder, didCollectDataOf collectedTypes: Set<HKSampleType>) {
         for type in collectedTypes {
             guard let quantityType = type as? HKQuantityType else {
                 return // Nothing to do.
             }
-
+            
             let statistics = workoutBuilder.statistics(for: quantityType)
-
+            
             // Update the published values.
             updateForStatistics(statistics)
         }
@@ -270,11 +287,43 @@ extension WorkoutManager: CLLocationManagerDelegate {
 }
 
 extension Date {
-
     func stripTime() -> Date {
         let components = Calendar.current.dateComponents([.year, .month, .day], from: self)
         let date = Calendar.current.date(from: components)
         return date!
     }
+}
 
+// MARK: - Pedometer functions
+extension WorkoutManager {
+    private var isPedometerAvailable: Bool{
+        return CMPedometer.isPedometerEventTrackingAvailable() && CMPedometer.isPaceAvailable()
+    }
+    
+    func startPedometerUpdates() {
+        if isPedometerAvailable {
+            pedometer?.startUpdates(from: Date.now, withHandler: { data, error in
+                guard let data = data, error == nil else { return }
+                self.pace = data.currentPace?.doubleValue ?? 0
+                print(self.pace)
+                if self.pace == 0 {
+                    print("pace = 0, so pause")
+                    self.builder?.addWorkoutEvents([HKWorkoutEvent(type: .pause, dateInterval: DateInterval(start: Date(), duration: 0), metadata: [:])]) { success, error in
+                    }
+                } else if self.pace > 0 {
+                    print("pace > 0, so resume")
+                    self.builder?.addWorkoutEvents([HKWorkoutEvent(type: .resume, dateInterval: DateInterval(start: Date(), duration: 0), metadata: [:])]) { success, error in
+                    }
+                }
+            })
+        }
+    }
+    
+    func stopMotionUpdates() {
+        if CMPedometer.isPaceAvailable() {
+            pedometer?.stopUpdates()
+        } else {
+            print("no pedometer to stop")
+        }
+    }
 }
