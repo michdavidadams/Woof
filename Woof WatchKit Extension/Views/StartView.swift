@@ -15,33 +15,19 @@ struct StartView: View {
     var workoutTypes: [HKWorkoutActivityType] = [.walking, .play]
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                LazyVStack {
-                    VStack(alignment: .leading) {
-                        VStack {
-                            HStack {
-                                NavigationLink("Walk", destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout)
-                                NavigationLink("Play", destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout)
-                            }
-                        }
-                        .padding()
-                        Divider()
-                        DogStatsView()
-                        Divider()
-                    }
-                    
+        VStack(alignment: .leading) {
+            DogStatsView()
+                List() {
+                    NavigationLink("Walk", destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout).padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
+                    NavigationLink("Play", destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout).padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
                     NavigationLink("Settings", destination: SettingsView())
-                        .padding()
-                    
+                        .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
                 }
-                .padding([.bottom, .trailing])
-                .onAppear {
-                    workoutManager.requestAuthorization()
-                }
-            }
+                .listStyle(.carousel)
         }
-        .navigationTitle(Text("Woof"))
+        .onAppear {
+            workoutManager.requestAuthorization()
+        }
     }
 }
 

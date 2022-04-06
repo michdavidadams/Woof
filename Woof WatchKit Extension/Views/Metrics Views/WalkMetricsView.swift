@@ -13,21 +13,15 @@ struct WalkMetricsView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Image(systemName: "pawprint.fill")
-                .foregroundColor(.accentColor)
-                .font(.system(size: 30.0))
+            TotalTimeGauge(current: workoutManager.totalTime, selectedWorkout: workoutManager.selectedWorkout)
                 .padding()
-                .background(Circle()
-                    .fill(LinearGradient(gradient: Gradient(colors: [.gray, .green]), startPoint: .leading, endPoint: .trailing))
-                    .opacity(0.5))
                 .ignoresSafeArea()
                 .scenePadding()
             TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date())) { context in
                 VStack(alignment: .leading) {
-                    TotalTimeView(totalTime: workoutManager.totalTime)
-                        .foregroundStyle(.green)
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime ?? 0, showSubseconds: context.cadence == .live)
-                        .foregroundStyle(.yellow)
+                        .foregroundStyle(.green)
+                    Text(workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
                     Text(Measurement(value: workoutManager.distance, unit: UnitLength.meters).formatted(.measurement(width: .abbreviated, usage: .road)))
                 }
                 .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps())

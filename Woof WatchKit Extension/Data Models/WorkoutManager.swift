@@ -74,6 +74,13 @@ class WorkoutManager: NSObject, ObservableObject {
         if workoutType == .walking {
             configuration.activityType = workoutType
             configuration.locationType = .outdoor
+            // location support
+            locationManager = CLLocationManager()
+            locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager?.startUpdatingLocation()
+            routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: nil)
+            pedometer = CMPedometer()
+            startPedometerUpdates()
         } else if workoutType == .play {
             configuration.activityType = workoutType
             configuration.locationType = .indoor
@@ -102,14 +109,6 @@ class WorkoutManager: NSObject, ObservableObject {
             // The workout has started.
             
         }
-        
-        // location support
-        locationManager = CLLocationManager()
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager?.startUpdatingLocation()
-        routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: nil)
-        pedometer = CMPedometer()
-        startPedometerUpdates()
     }
     
     // Request authorization to access HealthKit and location.
@@ -124,6 +123,7 @@ class WorkoutManager: NSObject, ObservableObject {
         let typesToRead: Set = [
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
+            HKQuantityType.quantityType(forIdentifier: .heartRate)!,
             HKObjectType.activitySummaryType(),
             HKQuantityType.workoutType(),
             HKSeriesType.workoutRoute()
@@ -175,22 +175,25 @@ class WorkoutManager: NSObject, ObservableObject {
             exerciseDates[Date.now.stripTime()] = Int(builder?.elapsedTime ?? 0) / 60
         }
         session?.end()
-        if workout != nil {
-            routeBuilder?.finishRoute(with: workout!, metadata: myMetadata) { (newRoute, error) in
-                guard newRoute != nil else {
-                    // handle errors here
-                    return
+        if workout?.workoutActivityType == .walking {
+            if workout != nil {
+                routeBuilder?.finishRoute(with: workout!, metadata: myMetadata) { (newRoute, error) in
+                    guard newRoute != nil else {
+                        // handle errors here
+                        return
+                    }
+                    // can do something with route here
                 }
-                // can do something with route here
             }
+            stopMotionUpdates()
         }
-        stopMotionUpdates()
         showingSummaryView = true
     }
     
     // MARK: - Workout Metrics
     @Published var activeEnergy: Double = 0
     @Published var distance: Double = 0
+    @Published var heartRate: Double = 0
     @Published var workout: HKWorkout?
     @Published var totalTime: TimeInterval = 0
     
@@ -205,6 +208,9 @@ class WorkoutManager: NSObject, ObservableObject {
             case HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning):
                 let meterUnit = HKUnit.meter()
                 self.distance = statistics.sumQuantity()?.doubleValue(for: meterUnit) ?? 0
+            case HKQuantityType.quantityType(forIdentifier: .heartRate):
+                let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
+                self.heartRate = statistics.averageQuantity()?.doubleValue(for: heartRateUnit) ?? 0
             default:
                 return
             }
