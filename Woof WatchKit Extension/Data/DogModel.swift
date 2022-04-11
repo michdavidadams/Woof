@@ -58,7 +58,4 @@ class DogViewModel: ObservableObject {
         get { dog.currentStreak }
         set { dog.currentStreak = newValue}
     }
-    
-    
 }
-

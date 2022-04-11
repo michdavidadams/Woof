@@ -14,7 +14,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 
     func getComplicationDescriptors(handler: @escaping ([CLKComplicationDescriptor]) -> Void) {
         let descriptors = [
-            CLKComplicationDescriptor(identifier: "Woof", displayName: "Woof", supportedFamilies: CLKComplicationFamily.allCases)
+            CLKComplicationDescriptor(identifier: "Pawprint", displayName: "Pawprint", supportedFamilies: CLKComplicationFamily.allCases)
             // Multiple complication support can be added here with more descriptors
         ]
         

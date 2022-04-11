@@ -7,6 +7,7 @@
 
 import SwiftUI
 import HealthKit
+import ClockKit
 
 struct TotalTimeGauge: View {
     @EnvironmentObject var workoutManager: WorkoutManager

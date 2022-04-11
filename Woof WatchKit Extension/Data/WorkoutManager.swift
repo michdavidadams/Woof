@@ -137,8 +137,6 @@ class WorkoutManager: NSObject, ObservableObject {
         // Request location authorization
         locationManager?.requestWhenInUseAuthorization()
         
-        
-        
     }
     
     // MARK: - Session State Control
@@ -168,11 +166,9 @@ class WorkoutManager: NSObject, ObservableObject {
     func endWorkout() {
         print(exerciseDates)
         if exerciseDates.keys.contains(Date.now.stripTime()) {
-            print("builder elapsed time if: \(builder?.elapsedTime ?? 0)")
-            exerciseDates[Date.now.stripTime()]! += Int(builder?.elapsedTime ?? 0) / 60
+            exerciseDates[Date.now.stripTime()]! += Int(workoutTime / 60)
         } else {
-            print("builder elapsed time else: \(builder?.elapsedTime ?? 0)")
-            exerciseDates[Date.now.stripTime()] = Int(builder?.elapsedTime ?? 0) / 60
+            exerciseDates[Date.now.stripTime()] = Int(workoutTime / 60)
         }
         session?.end()
         if workout?.workoutActivityType == .walking {
@@ -196,11 +192,13 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var heartRate: Double = 0
     @Published var workout: HKWorkout?
     @Published var totalTime: TimeInterval = 0
+    var workoutTime: TimeInterval = 0
     
     func updateForStatistics(_ statistics: HKStatistics?) {
         guard let statistics = statistics else { return }
         DispatchQueue.main.async {
             self.totalTime = -(statistics.startDate.timeIntervalSinceNow) + TimeInterval(self.todaysExercise() * 60)
+            self.workoutTime = -statistics.startDate.timeIntervalSinceNow
             switch statistics.quantityType {
             case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
                 let energyUnit = HKUnit.kilocalorie()

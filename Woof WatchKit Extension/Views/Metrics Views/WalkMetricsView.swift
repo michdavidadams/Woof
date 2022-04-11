@@ -12,12 +12,13 @@ struct WalkMetricsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     
     var body: some View {
-        VStack(alignment: .leading) {
-            TotalTimeGauge(current: workoutManager.totalTime, selectedWorkout: workoutManager.selectedWorkout)
-                .padding()
-                .ignoresSafeArea()
-                .scenePadding()
-            TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date())) { context in
+        
+        TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date())) { context in
+            VStack(alignment: .leading) {
+                TotalTimeGauge(current: workoutManager.totalTime, selectedWorkout: workoutManager.selectedWorkout)
+                    .padding()
+                    .ignoresSafeArea()
+                    .scenePadding()
                 VStack(alignment: .leading) {
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime ?? 0, showSubseconds: context.cadence == .live)
                         .foregroundStyle(.green)
@@ -30,6 +31,7 @@ struct WalkMetricsView: View {
                 .scenePadding()
             }
         }
+        
     }
 }
 
