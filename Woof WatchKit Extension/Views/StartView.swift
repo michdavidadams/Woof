@@ -11,23 +11,37 @@ import HealthKit
 
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
+    @AppStorage("dog.name") var name: String?
+    @AppStorage("dog.goal") var goal: Int?
+    @AppStorage("dog.currentStreak") var currentStreak: Int?
     
     var workoutTypes: [HKWorkoutActivityType] = [.walking, .play]
     
     var body: some View {
-        VStack(alignment: .leading) {
-            DogStatsView()
-                List() {
-                    NavigationLink("Walk", destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout).padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
-                    NavigationLink("Play", destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout).padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
-                    NavigationLink("Settings", destination: SettingsView())
-                        .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
-                }
-                .listStyle(.carousel)
+        NavigationView {
+            List {
+                
+                DogStatsView()
+                    .listRowBackground(Color.black)
+                
+                NavigationLink("Walk", destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout).padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
+                NavigationLink("Play", destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout).padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
+                NavigationLink("Settings", destination: SettingsView())
+                    .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
+                
+                
+            }
+            .navigationBarTitleDisplayMode(.large)
+            .navigationBarHidden(false)
+            .navigationTitle(name ?? "Woof")
+            .navigationViewStyle(.automatic)
+            .listStyle(.carousel)
         }
         .onAppear {
             workoutManager.requestAuthorization()
         }
+        
+        
     }
 }
 

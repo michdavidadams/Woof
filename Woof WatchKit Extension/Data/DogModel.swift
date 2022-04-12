@@ -31,11 +31,11 @@ class DogModel: ObservableObject {
     
     init() {
         UserDefaults.standard.register(defaults: [
-            "dog.name" : "Dog",
+            "dog.name" : "Woof",
             "dog.goal" : 30,
             "dog.currentStreak" : 0
         ])
-        name = UserDefaults.standard.string(forKey: "dog.name") ?? "Dog"
+        name = UserDefaults.standard.string(forKey: "dog.name") ?? "Woof"
         goal = UserDefaults.standard.integer(forKey: "dog.goal")
         currentStreak = UserDefaults.standard.integer(forKey: "dog.currentStreak")
     }

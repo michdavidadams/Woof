@@ -17,12 +17,6 @@ struct DogStatsView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(name ?? "Dog") 🐶")
-                .font(.title3)
-                .fontWeight(.semibold)
-                .multilineTextAlignment(.leading)
-                .lineLimit(1)
-                .padding(.bottom)
             HStack {
                 VStack(alignment: .leading) {
                     Text("exercise")
@@ -30,11 +24,11 @@ struct DogStatsView: View {
                         .foregroundColor(Color.gray)
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
-                        .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
+                        .textCase(.uppercase)
                     Text("\(workoutManager.todaysExercise())/\(goal ?? 30) MIN")
                         .font(.title3)
                         .fontWeight(.semibold)
-                        .foregroundColor(Color.green)
+                        .foregroundColor(Color(lightGreen ?? .green))
                         .multilineTextAlignment(.leading)
                 }
                 Spacer()
@@ -53,6 +47,7 @@ struct DogStatsView: View {
                 }
             }
         }
+        
     }
     
 }

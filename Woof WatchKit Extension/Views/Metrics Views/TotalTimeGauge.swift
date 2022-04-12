@@ -19,14 +19,14 @@ struct TotalTimeGauge: View {
     var body: some View {
         Gauge(value: (current / 60), in: minValue...Double(maxValue ?? 30)) {
             Image(systemName: "pawprint.fill")
-                .foregroundColor(.green)
+                .foregroundColor(Color(lightGreen ?? .green))
         } currentValueLabel: {
             if selectedWorkout == .play {
                 Image("tennisBall")
-                    .foregroundColor(.green)
+                    .foregroundColor(Color(lightGreen ?? .green))
             } else {
                 Image(systemName: "pawprint.fill")
-                    .foregroundColor(.green)
+                    .foregroundColor(Color(lightGreen ?? .green))
             }
         } minimumValueLabel: {
             Text("\(Int(minValue))")
@@ -35,6 +35,6 @@ struct TotalTimeGauge: View {
             Text("\(Int(maxValue ?? 30))")
                 .foregroundColor(.gray)
         }
-        .gaugeStyle(CircularGaugeStyle(tint: .green))
+        .gaugeStyle(CircularGaugeStyle(tint: Color(lightGreen ?? .green)))
     }
 }

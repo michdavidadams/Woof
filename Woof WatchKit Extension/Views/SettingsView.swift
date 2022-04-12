@@ -13,7 +13,6 @@ struct SettingsView: View {
     @AppStorage("dog.goal") var goal: Int = 30
     
     var body: some View {
-        NavigationView {
             ScrollView {
                 LazyVStack {
                     
@@ -51,7 +50,7 @@ struct SettingsView: View {
                     .padding()
                 }
             }
-        }
+        
         .navigationTitle(Text("Settings"))
     }
 }
