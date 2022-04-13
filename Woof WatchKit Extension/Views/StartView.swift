@@ -19,7 +19,13 @@ struct StartView: View {
     
     var body: some View {
         NavigationView {
+            
             List {
+                
+                Text("\(name ?? "Your Dog") 🐶")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .listRowBackground(Color.black)
                 
                 DogStatsView()
                     .listRowBackground(Color.black)
@@ -31,9 +37,7 @@ struct StartView: View {
                 
                 
             }
-            .navigationBarTitleDisplayMode(.large)
-            .navigationBarHidden(false)
-            .navigationTitle(name ?? "Woof")
+            
             .navigationViewStyle(.automatic)
             .listStyle(.carousel)
         }
