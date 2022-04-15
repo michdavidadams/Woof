@@ -12,8 +12,6 @@ import HealthKit
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @AppStorage("dog.name") var name: String?
-    @AppStorage("dog.goal") var goal: Int?
-    @AppStorage("dog.currentStreak") var currentStreak: Int?
     
     var workoutTypes: [HKWorkoutActivityType] = [.walking, .play]
     
@@ -22,21 +20,41 @@ struct StartView: View {
             
             List {
                 
-                Text("\(name ?? "Your Dog") 🐶")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .listRowBackground(Color.black)
-                
                 DogStatsView()
                     .listRowBackground(Color.black)
                 
-                NavigationLink("Walk", destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout).padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
-                NavigationLink("Play", destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout).padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
-                NavigationLink("Settings", destination: SettingsView())
-                    .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
-                
+                NavigationLink(destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout) {
+                    HStack {
+                        Text("Walk")
+                        Spacer()
+                        Image(systemName: "figure.walk")
+                            .foregroundColor(.accentColor)
+                    }
+                }
+                .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
+                NavigationLink(destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout) {
+                    HStack {
+                        Text("Play")
+                        Spacer()
+                        Image("tennisBall")
+                            .foregroundColor(.accentColor)
+                    }
+                }
+                .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
+                NavigationLink(destination: SettingsView()) {
+                    HStack {
+                        Text("Settings")
+                        Spacer()
+                        Image(systemName: "gearshape.fill")
+                            .foregroundColor(.accentColor)
+                    }
+                }
+                .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
                 
             }
+            .navigationTitle("\(name ?? "Woof")")
+            .navigationBarHidden(false)
+            .navigationBarTitleDisplayMode(.large)
             
             .navigationViewStyle(.automatic)
             .listStyle(.carousel)
