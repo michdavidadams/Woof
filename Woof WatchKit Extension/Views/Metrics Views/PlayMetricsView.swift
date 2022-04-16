@@ -20,7 +20,7 @@ struct PlayMetricsView: View {
             TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date())) { context in
                 VStack(alignment: .leading) {
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime ?? 0, showSubseconds: context.cadence == .live)
-                        .foregroundStyle(.green)
+                        .foregroundColor(.green)
                     Text(workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
                     Text(Measurement(value: workoutManager.distance, unit: UnitLength.meters).formatted(.measurement(width: .abbreviated, usage: .road)))
                 }

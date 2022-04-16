@@ -21,7 +21,7 @@ struct WalkMetricsView: View {
                     .scenePadding()
                 VStack(alignment: .leading) {
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime ?? 0, showSubseconds: context.cadence == .live)
-                        .foregroundColor(Color(lightGreen ?? .green))
+                        .foregroundColor(.green)
                     Text(workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
                     Text(Measurement(value: workoutManager.distance, unit: UnitLength.meters).formatted(.measurement(width: .abbreviated, usage: .road)))
                 }
