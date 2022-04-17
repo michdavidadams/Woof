@@ -9,11 +9,24 @@ import SwiftUI
 
 struct ControlsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(fetchRequest: Exercise.todaysExercisesFetchRequest) var todaysExercise: FetchedResults<Exercise>
+    @State var minutesFromExercise: [Int64]?
+    @State var exerciseMinutesSum: Int64?
 
     var body: some View {
         HStack {
             VStack {
                 Button {
+                    let exercise = Exercise(context: managedObjectContext)
+                    exercise.id = UUID()
+                    exercise.date = Date.now.stripTime()
+                    exercise.duration = Int64(workoutManager.totalTime / 60)
+                    do {
+                        try managedObjectContext.save()
+                    } catch {
+                        // error
+                    }
                     workoutManager.endWorkout()
                 } label: {
                     Image(systemName: "xmark")

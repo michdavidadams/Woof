@@ -30,7 +30,6 @@ class WorkoutManager: NSObject, ObservableObject {
         }
     }
     
-    @Environment(\.managedObjectContext) var managedObjectContext
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
     public var builder: HKLiveWorkoutBuilder?
@@ -172,15 +171,7 @@ class WorkoutManager: NSObject, ObservableObject {
         } else {
             exerciseDates[Date.now.stripTime()] = Int(workoutTime / 60)
         }
-        let exercise = Exercise(context: managedObjectContext)
-        exercise.id = UUID()
-        exercise.date = Date.now.stripTime()
-        exercise.duration = Int64(workoutTime / 60)
-        do {
-            try managedObjectContext.save()
-        } catch {
-            // error
-        }
+        
         
         session?.end()
         if workout?.workoutActivityType == .walking {
