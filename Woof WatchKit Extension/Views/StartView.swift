@@ -8,8 +8,10 @@
 import Combine
 import SwiftUI
 import HealthKit
+import CoreData
 
 struct StartView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var workoutManager: WorkoutManager
     @AppStorage("dog.name") var name: String?
     
@@ -62,7 +64,6 @@ struct StartView: View {
         .onAppear {
             workoutManager.requestAuthorization()
         }
-        
         
     }
 }

@@ -11,6 +11,8 @@ import SwiftUI
 struct WoofApp: App {
     @StateObject var workoutManager = WorkoutManager()
     @StateObject var dog = DogViewModel()
+    let persistenceController = PersistenceController.shared
+    @Environment(\.scenePhase) var scenePhase
     
     @SceneBuilder var body: some Scene {
         WindowGroup {
@@ -21,6 +23,10 @@ struct WoofApp: App {
                 SummaryView()
             }
             .environmentObject(workoutManager)
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        }
+        .onChange(of: scenePhase) { _ in
+            persistenceController.save()
         }
     }
 }
