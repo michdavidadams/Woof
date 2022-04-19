@@ -511,7 +511,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Woof WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Woof;
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = Woof_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Allows Woof to save your workouts.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Allows Woof to read your workout metrics and update your dog's exercise streak.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -547,7 +547,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Woof WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Woof;
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = Woof_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Allows Woof to save your workouts.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Allows Woof to read your workout metrics and update your dog's exercise streak.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";

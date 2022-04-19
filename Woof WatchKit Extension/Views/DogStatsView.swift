@@ -13,7 +13,8 @@ struct DogStatsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @AppStorage("dog.name") var name: String?
     @AppStorage("dog.goal") var goal: Int?
-    
+    @AppStorage("dog.currentStreak") var currentStreak: Int?
+    @State var todaysExercise: Int = 0
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
@@ -29,7 +30,7 @@ struct DogStatsView: View {
                             .multilineTextAlignment(.leading)
                             .lineLimit(1)
                             .textCase(.uppercase)
-                        Text("\(workoutManager.todaysWorkouts)/\(goal ?? 30) MIN")
+                        Text("\(todaysExercise )/\(goal ?? 30) MIN")
                             .font(.title3)
                             .fontWeight(.semibold)
                             .foregroundColor(Color.green)
@@ -37,25 +38,28 @@ struct DogStatsView: View {
                     }
                 }
                 Divider()
-//                HStack {
-//                    Text("🗓")
-//                        .font(.system(size: 25))
-//                        .padding(.trailing)
-//                    VStack(alignment: .leading) {
-//                        Text("streak")
-//                            .font(.footnote)
-//                            .foregroundColor(Color.white)
-//                            .multilineTextAlignment(.leading)
-//                            .lineLimit(1)
-//                            .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
-//                        Text("\(currentStreak ?? 0) DAYS")
-//                            .font(.title3)
-//                            .fontWeight(.semibold)
-//                            .foregroundColor(Color.yellow)
-//                            .multilineTextAlignment(.leading)
-//                    }
-//                }
+                HStack {
+                    Text("🗓")
+                        .font(.system(size: 25))
+                        .padding(.trailing)
+                    VStack(alignment: .leading) {
+                        Text("streak")
+                            .font(.footnote)
+                            .foregroundColor(Color.white)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(1)
+                            .textCase(/*@START_MENU_TOKEN@*/.uppercase/*@END_MENU_TOKEN@*/)
+                        Text("\(currentStreak ?? 0) DAYS")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color.yellow)
+                            .multilineTextAlignment(.leading)
+                    }
+                }
             }
+        }.onAppear {
+            workoutManager.sumWorkouts()
+            todaysExercise = workoutManager.todaysExercise ?? 0
         }
         
     }

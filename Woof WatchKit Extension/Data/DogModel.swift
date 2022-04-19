@@ -23,6 +23,11 @@ class DogModel: ObservableObject {
         }
     }
     
+    @Published var currentStreak: Int {
+        didSet {
+            UserDefaults.standard.set(currentStreak, forKey: "currentStreak")
+        }
+    }
     
     init() {
         UserDefaults.standard.register(defaults: [
@@ -32,6 +37,7 @@ class DogModel: ObservableObject {
         ])
         name = UserDefaults.standard.string(forKey: "dog.name") ?? "Woof"
         goal = UserDefaults.standard.integer(forKey: "dog.goal")
+        currentStreak = UserDefaults.standard.integer(forKey: "dog.currentStreak")
     }
 }
 
@@ -46,6 +52,11 @@ class DogViewModel: ObservableObject {
     var goal: Int {
         get { dog.goal }
         set { dog.goal = Int(newValue)}
+    }
+    
+    var currentStreak: Int {
+        get { dog.currentStreak }
+        set { dog.currentStreak = Int(newValue)}
     }
     
 }

@@ -110,77 +110,98 @@ class WorkoutManager: NSObject, ObservableObject {
         
     }
     
-    // MARK: - Past Workouts
-    // MARK: Load workouts
-    func loadWorkouts() async -> [HKWorkout]? {
-        // MARK: Walking workouts
-        let walking = HKQuery.predicateForWorkouts(with: .walking)
-
-        let walkingSamples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
-            healthStore.execute(HKSampleQuery(sampleType: .workoutType(), predicate: walking, limit: HKObjectQueryNoLimit,sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
-                if let hasError = error {
-                    continuation.resume(throwing: hasError)
-                    return
-                }
-
-                guard let samples = samples else {
-                    fatalError("*** Invalid State: This can only fail if there was an error. ***")
-                }
-
-                continuation.resume(returning: samples)
-            }))
-        }
-
-        guard let walkingWorkouts = walkingSamples as? [HKWorkout] else {
-            return nil
-        }
+    var walkingWorkouts = [HKWorkout]()
+    func loadWalkingWorkouts() {
+        //1. Get all workouts with the "Walking" activity type.
+        let workoutPredicate = HKQuery.predicateForWorkouts(with: .walking)
         
-        // MARK: Play workouts
-        let play = HKQuery.predicateForWorkouts(with: .play)
-
-        let playSamples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
-            healthStore.execute(HKSampleQuery(sampleType: .workoutType(), predicate: play, limit: HKObjectQueryNoLimit,sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
-                if let hasError = error {
-                    continuation.resume(throwing: hasError)
-                    return
-                }
-
-                guard let samples = samples else {
-                    fatalError("*** Invalid State: This can only fail if there was an error. ***")
-                }
-
-                continuation.resume(returning: samples)
-            }))
-        }
-
-        guard let playWorkouts = playSamples as? [HKWorkout] else {
-            return nil
-        }
+        //2. Get all workouts that only came from this app.
+        let sourcePredicate = HKQuery.predicateForObjects(from: .default())
         
-        var workouts = [HKWorkout]()
-        workouts.append(contentsOf: walkingWorkouts)
-        workouts.append(contentsOf: playWorkouts)
-
-        workouts.sort {
-            $0.startDate > $1.startDate
-        }
-        todaysWorkouts = sumWorkouts(pastWorkouts: workouts)
-        return workouts
+        //3. Combine the predicates into a single predicate.
+        let compound = NSCompoundPredicate(andPredicateWithSubpredicates:
+                                            [workoutPredicate, sourcePredicate])
+        
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
+                                              ascending: true)
+        
+        let query = HKSampleQuery(
+            sampleType: .workoutType(),
+            predicate: compound,
+            limit: 0,
+            sortDescriptors: [sortDescriptor]) { (query, samples, error) in
+                DispatchQueue.main.async {
+                    guard
+                        let samples = samples as? [HKWorkout],
+                        error == nil
+                    else {
+                        return
+                    }
+                    
+                    self.walkingWorkouts = samples
+                }
+            }
+        
+        HKHealthStore().execute(query)
+    }
+    
+    var playWorkouts = [HKWorkout]()
+    func loadPlayWorkouts() {
+        //1. Get all workouts with the "Play" activity type.
+        let workoutPredicate = HKQuery.predicateForWorkouts(with: .play)
+        
+        //2. Get all workouts that only came from this app.
+        let sourcePredicate = HKQuery.predicateForObjects(from: .default())
+        
+        //3. Combine the predicates into a single predicate.
+        let compound = NSCompoundPredicate(andPredicateWithSubpredicates:
+                                            [workoutPredicate, sourcePredicate])
+        
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
+                                              ascending: true)
+        
+        let query = HKSampleQuery(
+            sampleType: .workoutType(),
+            predicate: compound,
+            limit: 0,
+            sortDescriptors: [sortDescriptor]) { (query, samples, error) in
+                DispatchQueue.main.async {
+                    guard
+                        let samples = samples as? [HKWorkout],
+                        error == nil
+                    else {
+                        return
+                    }
+                    
+                    self.playWorkouts = samples
+                }
+            }
+        
+        HKHealthStore().execute(query)
     }
     
     // MARK: Sum workouts
-    @Published var todaysWorkouts: Int = 0
-    func sumWorkouts(pastWorkouts: [HKWorkout]?) -> Int {
-        guard pastWorkouts != nil else {
-            return 0
-        }
+    @Published var todaysExercise: Int?
+    func sumWorkouts() {
         var sum: TimeInterval = 0
-        pastWorkouts?.forEach { pastWorkout in
-            if Calendar.current.isDateInToday(pastWorkout.startDate) {
-                sum += pastWorkout.endDate.timeIntervalSince(pastWorkout.startDate)
+        if !walkingWorkouts.isEmpty {
+            print(walkingWorkouts)
+            walkingWorkouts.forEach { walkingWorkout in
+                if Calendar.current.isDateInToday(walkingWorkout.startDate) {
+                    sum += walkingWorkout.endDate.timeIntervalSince(walkingWorkout.startDate)
+                }
             }
         }
-        return Int(sum / 60)
+        if !playWorkouts.isEmpty {
+            print(playWorkouts)
+            playWorkouts.forEach { playWorkout in
+                if Calendar.current.isDateInToday(playWorkout.startDate) {
+                    sum += playWorkout.endDate.timeIntervalSince(playWorkout.startDate)
+                }
+            }
+        }
+        todaysExercise = Int(sum / 60)
+        print("sum: \(Int(sum / 60))")
     }
     
     // MARK: - Session State Control
@@ -208,7 +229,11 @@ class WorkoutManager: NSObject, ObservableObject {
     }
     
     func endWorkout() {
-        
+        guard todaysExercise != nil else {
+            todaysExercise = 0
+            return
+        }
+        todaysExercise! += Int(-(workout?.startDate.timeIntervalSinceNow ?? 0) / 60)
         session?.end()
         if workout?.workoutActivityType == .walking {
             if workout != nil {

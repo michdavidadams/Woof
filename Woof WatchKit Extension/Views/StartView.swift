@@ -62,6 +62,8 @@ struct StartView: View {
         }
         .onAppear {
             workoutManager.requestAuthorization()
+            workoutManager.loadWalkingWorkouts()
+            workoutManager.loadPlayWorkouts()
         }
         
     }
