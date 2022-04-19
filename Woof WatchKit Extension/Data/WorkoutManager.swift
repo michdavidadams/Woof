@@ -11,7 +11,6 @@ import SwiftUI
 import CoreLocation
 import CoreMotion
 import Combine
-import CoreData
 
 class WorkoutManager: NSObject, ObservableObject {
     
@@ -39,35 +38,6 @@ class WorkoutManager: NSObject, ObservableObject {
     
     var routeBuilder: HKWorkoutRouteBuilder?
     var locationManager: CLLocationManager?
-    
-    @AppStorage("dog.goal") var goal: Int?
-    @AppStorage("dog.currentStreak") var currentStreak: Int?
-    var exerciseDates: [Date: Int] = [:]
-    var walkingWorkouts: [HKSample]?
-    var playWorkouts: [HKSample]?
-    
-    // MARK: - Update today's exercise
-    func todaysExercise() -> Int {
-        guard let minutes = exerciseDates[Date.now.stripTime()] else { return 0 }
-        print("todaysExercise(): \(minutes)")
-        print("exerciseDates: \(exerciseDates)")
-        return minutes
-    }
-    
-    // MARK: - Get/Update streak
-    func getStreak() -> Int {
-        var streak = 0
-        for i in 0...exerciseDates.keys.count {
-            guard let date = Calendar.current.date(byAdding: .day, value: i, to: Date.now) else { return streak }
-            guard let exerciseMinutes = exerciseDates[date.stripTime()] else { return streak }
-            if exerciseMinutes >= (goal ?? 30) {
-                streak += 1
-            } else {
-                return streak
-            }
-        }
-        return streak
-    }
     
     // Start the workout.
     func startWorkout(workoutType: HKWorkoutActivityType) {
@@ -140,6 +110,79 @@ class WorkoutManager: NSObject, ObservableObject {
         
     }
     
+    // MARK: - Past Workouts
+    // MARK: Load workouts
+    func loadWorkouts() async -> [HKWorkout]? {
+        // MARK: Walking workouts
+        let walking = HKQuery.predicateForWorkouts(with: .walking)
+
+        let walkingSamples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
+            healthStore.execute(HKSampleQuery(sampleType: .workoutType(), predicate: walking, limit: HKObjectQueryNoLimit,sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
+                if let hasError = error {
+                    continuation.resume(throwing: hasError)
+                    return
+                }
+
+                guard let samples = samples else {
+                    fatalError("*** Invalid State: This can only fail if there was an error. ***")
+                }
+
+                continuation.resume(returning: samples)
+            }))
+        }
+
+        guard let walkingWorkouts = walkingSamples as? [HKWorkout] else {
+            return nil
+        }
+        
+        // MARK: Play workouts
+        let play = HKQuery.predicateForWorkouts(with: .play)
+
+        let playSamples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
+            healthStore.execute(HKSampleQuery(sampleType: .workoutType(), predicate: play, limit: HKObjectQueryNoLimit,sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
+                if let hasError = error {
+                    continuation.resume(throwing: hasError)
+                    return
+                }
+
+                guard let samples = samples else {
+                    fatalError("*** Invalid State: This can only fail if there was an error. ***")
+                }
+
+                continuation.resume(returning: samples)
+            }))
+        }
+
+        guard let playWorkouts = playSamples as? [HKWorkout] else {
+            return nil
+        }
+        
+        var workouts = [HKWorkout]()
+        workouts.append(contentsOf: walkingWorkouts)
+        workouts.append(contentsOf: playWorkouts)
+
+        workouts.sort {
+            $0.startDate > $1.startDate
+        }
+        todaysWorkouts = sumWorkouts(pastWorkouts: workouts)
+        return workouts
+    }
+    
+    // MARK: Sum workouts
+    @Published var todaysWorkouts: Int = 0
+    func sumWorkouts(pastWorkouts: [HKWorkout]?) -> Int {
+        guard pastWorkouts != nil else {
+            return 0
+        }
+        var sum: TimeInterval = 0
+        pastWorkouts?.forEach { pastWorkout in
+            if Calendar.current.isDateInToday(pastWorkout.startDate) {
+                sum += pastWorkout.endDate.timeIntervalSince(pastWorkout.startDate)
+            }
+        }
+        return Int(sum / 60)
+    }
+    
     // MARK: - Session State Control
     
     // The app's workout state.
@@ -165,13 +208,6 @@ class WorkoutManager: NSObject, ObservableObject {
     }
     
     func endWorkout() {
-        print(exerciseDates)
-        if exerciseDates.keys.contains(Date.now.stripTime()) {
-            exerciseDates[Date.now.stripTime()]! += Int(workoutTime / 60)
-        } else {
-            exerciseDates[Date.now.stripTime()] = Int(workoutTime / 60)
-        }
-        
         
         session?.end()
         if workout?.workoutActivityType == .walking {
@@ -194,14 +230,10 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var distance: Double = 0
     @Published var heartRate: Double = 0
     @Published var workout: HKWorkout?
-    @Published var totalTime: TimeInterval = 0
-    var workoutTime: TimeInterval = 0
     
     func updateForStatistics(_ statistics: HKStatistics?) {
         guard let statistics = statistics else { return }
         DispatchQueue.main.async {
-            self.totalTime = -(statistics.startDate.timeIntervalSinceNow) + TimeInterval(self.todaysExercise() * 60)
-            self.workoutTime = -statistics.startDate.timeIntervalSinceNow
             switch statistics.quantityType {
             case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
                 let energyUnit = HKUnit.kilocalorie()

@@ -30,10 +30,8 @@
 		762A405427F36716007A8250 /* PlayMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762A405327F36716007A8250 /* PlayMetricsView.swift */; };
 		7635964F27FDED810031B560 /* TotalTimeGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635964E27FDED810031B560 /* TotalTimeGauge.swift */; };
 		766EBD0F2804DF0E002702A0 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EBD0E2804DF0E002702A0 /* Colors.swift */; };
-		7672D64F280B60E6000C705D /* ComplicationViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7672D64E280B60E6000C705D /* ComplicationViews.swift */; };
-		7672D654280BA3BD000C705D /* Exercises.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7672D652280BA3BD000C705D /* Exercises.xcdatamodeld */; };
-		7672D656280BA524000C705D /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7672D655280BA524000C705D /* Persistence.swift */; };
 		76D6AD7C2774E79D00B464E8 /* DogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD7B2774E79D00B464E8 /* DogModel.swift */; };
+		76F359FF280DB3B6002A9467 /* SumSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F359FE280DB3B6002A9467 /* SumSequence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,10 +104,8 @@
 		762A405327F36716007A8250 /* PlayMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMetricsView.swift; sourceTree = "<group>"; };
 		7635964E27FDED810031B560 /* TotalTimeGauge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTimeGauge.swift; sourceTree = "<group>"; };
 		766EBD0E2804DF0E002702A0 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		7672D64E280B60E6000C705D /* ComplicationViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationViews.swift; sourceTree = "<group>"; };
-		7672D653280BA3BD000C705D /* Workouts.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Workouts.xcdatamodel; sourceTree = "<group>"; };
-		7672D655280BA524000C705D /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		76D6AD7B2774E79D00B464E8 /* DogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogModel.swift; sourceTree = "<group>"; };
+		76F359FE280DB3B6002A9467 /* SumSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SumSequence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +158,6 @@
 				5807A22627716080002847DF /* NotificationController.swift */,
 				5807A22827716080002847DF /* NotificationView.swift */,
 				5807A22A27716080002847DF /* ComplicationController.swift */,
-				7672D64E280B60E6000C705D /* ComplicationViews.swift */,
 				5807A22C27716081002847DF /* Assets.xcassets */,
 				5807A23127716081002847DF /* Info.plist */,
 				5807A23227716081002847DF /* PushNotificationPayload.apns */,
@@ -205,11 +200,10 @@
 		7619005D27A7078A006E3C6A /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				7672D652280BA3BD000C705D /* Exercises.xcdatamodeld */,
 				76D6AD7B2774E79D00B464E8 /* DogModel.swift */,
 				5807A24E27716572002847DF /* WorkoutManager.swift */,
 				766EBD0E2804DF0E002702A0 /* Colors.swift */,
-				7672D655280BA524000C705D /* Persistence.swift */,
+				76F359FE280DB3B6002A9467 /* SumSequence.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -359,11 +353,10 @@
 				5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */,
 				5807A24F27716572002847DF /* WorkoutManager.swift in Sources */,
 				7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */,
-				7672D654280BA3BD000C705D /* Exercises.xcdatamodeld in Sources */,
 				5807A2562771679D002847DF /* SummaryView.swift in Sources */,
 				5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */,
 				5807A22B27716080002847DF /* ComplicationController.swift in Sources */,
-				7672D656280BA524000C705D /* Persistence.swift in Sources */,
+				76F359FF280DB3B6002A9467 /* SumSequence.swift in Sources */,
 				5807A22327716080002847DF /* WoofApp.swift in Sources */,
 				762A405427F36716007A8250 /* PlayMetricsView.swift in Sources */,
 				7635964F27FDED810031B560 /* TotalTimeGauge.swift in Sources */,
@@ -372,7 +365,6 @@
 				5807A24D27716503002847DF /* ControlsView.swift in Sources */,
 				76D6AD7C2774E79D00B464E8 /* DogModel.swift in Sources */,
 				5807A22927716080002847DF /* NotificationView.swift in Sources */,
-				7672D64F280B60E6000C705D /* ComplicationViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,20 +688,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		7672D652280BA3BD000C705D /* Exercises.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				7672D653280BA3BD000C705D /* Workouts.xcdatamodel */,
-			);
-			currentVersion = 7672D653280BA3BD000C705D /* Workouts.xcdatamodel */;
-			name = Exercises.xcdatamodeld;
-			path = ../Views/Exercises.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 5807A20827716075002847DF /* Project object */;
 }

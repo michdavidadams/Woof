@@ -15,7 +15,7 @@ struct WalkMetricsView: View {
         
         TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date())) { context in
             VStack(alignment: .leading) {
-                TotalTimeGauge(current: workoutManager.totalTime, selectedWorkout: workoutManager.selectedWorkout)
+                TotalTimeGauge(current: (-(workoutManager.builder?.startDate?.timeIntervalSinceNow ?? 0) + Double(workoutManager.todaysWorkouts)), selectedWorkout: workoutManager.selectedWorkout)
                     .padding()
                     .ignoresSafeArea()
                     .scenePadding()
