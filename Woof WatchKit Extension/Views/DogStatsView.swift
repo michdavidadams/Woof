@@ -58,7 +58,6 @@ struct DogStatsView: View {
                 }
             }
         }.onAppear {
-            workoutManager.sumWorkouts()
             todaysExercise = workoutManager.todaysExercise ?? 0
         }
         

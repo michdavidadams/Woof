@@ -32,15 +32,20 @@ class WorkoutManager: NSObject, ObservableObject {
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
     public var builder: HKLiveWorkoutBuilder?
+    
+    // Location and pace tracking
     var myMetadata = ["Type of workout": "dog"]
     var pedometer: CMPedometer?
     var pace: Double = 0
-    
     var routeBuilder: HKWorkoutRouteBuilder?
     var locationManager: CLLocationManager?
     
+    @AppStorage("dog.currentStreak") var currentStreak: Int?
+    @AppStorage("dog.goal") var goal: Int?
+
     // Start the workout.
     func startWorkout(workoutType: HKWorkoutActivityType) {
+        lastExerciseDate = Date.now
         let configuration = HKWorkoutConfiguration()
         if workoutType == .walking {
             configuration.activityType = workoutType
@@ -107,102 +112,12 @@ class WorkoutManager: NSObject, ObservableObject {
         
         // Request location authorization
         locationManager?.requestWhenInUseAuthorization()
-        
     }
     
-    var walkingWorkouts = [HKWorkout]()
-    func loadWalkingWorkouts() {
-        //1. Get all workouts with the "Walking" activity type.
-        let workoutPredicate = HKQuery.predicateForWorkouts(with: .walking)
-        
-        //2. Get all workouts that only came from this app.
-        let sourcePredicate = HKQuery.predicateForObjects(from: .default())
-        
-        //3. Combine the predicates into a single predicate.
-        let compound = NSCompoundPredicate(andPredicateWithSubpredicates:
-                                            [workoutPredicate, sourcePredicate])
-        
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
-                                              ascending: true)
-        
-        let query = HKSampleQuery(
-            sampleType: .workoutType(),
-            predicate: compound,
-            limit: 0,
-            sortDescriptors: [sortDescriptor]) { (query, samples, error) in
-                DispatchQueue.main.async {
-                    guard
-                        let samples = samples as? [HKWorkout],
-                        error == nil
-                    else {
-                        return
-                    }
-                    
-                    self.walkingWorkouts = samples
-                }
-            }
-        
-        HKHealthStore().execute(query)
-    }
-    
-    var playWorkouts = [HKWorkout]()
-    func loadPlayWorkouts() {
-        //1. Get all workouts with the "Play" activity type.
-        let workoutPredicate = HKQuery.predicateForWorkouts(with: .play)
-        
-        //2. Get all workouts that only came from this app.
-        let sourcePredicate = HKQuery.predicateForObjects(from: .default())
-        
-        //3. Combine the predicates into a single predicate.
-        let compound = NSCompoundPredicate(andPredicateWithSubpredicates:
-                                            [workoutPredicate, sourcePredicate])
-        
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
-                                              ascending: true)
-        
-        let query = HKSampleQuery(
-            sampleType: .workoutType(),
-            predicate: compound,
-            limit: 0,
-            sortDescriptors: [sortDescriptor]) { (query, samples, error) in
-                DispatchQueue.main.async {
-                    guard
-                        let samples = samples as? [HKWorkout],
-                        error == nil
-                    else {
-                        return
-                    }
-                    
-                    self.playWorkouts = samples
-                }
-            }
-        
-        HKHealthStore().execute(query)
-    }
-    
-    // MARK: Sum workouts
+    // Today's exercise total
     @Published var todaysExercise: Int?
-    func sumWorkouts() {
-        var sum: TimeInterval = 0
-        if !walkingWorkouts.isEmpty {
-            print(walkingWorkouts)
-            walkingWorkouts.forEach { walkingWorkout in
-                if Calendar.current.isDateInToday(walkingWorkout.startDate) {
-                    sum += walkingWorkout.endDate.timeIntervalSince(walkingWorkout.startDate)
-                }
-            }
-        }
-        if !playWorkouts.isEmpty {
-            print(playWorkouts)
-            playWorkouts.forEach { playWorkout in
-                if Calendar.current.isDateInToday(playWorkout.startDate) {
-                    sum += playWorkout.endDate.timeIntervalSince(playWorkout.startDate)
-                }
-            }
-        }
-        todaysExercise = Int(sum / 60)
-        print("sum: \(Int(sum / 60))")
-    }
+    var lastExerciseDate: Date = Date.distantPast   // Used to track when to reset today's exercise
+    
     
     // MARK: - Session State Control
     
@@ -210,7 +125,6 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var running = false
     
     func togglePause() {
-        print("togglePause()")
         if running == true {
             self.pause()
         } else {
@@ -219,34 +133,32 @@ class WorkoutManager: NSObject, ObservableObject {
     }
     
     func pause() {
-        print("pause()")
         session?.pause()
     }
     
     func resume() {
-        print("resume()")
         session?.resume()
     }
     
     func endWorkout() {
+        // Update streak if today's exercise is less than exercise goal & if current workout brings total to exercise goal
         guard todaysExercise != nil else {
             todaysExercise = 0
             return
         }
-        todaysExercise! += Int(-(workout?.startDate.timeIntervalSinceNow ?? 0) / 60)
-        session?.end()
-        if workout?.workoutActivityType == .walking {
-            if workout != nil {
-                routeBuilder?.finishRoute(with: workout!, metadata: myMetadata) { (newRoute, error) in
-                    guard newRoute != nil else {
-                        // handle errors here
-                        return
-                    }
-                    // can do something with route here
+        if (todaysExercise ?? 0 < goal ?? 30) {
+            let total = (todaysExercise ?? 0) + Int(-(workout?.startDate.timeIntervalSinceNow ?? 0) / 60)
+            if total >= goal ?? 30 {
+                guard currentStreak != nil else {
+                    currentStreak = 0
+                    return
                 }
+                currentStreak! += 1
             }
-            stopMotionUpdates()
         }
+        todaysExercise! += Int(-(workout?.startDate.timeIntervalSinceNow ?? 0) / 60)
+        print("endWorkout():    todaysExercise = \(todaysExercise ?? 0)")
+        session?.end()
         showingSummaryView = true
     }
     
@@ -303,6 +215,19 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
                         self.workout = workout
                     }
                 }
+            }
+            if workout?.workoutActivityType == .walking {
+                if workout != nil {
+                    routeBuilder?.finishRoute(with: workout!, metadata: myMetadata) { (newRoute, error) in
+                        guard newRoute != nil else {
+                            // handle errors here
+                            return
+                        }
+                        // can do something with route here
+                    }
+                }
+                // Stop pedometer used for pace tracking
+                stopMotionUpdates()
             }
         }
         
@@ -369,13 +294,10 @@ extension WorkoutManager {
             pedometer?.startUpdates(from: Date.now, withHandler: { data, error in
                 guard let data = data, error == nil else { return }
                 self.pace = data.currentPace?.doubleValue ?? 0
-                print(self.pace)
                 if self.pace == 0 {
-                    print("pace = 0, so pause")
                     self.builder?.addWorkoutEvents([HKWorkoutEvent(type: .pause, dateInterval: DateInterval(start: Date(), duration: 0), metadata: [:])]) { success, error in
                     }
                 } else if self.pace > 0 {
-                    print("pace > 0, so resume")
                     self.builder?.addWorkoutEvents([HKWorkoutEvent(type: .resume, dateInterval: DateInterval(start: Date(), duration: 0), metadata: [:])]) { success, error in
                     }
                 }

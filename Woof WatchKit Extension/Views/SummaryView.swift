@@ -28,22 +28,22 @@ struct SummaryView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     SummaryMetricView(title: "Total Time",
-                                      value: durationFormatter.string(from: workoutManager.workout?.duration ?? 0.0) ?? "")
-                        .foregroundStyle(.yellow)
+                                      value: durationFormatter.string(from: Date.now.timeIntervalSince(workoutManager.workout?.startDate ?? Date.now)) ?? "")
+                    .foregroundStyle(Color.accentColor)
                     SummaryMetricView(title: "Total Distance",
                                       value: Measurement(value: workoutManager.workout?.totalDistance?.doubleValue(for: .meter()) ?? 0,
                                                          unit: UnitLength.meters)
                                         .formatted(.measurement(width: .abbreviated,
                                                                 usage: .road,
                                                                 numberFormatStyle: .number.precision(.fractionLength(2)))))
-                        .foregroundStyle(.green)
+                        .foregroundStyle(.blue)
                     SummaryMetricView(title: "Total Energy",
                                       value: Measurement(value: workoutManager.workout?.totalEnergyBurned?.doubleValue(for: .kilocalorie()) ?? 0,
                                                          unit: UnitEnergy.kilocalories)
                                         .formatted(.measurement(width: .abbreviated,
                                                                 usage: .workout,
                                                                 numberFormatStyle: .number.precision(.fractionLength(0)))))
-                        .foregroundStyle(.pink)
+                        .foregroundStyle(.red)
                     Text("Activity Rings")
                     ActivityRingsView(healthStore: workoutManager.healthStore)
                         .frame(width: 50, height: 50)

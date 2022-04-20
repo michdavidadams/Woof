@@ -31,7 +31,6 @@
 		7635964F27FDED810031B560 /* TotalTimeGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635964E27FDED810031B560 /* TotalTimeGauge.swift */; };
 		766EBD0F2804DF0E002702A0 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EBD0E2804DF0E002702A0 /* Colors.swift */; };
 		76D6AD7C2774E79D00B464E8 /* DogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD7B2774E79D00B464E8 /* DogModel.swift */; };
-		76F359FF280DB3B6002A9467 /* SumSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F359FE280DB3B6002A9467 /* SumSequence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,7 +104,6 @@
 		7635964E27FDED810031B560 /* TotalTimeGauge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTimeGauge.swift; sourceTree = "<group>"; };
 		766EBD0E2804DF0E002702A0 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		76D6AD7B2774E79D00B464E8 /* DogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogModel.swift; sourceTree = "<group>"; };
-		76F359FE280DB3B6002A9467 /* SumSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SumSequence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,7 +201,6 @@
 				76D6AD7B2774E79D00B464E8 /* DogModel.swift */,
 				5807A24E27716572002847DF /* WorkoutManager.swift */,
 				766EBD0E2804DF0E002702A0 /* Colors.swift */,
-				76F359FE280DB3B6002A9467 /* SumSequence.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -356,7 +353,6 @@
 				5807A2562771679D002847DF /* SummaryView.swift in Sources */,
 				5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */,
 				5807A22B27716080002847DF /* ComplicationController.swift in Sources */,
-				76F359FF280DB3B6002A9467 /* SumSequence.swift in Sources */,
 				5807A22327716080002847DF /* WoofApp.swift in Sources */,
 				762A405427F36716007A8250 /* PlayMetricsView.swift in Sources */,
 				7635964F27FDED810031B560 /* TotalTimeGauge.swift in Sources */,
