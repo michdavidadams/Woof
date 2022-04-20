@@ -29,15 +29,23 @@ class DogModel: ObservableObject {
         }
     }
     
+    @Published var todaysExercise: Int {
+        didSet {
+            UserDefaults.standard.set(currentStreak, forKey: "currentStreak")
+        }
+    }
+    
     init() {
         UserDefaults.standard.register(defaults: [
             "dog.name" : "Woof",
             "dog.goal" : 30,
-            "dog.currentStreak" : 0
+            "dog.currentStreak" : 0,
+            "dog.todaysExercise" : 0
         ])
         name = UserDefaults.standard.string(forKey: "dog.name") ?? "Woof"
         goal = UserDefaults.standard.integer(forKey: "dog.goal")
         currentStreak = UserDefaults.standard.integer(forKey: "dog.currentStreak")
+        todaysExercise = UserDefaults.standard.integer(forKey: "dog.todaysExercise")
     }
 }
 
@@ -57,6 +65,11 @@ class DogViewModel: ObservableObject {
     var currentStreak: Int {
         get { dog.currentStreak }
         set { dog.currentStreak = Int(newValue)}
+    }
+    
+    var todaysExercise: Int {
+        get { dog.todaysExercise }
+        set { dog.todaysExercise = Int(newValue)}
     }
     
 }

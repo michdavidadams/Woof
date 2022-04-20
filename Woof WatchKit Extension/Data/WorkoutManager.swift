@@ -147,7 +147,7 @@ class WorkoutManager: NSObject, ObservableObject {
             return
         }
         if (todaysExercise ?? 0 < goal ?? 30) {
-            let total = (todaysExercise ?? 0) + Int(-(workout?.startDate.timeIntervalSinceNow ?? 0) / 60)
+            let total = Int(Date().timeIntervalSince(self.builder?.startDate ?? Date.now) / 60)
             if total >= goal ?? 30 {
                 guard currentStreak != nil else {
                     currentStreak = 0
@@ -156,9 +156,22 @@ class WorkoutManager: NSObject, ObservableObject {
                 currentStreak! += 1
             }
         }
-        todaysExercise! += Int(-(workout?.startDate.timeIntervalSinceNow ?? 0) / 60)
-        print("endWorkout():    todaysExercise = \(todaysExercise ?? 0)")
+        todaysExercise! += Int(Date().timeIntervalSince(self.builder?.startDate ?? Date.now) / 60)
+        print("endWorkout():    todaysExercise = \(todaysExercise ?? 0), workout start date = \(String(describing: self.builder?.startDate))")
         session?.end()
+        if workout?.workoutActivityType == .walking {
+            if workout != nil {
+                routeBuilder?.finishRoute(with: workout!, metadata: myMetadata) { (newRoute, error) in
+                    guard newRoute != nil else {
+                        // handle errors here
+                        return
+                    }
+                    // can do something with route here
+                }
+            }
+            // Stop pedometer used for pace tracking
+            stopMotionUpdates()
+        }
         showingSummaryView = true
     }
     
@@ -216,19 +229,7 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
                     }
                 }
             }
-            if workout?.workoutActivityType == .walking {
-                if workout != nil {
-                    routeBuilder?.finishRoute(with: workout!, metadata: myMetadata) { (newRoute, error) in
-                        guard newRoute != nil else {
-                            // handle errors here
-                            return
-                        }
-                        // can do something with route here
-                    }
-                }
-                // Stop pedometer used for pace tracking
-                stopMotionUpdates()
-            }
+            
         }
         
     }
