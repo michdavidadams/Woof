@@ -57,7 +57,7 @@ class WorkoutManager: NSObject, ObservableObject {
             routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: nil)
             pedometer = CMPedometer()
             startPedometerUpdates()
-        } else if workoutType == .play {
+        } else {
             configuration.activityType = workoutType
             configuration.locationType = .indoor
         }
@@ -92,7 +92,7 @@ class WorkoutManager: NSObject, ObservableObject {
         // The quantity type to write to the health store.
         let typesToShare: Set = [
             HKQuantityType.workoutType(),
-            HKSeriesType.workoutRoute(),
+            HKSeriesType.workoutRoute()
         ]
         
         // The quantity types to read from the health store.
@@ -117,7 +117,13 @@ class WorkoutManager: NSObject, ObservableObject {
     // Today's exercise total
     @Published var todaysExercise: Int?
     var lastExerciseDate: Date = Date.distantPast   // Used to track when to reset today's exercise
-    
+    // Check if new day and reset streak if needed
+    func checkStreak() {
+        if !Calendar.current.isDateInToday(lastExerciseDate) && (todaysExercise ?? 0 < goal ?? 30) {
+            currentStreak = 0
+            todaysExercise = 0
+        }
+    }
     
     // MARK: - Session State Control
     
@@ -286,7 +292,7 @@ extension Date {
 
 // MARK: - Pedometer functions
 extension WorkoutManager {
-    private var isPedometerAvailable: Bool{
+    private var isPedometerAvailable: Bool {
         return CMPedometer.isPedometerEventTrackingAvailable() && CMPedometer.isPaceAvailable()
     }
     
