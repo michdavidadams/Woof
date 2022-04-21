@@ -62,9 +62,7 @@ struct StartView: View {
         }
         .onAppear {
             workoutManager.requestAuthorization()
-            if !Calendar.current.isDateInToday(workoutManager.lastExerciseDate) {
-                workoutManager.todaysExercise = 0
-            }
+            workoutManager.checkStreak()
         }
         
     }
