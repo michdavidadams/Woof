@@ -16,14 +16,18 @@ struct WalkMetricsView: View {
         
         TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date())) { context in
             VStack(alignment: .leading) {
-                TotalTimeGauge(current: (-(workoutManager.builder?.startDate?.timeIntervalSinceNow ?? 0) + Double(workoutManager.todaysExercise ?? 0)), selectedWorkout: workoutManager.selectedWorkout)
+                // Displays total workout time; combines today's exercise variable with current workout time
+                TotalTimeProgressView(current: (-(workoutManager.builder?.startDate?.timeIntervalSinceNow ?? 0) + Double(workoutManager.todaysExercise ?? 0)), selectedWorkout: workoutManager.selectedWorkout)
                     .padding()
                     .ignoresSafeArea()
                     .scenePadding()
                 VStack(alignment: .leading) {
+                    // Displays total time of current workout
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime ?? 0, showSubseconds: context.cadence == .live)
                         .foregroundColor(.green)
+                    // Displays current heart rate
                     Text(workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
+                    // Displays distance walked
                     Text(Measurement(value: workoutManager.distance, unit: UnitLength.meters).formatted(.measurement(width: .abbreviated, usage: .road)))
                 }
                 .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps())

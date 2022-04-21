@@ -33,7 +33,7 @@ struct DogStatsView: View {
                         Text("\(todaysExercise )/\(goal ?? 30) MIN")
                             .font(.title3)
                             .fontWeight(.semibold)
-                            .foregroundColor(Color.green)
+                            .foregroundColor(.accentColor)
                             .multilineTextAlignment(.leading)
                     }
                 }
@@ -52,7 +52,7 @@ struct DogStatsView: View {
                         Text("\(currentStreak ?? 0) DAYS")
                             .font(.title3)
                             .fontWeight(.semibold)
-                            .foregroundColor(Color.yellow)
+                            .foregroundColor(Color("lightGreen"))
                             .multilineTextAlignment(.leading)
                     }
                 }

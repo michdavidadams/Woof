@@ -24,7 +24,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func handleSharedComplicationDescriptors(_ complicationDescriptors: [CLKComplicationDescriptor]) {
         // Do any necessary work to support these newly shared complication descriptors
     }
-
+    
     // MARK: - Timeline Configuration
     
     func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
@@ -42,25 +42,30 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
         // Call the handler with the current timeline entry
         if let template = getComplicationTemplate(for: complication, using: Date()) {
-                    let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
-                    handler(entry)
-                } else {
-                    handler(nil)
-                }
+            let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+            handler(entry)
+        } else {
+            handler(nil)
+        }
     }
     
     func getComplicationTemplate(for complication: CLKComplication, using date: Date) -> CLKComplicationTemplate? {
-            switch complication.family {
-            case .graphicCorner:
-                return CLKComplicationTemplateGraphicCornerCircularImage(imageProvider: CLKFullColorImageProvider(fullColorImage: UIImage(named: "Complication/Graphic Corner")!))
-            case .graphicCircular:
-                return CLKComplicationTemplateGraphicCircularImage(imageProvider: CLKFullColorImageProvider(fullColorImage: UIImage(named: "Complication/Graphic Circular")!))
-            case .circularSmall:
-                return CLKComplicationTemplateCircularSmallSimpleImage(imageProvider: CLKImageProvider(onePieceImage: UIImage(named: "Complication/Circular")!))
-            default:
-                return nil
-            }
+        
+        switch complication.family {
+        case .graphicCorner:
+            let fullColorImage = UIImage(named: "Complication/Graphic Corner")!
+            let tintedImageProvider = CLKImageProvider(onePieceImage: fullColorImage)
+            return CLKComplicationTemplateGraphicCornerCircularImage(imageProvider: CLKFullColorImageProvider(fullColorImage: fullColorImage, tintedImageProvider: tintedImageProvider))
+        case .graphicCircular:
+            let fullColorImage = UIImage(named: "Complication/Graphic Circular")!
+            let tintedImageProvider = CLKImageProvider(onePieceImage: fullColorImage)
+            return CLKComplicationTemplateGraphicCircularImage(imageProvider: CLKFullColorImageProvider(fullColorImage: fullColorImage, tintedImageProvider: tintedImageProvider))
+        case .circularSmall:
+            return CLKComplicationTemplateCircularSmallSimpleImage(imageProvider: CLKImageProvider(onePieceImage: UIImage(named: "Complication/Circular")!))
+        default:
+            return nil
         }
+    }
     
     func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
         handler(nil)
@@ -71,11 +76,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         // This method will be called once per supported complication, and the results will be cached
         let template = getComplicationTemplate(for: complication, using: Date())
-                if let t = template {
-                    handler(t)
-                } else {
-                    handler(nil)
-                }
+        if let t = template {
+            handler(t)
+        } else {
+            handler(nil)
+        }
         
     }
     
