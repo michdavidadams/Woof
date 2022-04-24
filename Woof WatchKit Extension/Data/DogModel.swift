@@ -35,17 +35,25 @@ class DogModel: ObservableObject {
         }
     }
     
+    @Published var lastExerciseDate: Double {
+        didSet {
+            UserDefaults.standard.set(lastExerciseDate, forKey: "lastExerciseDate")
+        }
+    }
+    
     init() {
         UserDefaults.standard.register(defaults: [
             "dog.name" : "Woof",
             "dog.goal" : 30,
             "dog.currentStreak" : 0,
-            "dog.todaysExercise" : 0
+            "dog.todaysExercise" : 0,
+            "dog.lastExerciseDate" : Date.distantPast.timeIntervalSince1970
         ])
         name = UserDefaults.standard.string(forKey: "dog.name") ?? "Woof"
         goal = UserDefaults.standard.integer(forKey: "dog.goal")
         currentStreak = UserDefaults.standard.integer(forKey: "dog.currentStreak")
         todaysExercise = UserDefaults.standard.integer(forKey: "dog.todaysExercise")
+        lastExerciseDate = UserDefaults.standard.double(forKey: "dog.lastExerciseDate")
     }
 }
 
@@ -70,6 +78,11 @@ class DogViewModel: ObservableObject {
     var todaysExercise: Int {
         get { dog.todaysExercise }
         set { dog.todaysExercise = Int(newValue)}
+    }
+    
+    var lastExerciseDate: Double {
+        get { dog.lastExerciseDate }
+        set { dog.lastExerciseDate = newValue }
     }
     
 }

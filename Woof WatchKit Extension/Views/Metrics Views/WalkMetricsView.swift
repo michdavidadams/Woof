@@ -11,20 +11,21 @@ import HealthKit
 struct WalkMetricsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @AppStorage("dog.goal") var goal: Int?
+    @AppStorage("dog.todaysExercise") var todaysExercise: Int?
     
     var body: some View {
         
         TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date())) { context in
             VStack(alignment: .leading) {
                 // Displays total workout time; combines today's exercise variable with current workout time
-                TotalTimeProgressView(current: (-(workoutManager.builder?.startDate?.timeIntervalSinceNow ?? 0) + Double(workoutManager.todaysExercise ?? 0)), selectedWorkout: workoutManager.selectedWorkout)
+                TotalTimeProgressView(current: (Date.now.timeIntervalSince(workoutManager.builder?.startDate ?? Date.now) + Double(todaysExercise ?? 0) * 60), selectedWorkout: workoutManager.selectedWorkout)
                     .padding()
                     .ignoresSafeArea()
                     .scenePadding()
                 VStack(alignment: .leading) {
                     // Displays total time of current workout
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime ?? 0, showSubseconds: context.cadence == .live)
-                        .foregroundColor(.green)
+                        .foregroundColor(Color("darkGreen"))
                     // Displays current heart rate
                     Text(workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
                     // Displays distance walked

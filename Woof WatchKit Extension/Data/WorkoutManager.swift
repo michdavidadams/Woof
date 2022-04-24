@@ -43,9 +43,10 @@ class WorkoutManager: NSObject, ObservableObject {
     @AppStorage("dog.currentStreak") var currentStreak: Int?
     @AppStorage("dog.goal") var goal: Int?
 
+
     // Start the workout.
     func startWorkout(workoutType: HKWorkoutActivityType) {
-        lastExerciseDate = Date.now
+        lastExerciseDate = Date.now.timeIntervalSince1970
         let configuration = HKWorkoutConfiguration()
         if workoutType == .walking {
             configuration.activityType = workoutType
@@ -115,11 +116,11 @@ class WorkoutManager: NSObject, ObservableObject {
     }
     
     // Today's exercise total
-    @Published var todaysExercise: Int?
-    var lastExerciseDate: Date = Date.distantPast   // Used to track when to reset today's exercise
+    @AppStorage("dog.todaysExercise") var todaysExercise: Int?
     // Check if new day and reset streak if needed
+    @AppStorage("dog.lastExerciseDate") var lastExerciseDate: Double? // Used to track when to reset today's exercise
     func checkStreak() {
-        if !Calendar.current.isDateInToday(lastExerciseDate) && (todaysExercise ?? 0 < goal ?? 30) {
+        if !Calendar.current.isDateInToday(Date(timeIntervalSince1970: lastExerciseDate ?? 0.0)) && (todaysExercise ?? 0 < goal ?? 30) {
             currentStreak = 0
             todaysExercise = 0
         }
@@ -279,14 +280,6 @@ extension WorkoutManager: CLLocationManagerDelegate {
                 // handle errors here
             }
         }
-    }
-}
-
-extension Date {
-    func stripTime() -> Date {
-        let components = Calendar.current.dateComponents([.year, .month, .day], from: self)
-        let date = Calendar.current.date(from: components)
-        return date!
     }
 }
 

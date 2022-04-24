@@ -8,6 +8,7 @@
 import Combine
 import SwiftUI
 import HealthKit
+import UserNotifications
 
 struct StartView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -15,6 +16,8 @@ struct StartView: View {
     @AppStorage("dog.name") var name: String?
     
     var workoutTypes: [HKWorkoutActivityType] = [.walking, .play]
+    
+    let center = UNUserNotificationCenter.current()
     
     var body: some View {
         NavigationView {
@@ -63,6 +66,11 @@ struct StartView: View {
         .onAppear {
             workoutManager.requestAuthorization()
             workoutManager.checkStreak()
+            center.requestAuthorization(options: [.alert, .sound]) { granted, error in
+                if let error = error {
+                    // handle error here
+                }
+            }
         }
         
     }
@@ -87,6 +95,17 @@ extension HKWorkoutActivityType: Identifiable {
             return "Play"
         default:
             return ""
+        }
+    }
+    
+    var image: Image {
+        switch self {
+        case .walking:
+            return Image(systemName: "pawprint.fill")
+        case .play:
+            return Image("tennisBall")
+        default:
+            return Image(systemName: "pawprint.fill")
         }
     }
 }
