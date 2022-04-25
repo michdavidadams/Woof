@@ -59,18 +59,12 @@ struct StartView: View {
             .navigationTitle("\(name ?? "Woof")")
             .navigationBarHidden(false)
             .navigationBarTitleDisplayMode(.large)
-            
             .navigationViewStyle(.automatic)
             .listStyle(.carousel)
         }
         .onAppear {
             workoutManager.requestAuthorization()
             workoutManager.checkStreak()
-            center.requestAuthorization(options: [.alert, .sound]) { granted, error in
-                if let error = error {
-                    // handle error here
-                }
-            }
         }
         
     }

@@ -10,18 +10,8 @@ import SwiftUI
 import UserNotifications
 
 class NotificationController: WKUserNotificationHostingController<NotificationView> {
-    var title: String?
-    var message: String?
-    var todaysExercise: Int?
-    var goal: Int?
-
     override var body: NotificationView {
-        return NotificationView(
-            title: title,
-            message: message,
-            todaysExercise: todaysExercise,
-            goal: goal
-        )
+        return NotificationView()
     }
 
     override func willActivate() {
@@ -38,15 +28,6 @@ class NotificationController: WKUserNotificationHostingController<NotificationVi
         // This method is called when a notification needs to be presented.
         // Implement it if you use a dynamic notification interface.
         // Populate your dynamic notification interface as quickly as possible.
-        let notificationData = notification.request.content.userInfo as? [String: Any]
-        
-        let aps = notificationData?["aps"] as? [String: Any]
-        let alert = aps?["alert"] as? [String: Any]
-
-        title = alert?["title"] as? String
-        message = alert?["body"] as? String
-        todaysExercise = notificationData?["todaysExercise"] as? Int
-        goal = notificationData?["goal"] as? Int
         
     }
 }

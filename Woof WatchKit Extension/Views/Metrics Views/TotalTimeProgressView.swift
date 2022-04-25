@@ -21,8 +21,7 @@ struct TotalTimeProgressView: View {
                 .foregroundColor(Color("lightGreen"))
         })
         .progressViewStyle(CircularProgressViewStyle(tint: .accentColor))
-        .onAppear {
-            print("TotalTimeProgressView current: \(current)")
-        }
+        
+        
     }
 }

@@ -10,7 +10,6 @@ import HealthKit
 
 struct WalkMetricsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @AppStorage("dog.goal") var goal: Int?
     @AppStorage("dog.todaysExercise") var todaysExercise: Int?
     
     var body: some View {

@@ -15,6 +15,7 @@ struct ControlsView: View {
             VStack {
                 Button {
                     workoutManager.endWorkout()
+                    WKInterfaceDevice.current().play(.success)
                 } label: {
                     Image(systemName: "xmark")
                 }
@@ -25,6 +26,7 @@ struct ControlsView: View {
             VStack {
                 Button {
                     workoutManager.togglePause()
+                    WKInterfaceDevice.current().play(.click)
                 } label: {
                     Image(systemName: workoutManager.running ? "pause" : "play")
                 }
