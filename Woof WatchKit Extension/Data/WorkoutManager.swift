@@ -53,6 +53,7 @@ class WorkoutManager: NSObject, ObservableObject {
             configuration.locationType = .outdoor
             // location support
             locationManager = CLLocationManager()
+            locationManager?.delegate = self
             locationManager?.desiredAccuracy = kCLLocationAccuracyBest
             locationManager?.startUpdatingLocation()
             routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: nil)

@@ -30,7 +30,7 @@ struct ControlsView: View {
                 } label: {
                     Image(systemName: workoutManager.running ? "pause" : "play")
                 }
-                .tint(.yellow)
+                .tint(.accentColor)
                 .font(.title2)
                 Text(workoutManager.running ? "Pause" : "Resume")
             }

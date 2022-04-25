@@ -35,7 +35,7 @@ struct StartView: View {
                             .foregroundColor(.accentColor)
                     }
                 }
-                .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
+                .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                 NavigationLink(destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout) {
                     HStack {
                         Text("Play")
@@ -44,7 +44,7 @@ struct StartView: View {
                             .foregroundColor(.accentColor)
                     }
                 }
-                .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
+                .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                 NavigationLink(destination: SettingsView()) {
                     HStack {
                         Text("Settings")
@@ -53,7 +53,7 @@ struct StartView: View {
                             .foregroundColor(.accentColor)
                     }
                 }
-                .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
+                .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                 
             }
             .navigationTitle("\(name ?? "Woof")")

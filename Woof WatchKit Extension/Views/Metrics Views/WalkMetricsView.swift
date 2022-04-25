@@ -18,8 +18,6 @@ struct WalkMetricsView: View {
             VStack(alignment: .leading) {
                 // Displays total workout time; combines today's exercise variable with current workout time
                 TotalTimeProgressView(current: (Date.now.timeIntervalSince(workoutManager.builder?.startDate ?? Date.now) + Double(todaysExercise ?? 0) * 60), selectedWorkout: workoutManager.selectedWorkout)
-                    .padding()
-                    .ignoresSafeArea()
                     .scenePadding()
                 VStack(alignment: .leading) {
                     // Displays total time of current workout
