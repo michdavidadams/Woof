@@ -39,14 +39,9 @@ class WorkoutManager: NSObject, ObservableObject {
     var pace: Double = 0
     var routeBuilder: HKWorkoutRouteBuilder?
     var locationManager: CLLocationManager?
-    
-    @AppStorage("dog.currentStreak") var currentStreak: Int?
-    @AppStorage("dog.goal") var goal: Int?
-
 
     // Start the workout.
     func startWorkout(workoutType: HKWorkoutActivityType) {
-        lastExerciseDate = Date.now.timeIntervalSince1970
         let configuration = HKWorkoutConfiguration()
         if workoutType == .walking {
             configuration.activityType = workoutType
@@ -116,17 +111,6 @@ class WorkoutManager: NSObject, ObservableObject {
         locationManager?.requestWhenInUseAuthorization()
     }
     
-    // Today's exercise total
-    @AppStorage("dog.todaysExercise") var todaysExercise: Int?
-    // Check if new day and reset streak if needed
-    @AppStorage("dog.lastExerciseDate") var lastExerciseDate: Double? // Used to track when to reset today's exercise
-    func checkStreak() {
-        if !Calendar.current.isDateInToday(Date(timeIntervalSince1970: lastExerciseDate ?? 0.0)) && (todaysExercise ?? 0 < goal ?? 30) {
-            currentStreak = 0
-            todaysExercise = 0
-        }
-    }
-    
     // MARK: - Session State Control
     
     // The app's workout state.
@@ -149,23 +133,7 @@ class WorkoutManager: NSObject, ObservableObject {
     }
     
     func endWorkout() {
-        // Update streak if today's exercise is less than exercise goal & if current workout brings total to exercise goal
-        guard todaysExercise != nil else {
-            todaysExercise = 0
-            return
-        }
-        if (todaysExercise ?? 0 < goal ?? 30) {
-            let total = Int(Date().timeIntervalSince(self.builder?.startDate ?? Date.now) / 60)
-            if total >= goal ?? 30 {
-                guard currentStreak != nil else {
-                    currentStreak = 0
-                    return
-                }
-                currentStreak! += 1
-            }
-        }
-        todaysExercise! += Int(Date().timeIntervalSince(self.builder?.startDate ?? Date.now) / 60)
-        print("endWorkout():    todaysExercise = \(todaysExercise ?? 0), workout start date = \(String(describing: self.builder?.startDate))")
+        updateStreak(recentExerciseMinutes: Date().timeIntervalSince(self.builder?.startDate ?? Date.now))
         session?.end()
         if workout?.workoutActivityType == .walking {
             if workout != nil {

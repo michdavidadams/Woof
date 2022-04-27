@@ -61,7 +61,7 @@ struct StartView: View {
         }
         .onAppear {
             workoutManager.requestAuthorization()
-            workoutManager.checkStreak()
+            updateStreak(recentExerciseMinutes: 0.0)
         }
         
     }

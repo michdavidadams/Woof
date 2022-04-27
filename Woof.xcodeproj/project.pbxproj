@@ -26,6 +26,7 @@
 		5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A2532771678C002847DF /* ActivityRingsView.swift */; };
 		5807A2562771679D002847DF /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A2552771679D002847DF /* SummaryView.swift */; };
 		5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A25A2773E7DC002847DF /* SettingsView.swift */; };
+		7609BFB428185B320093EC15 /* Update Streak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7609BFB328185B320093EC15 /* Update Streak.swift */; };
 		7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7619005E27A9D9C9006E3C6A /* DogStatsView.swift */; };
 		762A405427F36716007A8250 /* PlayMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762A405327F36716007A8250 /* PlayMetricsView.swift */; };
 		7635964F27FDED810031B560 /* TotalTimeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635964E27FDED810031B560 /* TotalTimeProgressView.swift */; };
@@ -98,6 +99,7 @@
 		5807A2532771678C002847DF /* ActivityRingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRingsView.swift; sourceTree = "<group>"; };
 		5807A2552771679D002847DF /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		5807A25A2773E7DC002847DF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7609BFB328185B320093EC15 /* Update Streak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Update Streak.swift"; sourceTree = "<group>"; };
 		7619005E27A9D9C9006E3C6A /* DogStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogStatsView.swift; sourceTree = "<group>"; };
 		762A405327F36716007A8250 /* PlayMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMetricsView.swift; sourceTree = "<group>"; };
 		7635964E27FDED810031B560 /* TotalTimeProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTimeProgressView.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			children = (
 				76D6AD7B2774E79D00B464E8 /* DogModel.swift */,
 				5807A24E27716572002847DF /* WorkoutManager.swift */,
+				7609BFB328185B320093EC15 /* Update Streak.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				5807A24727716398002847DF /* SessionPagingView.swift in Sources */,
 				5807A22727716080002847DF /* NotificationController.swift in Sources */,
 				5807A22527716080002847DF /* StartView.swift in Sources */,
+				7609BFB428185B320093EC15 /* Update Streak.swift in Sources */,
 				5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */,
 				5807A24F27716572002847DF /* WorkoutManager.swift in Sources */,
 				7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */,

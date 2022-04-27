@@ -14,7 +14,7 @@ struct DogStatsView: View {
     @AppStorage("dog.name") var name: String?
     @AppStorage("dog.goal") var goal: Int?
     @AppStorage("dog.currentStreak") var currentStreak: Int?
-    @State var todaysExercise: Int = 0
+    @AppStorage("dog.todaysExercise") var todaysExercise: Int?
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
@@ -30,7 +30,7 @@ struct DogStatsView: View {
                             .multilineTextAlignment(.leading)
                             .lineLimit(1)
                             .textCase(.uppercase)
-                        Text("\(todaysExercise )/\(goal ?? 30) Min")
+                        Text("\(todaysExercise ?? 0)/\(goal ?? 30) Min")
                             .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .fontWeight(.semibold)
                             .foregroundColor(.accentColor)
@@ -57,8 +57,6 @@ struct DogStatsView: View {
                     }
                 }
             }
-        }.onAppear {
-            todaysExercise = workoutManager.todaysExercise ?? 0
         }
         
     }

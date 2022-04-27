@@ -23,6 +23,5 @@ struct WoofApp: App {
             .environmentObject(workoutManager)
         }
         
-        WKNotificationScene(controller: NotificationController.self, category: "ExerciseGoalReached")
     }
 }

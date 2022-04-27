@@ -40,6 +40,11 @@ class DogModel: ObservableObject {
             UserDefaults.standard.set(lastExerciseDate, forKey: "lastExerciseDate")
         }
     }
+    @Published var dateAwarded: Bool {
+        didSet {
+            UserDefaults.standard.set(dateAwarded, forKey: "dateAwarded")
+        }
+    }
     
     init() {
         UserDefaults.standard.register(defaults: [
@@ -47,13 +52,15 @@ class DogModel: ObservableObject {
             "dog.goal" : 30,
             "dog.currentStreak" : 0,
             "dog.todaysExercise" : 0,
-            "dog.lastExerciseDate" : Date.distantPast.timeIntervalSince1970
+            "dog.lastExerciseDate" : Date.distantPast.timeIntervalSince1970,
+            "dog.dateAwarded" : true
         ])
         name = UserDefaults.standard.string(forKey: "dog.name") ?? "Woof"
         goal = UserDefaults.standard.integer(forKey: "dog.goal")
         currentStreak = UserDefaults.standard.integer(forKey: "dog.currentStreak")
         todaysExercise = UserDefaults.standard.integer(forKey: "dog.todaysExercise")
         lastExerciseDate = UserDefaults.standard.double(forKey: "dog.lastExerciseDate")
+        dateAwarded = (UserDefaults.standard.data(forKey: "dog.dateAwarded") != nil)
     }
 }
 
@@ -83,6 +90,11 @@ class DogViewModel: ObservableObject {
     var lastExerciseDate: Double {
         get { dog.lastExerciseDate }
         set { dog.lastExerciseDate = newValue }
+    }
+    
+    var dateAwarded: Bool {
+        get { dog.dateAwarded }
+        set { dog.dateAwarded = newValue }
     }
     
 }

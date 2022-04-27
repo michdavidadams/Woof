@@ -36,6 +36,9 @@ struct PlayMetricsView: View {
                 .scenePadding()
             }
         }
+        .onAppear {
+            updateStreak(recentExerciseMinutes: 0.0)
+        }
     }
 }
 
