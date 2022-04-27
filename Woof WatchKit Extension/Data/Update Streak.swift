@@ -13,10 +13,8 @@ public func updateStreak(recentExerciseMinutes: TimeInterval) {
     @AppStorage("dog.currentStreak") var currentStreak: Int?
     @AppStorage("dog.goal") var goal: Int?
     @AppStorage("dog.todaysExercise") var todaysExercise: Int?
+    @AppStorage("dog.awardedDate") var awardedDate: Double?
     @AppStorage("dog.lastExerciseDate") var lastExerciseDate: Double?
-    @AppStorage("dog.dateAwarded") var dateAwarded: Bool?
-    let didExerciseToday = Calendar.current.isDateInToday(Date(timeIntervalSince1970: lastExerciseDate ?? Date.distantPast.timeIntervalSince1970))
-    let didExerciseYesterday = Calendar.current.isDateInYesterday(Date(timeIntervalSince1970: lastExerciseDate ?? Date.distantPast.timeIntervalSince1970))
     
     guard todaysExercise != nil else {
         todaysExercise = 0
@@ -30,43 +28,34 @@ public func updateStreak(recentExerciseMinutes: TimeInterval) {
         currentStreak = 0
         return
     }
-    guard lastExerciseDate != nil else {
-        lastExerciseDate = Date.distantPast.timeIntervalSince1970
-        return
-    }
-    guard dateAwarded != nil else {
-        dateAwarded = false
+    guard awardedDate != nil else {
+        awardedDate = Date.distantPast.timeIntervalSince1970
         return
     }
     
-    // if exercised yesterday but didn't meet goal, reset current streak
-    if didExerciseYesterday && (todaysExercise! < goal!) {
+    // if streak wasn't awarded yesterday and today, set current streak to 0
+    let streakAwardedYesterday = Calendar.current.isDateInYesterday(Date(timeIntervalSince1970: awardedDate ?? Date.distantPast.timeIntervalSince1970))
+    let streakAwardedToday = Calendar.current.isDateInYesterday(Date(timeIntervalSince1970: awardedDate ?? Date.distantPast.timeIntervalSince1970))
+    if !streakAwardedYesterday && !streakAwardedToday {
         currentStreak = 0
     }
     
-    // if last exercise date not today, reset today's exercise to 0
+    // if last exercise date wasn't today, reset today's exercise to 0
+    let didExerciseToday = Calendar.current.isDateInToday(Date(timeIntervalSince1970: lastExerciseDate ?? Date.distantPast.timeIntervalSince1970))
     if !didExerciseToday {
         todaysExercise = 0
-        dateAwarded = false
-        // If exercise date not yesterday or today, reset current streak
-        if !didExerciseYesterday {
-            currentStreak = 0
-        }
     }
     
-    // if today's exercise less than goal, and total is more than goal, add 1 to current streak
-    let total = Int(recentExerciseMinutes / 60)
-    if ((todaysExercise! + total) >= goal!) && !(dateAwarded!) {
+    // if exercise goal reached, and date awarded isn't today, increase streak and set streak date awarded to today
+    if !streakAwardedToday && ((todaysExercise! + Int(recentExerciseMinutes / 60)) >= goal!) {
         currentStreak! += 1
-        dateAwarded = true
+        awardedDate = Date().timeIntervalSince1970
     }
     
-    // if didn't exercise, don't add date to lastExerciseDate
-    if recentExerciseMinutes != 0.0 {
+    // if just exercised, set date last exercised to today and increase today's exercise minutes
+    if recentExerciseMinutes > 0.0 {
         todaysExercise! += Int(recentExerciseMinutes / 60)
-        lastExerciseDate = Date.now.timeIntervalSince1970
+        lastExerciseDate = Date().timeIntervalSince1970
     }
-    
-    print("Today's Exercise: \(todaysExercise!), didExerciseToday: \(didExerciseToday), didExerciseYesterday: \(didExerciseYesterday), Current Streak: \(currentStreak!)")
     
 }

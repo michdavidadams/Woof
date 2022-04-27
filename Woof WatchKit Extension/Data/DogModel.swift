@@ -35,14 +35,15 @@ class DogModel: ObservableObject {
         }
     }
     
+    @Published var awardedDate: Double {
+        didSet {
+            UserDefaults.standard.set(awardedDate, forKey: "awardedDate")
+        }
+    }
+    
     @Published var lastExerciseDate: Double {
         didSet {
             UserDefaults.standard.set(lastExerciseDate, forKey: "lastExerciseDate")
-        }
-    }
-    @Published var dateAwarded: Bool {
-        didSet {
-            UserDefaults.standard.set(dateAwarded, forKey: "dateAwarded")
         }
     }
     
@@ -52,15 +53,16 @@ class DogModel: ObservableObject {
             "dog.goal" : 30,
             "dog.currentStreak" : 0,
             "dog.todaysExercise" : 0,
-            "dog.lastExerciseDate" : Date.distantPast.timeIntervalSince1970,
-            "dog.dateAwarded" : false
+            "dog.awardedDate" : Date.distantPast.timeIntervalSince1970,
+            "dog.lastExerciseDate" : Date.distantPast.timeIntervalSince1970
+
         ])
         name = UserDefaults.standard.string(forKey: "dog.name") ?? "Woof"
         goal = UserDefaults.standard.integer(forKey: "dog.goal")
         currentStreak = UserDefaults.standard.integer(forKey: "dog.currentStreak")
         todaysExercise = UserDefaults.standard.integer(forKey: "dog.todaysExercise")
+        awardedDate = UserDefaults.standard.double(forKey: "dog.awardedDate")
         lastExerciseDate = UserDefaults.standard.double(forKey: "dog.lastExerciseDate")
-        dateAwarded = (UserDefaults.standard.data(forKey: "dog.dateAwarded") != nil)
     }
 }
 
@@ -87,14 +89,14 @@ class DogViewModel: ObservableObject {
         set { dog.todaysExercise = Int(newValue)}
     }
     
+    var awardedDate: Double {
+        get { dog.awardedDate }
+        set { dog.awardedDate = newValue }
+    }
+    
     var lastExerciseDate: Double {
         get { dog.lastExerciseDate }
         set { dog.lastExerciseDate = newValue }
-    }
-    
-    var dateAwarded: Bool {
-        get { dog.dateAwarded }
-        set { dog.dateAwarded = newValue }
     }
     
 }
