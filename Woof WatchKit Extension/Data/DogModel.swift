@@ -53,7 +53,7 @@ class DogModel: ObservableObject {
             "dog.currentStreak" : 0,
             "dog.todaysExercise" : 0,
             "dog.lastExerciseDate" : Date.distantPast.timeIntervalSince1970,
-            "dog.dateAwarded" : true
+            "dog.dateAwarded" : false
         ])
         name = UserDefaults.standard.string(forKey: "dog.name") ?? "Woof"
         goal = UserDefaults.standard.integer(forKey: "dog.goal")

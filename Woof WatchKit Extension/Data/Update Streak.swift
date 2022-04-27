@@ -14,6 +14,7 @@ public func updateStreak(recentExerciseMinutes: TimeInterval) {
     @AppStorage("dog.goal") var goal: Int?
     @AppStorage("dog.todaysExercise") var todaysExercise: Int?
     @AppStorage("dog.lastExerciseDate") var lastExerciseDate: Double?
+    @AppStorage("dog.dateAwarded") var dateAwarded: Bool?
     let didExerciseToday = Calendar.current.isDateInToday(Date(timeIntervalSince1970: lastExerciseDate ?? Date.distantPast.timeIntervalSince1970))
     let didExerciseYesterday = Calendar.current.isDateInYesterday(Date(timeIntervalSince1970: lastExerciseDate ?? Date.distantPast.timeIntervalSince1970))
     
@@ -33,6 +34,10 @@ public func updateStreak(recentExerciseMinutes: TimeInterval) {
         lastExerciseDate = Date.distantPast.timeIntervalSince1970
         return
     }
+    guard dateAwarded != nil else {
+        dateAwarded = false
+        return
+    }
     
     // if exercised yesterday but didn't meet goal, reset current streak
     if didExerciseYesterday && (todaysExercise! < goal!) {
@@ -42,21 +47,20 @@ public func updateStreak(recentExerciseMinutes: TimeInterval) {
     // if last exercise date not today, reset today's exercise to 0
     if !didExerciseToday {
         todaysExercise = 0
+        dateAwarded = false
         // If exercise date not yesterday or today, reset current streak
         if !didExerciseYesterday {
             currentStreak = 0
         }
-        
     }
     
     // if today's exercise less than goal, and total is more than goal, add 1 to current streak
-    if (todaysExercise! < goal!) {
-        let total = Int(recentExerciseMinutes / 60)
-        if total >= goal! {
-            currentStreak! += 1
-        }
+    let total = Int(recentExerciseMinutes / 60)
+    if ((todaysExercise! + total) >= goal!) && !(dateAwarded!) {
+        currentStreak! += 1
+        dateAwarded = true
     }
-
+    
     // if didn't exercise, don't add date to lastExerciseDate
     if recentExerciseMinutes != 0.0 {
         todaysExercise! += Int(recentExerciseMinutes / 60)
@@ -64,5 +68,5 @@ public func updateStreak(recentExerciseMinutes: TimeInterval) {
     }
     
     print("Today's Exercise: \(todaysExercise!), didExerciseToday: \(didExerciseToday), didExerciseYesterday: \(didExerciseYesterday), Current Streak: \(currentStreak!)")
-
+    
 }
