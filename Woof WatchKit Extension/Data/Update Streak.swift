@@ -8,13 +8,12 @@
 import Foundation
 import SwiftUI
 
-// recent exercise minutes Date().timeIntervalSince(self.builder?.startDate ?? Date.now)
 public func updateStreak(recentExerciseMinutes: TimeInterval) {
     @AppStorage("dog.currentStreak") var currentStreak: Int?
     @AppStorage("dog.goal") var goal: Int?
     @AppStorage("dog.todaysExercise") var todaysExercise: Int?
-    @AppStorage("dog.awardedDate") var awardedDate: Double?
-    @AppStorage("dog.lastExerciseDate") var lastExerciseDate: Double?
+    @AppStorage("dog.awardedDate") var awardedDate: Double? // Date stored as TimeInterval since 1970
+    @AppStorage("dog.lastExerciseDate") var lastExerciseDate: Double?   // Date stored as TimeInterval since 1970
     
     guard todaysExercise != nil else {
         todaysExercise = 0
