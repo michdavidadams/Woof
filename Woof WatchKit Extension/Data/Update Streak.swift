@@ -34,7 +34,7 @@ public func updateStreak(recentExerciseMinutes: TimeInterval) {
     
     // if streak wasn't awarded yesterday and today, set current streak to 0
     let streakAwardedYesterday = Calendar.current.isDateInYesterday(Date(timeIntervalSince1970: awardedDate ?? Date.distantPast.timeIntervalSince1970))
-    let streakAwardedToday = Calendar.current.isDateInYesterday(Date(timeIntervalSince1970: awardedDate ?? Date.distantPast.timeIntervalSince1970))
+    let streakAwardedToday = Calendar.current.isDateInToday(Date(timeIntervalSince1970: awardedDate ?? Date.distantPast.timeIntervalSince1970))
     if !streakAwardedYesterday && !streakAwardedToday {
         currentStreak = 0
     }

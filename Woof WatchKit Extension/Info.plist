@@ -4,6 +4,14 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSMotionUsageDescription</key>
+	<string>So your walks can automatically pause when you stop moving.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>So you can record your walking routes.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>For reading your workout metrics.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>For recording your workouts to Health.</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
