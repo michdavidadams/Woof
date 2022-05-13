@@ -28,7 +28,7 @@ struct StartView: View {
                     HStack {
                         Text("Walk")
                         Spacer()
-                        Image(systemName: "figure.walk")
+                        Image("Pawprint")
                             .foregroundColor(.accentColor)
                     }
                 }
@@ -92,11 +92,11 @@ extension HKWorkoutActivityType: Identifiable {
     var image: Image {
         switch self {
         case .walking:
-            return Image(systemName: "pawprint.fill")
+            return Image("Pawprint")
         case .play:
             return Image("tennisBall")
         default:
-            return Image(systemName: "pawprint.fill")
+            return Image("Pawprint")
         }
     }
 }

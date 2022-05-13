@@ -11,9 +11,10 @@ import SwiftUI
 class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Complication Configuration
+    
     func getComplicationDescriptors(handler: @escaping ([CLKComplicationDescriptor]) -> Void) {
         let descriptors = [
-            CLKComplicationDescriptor(identifier: "complication", displayName: "Woof", supportedFamilies: [CLKComplicationFamily.circularSmall, CLKComplicationFamily.graphicCircular, CLKComplicationFamily.graphicCorner])
+            CLKComplicationDescriptor(identifier: "complication", displayName: "Woof", supportedFamilies: [CLKComplicationFamily.graphicCircular])
             // Multiple complication support can be added here with more descriptors
         ]
         
@@ -50,18 +51,16 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getComplicationTemplate(for complication: CLKComplication, using date: Date) -> CLKComplicationTemplate? {
+        @AppStorage("dog.todaysExercise") var todaysExercise: Int?
+        @AppStorage("dog.goal") var goal: Int?
+        let currentFraction: Double = (Double(todaysExercise ?? 0) / Double(goal ?? 30))
+        print("Current fraction in getComplicationTemplate: \(currentFraction)")
+        let pawprintImage = Image("Pawprint").resizable().scaledToFit().frame(width: 20, height: 20).foregroundColor(Color.accentColor)
         
         switch complication.family {
-        case .graphicCorner:
-            let fullColorImage = UIImage(named: "Complication/Graphic Corner")!
-            let tintedImageProvider = CLKImageProvider(onePieceImage: fullColorImage)
-            return CLKComplicationTemplateGraphicCornerCircularImage(imageProvider: CLKFullColorImageProvider(fullColorImage: fullColorImage, tintedImageProvider: tintedImageProvider))
         case .graphicCircular:
-            let fullColorImage = UIImage(named: "Complication/Graphic Circular")!
-            let tintedImageProvider = CLKImageProvider(onePieceImage: fullColorImage)
-            return CLKComplicationTemplateGraphicCircularImage(imageProvider: CLKFullColorImageProvider(fullColorImage: fullColorImage, tintedImageProvider: tintedImageProvider))
-        case .circularSmall:
-            return CLKComplicationTemplateCircularSmallSimpleImage(imageProvider: CLKImageProvider(onePieceImage: UIImage(named: "Complication/Circular")!))
+            let gaugeProvider = CLKSimpleGaugeProvider(style: .ring, gaugeColor: UIColor(Color.accentColor), fillFraction: Float(currentFraction))
+            return CLKComplicationTemplateGraphicCircularClosedGaugeView(gaugeProvider: gaugeProvider, label: pawprintImage)
         default:
             return nil
         }

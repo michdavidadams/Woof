@@ -11,6 +11,7 @@ import SwiftUI
 import CoreLocation
 import CoreMotion
 import Combine
+import ClockKit
 
 class WorkoutManager: NSObject, ObservableObject {
     
@@ -147,6 +148,13 @@ class WorkoutManager: NSObject, ObservableObject {
             }
             // Stop pedometer used for pace tracking
             stopMotionUpdates()
+        }
+        let complicationServer = CLKComplicationServer.sharedInstance()
+        
+        if let activeComplications = complicationServer.activeComplications {
+            for complication in activeComplications {
+                complicationServer.reloadTimeline(for: complication)
+            }
         }
         showingSummaryView = true
     }

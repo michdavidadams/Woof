@@ -18,7 +18,10 @@ struct TotalTimeProgressView: View {
     var body: some View {
         ProgressView(value: (current / 60), total: Double(maxValue ?? 30), label: {
             selectedWorkout?.image
-                .foregroundColor(Color("lightGreen"))
+                .resizable()
+                .scaledToFit()
+                .frame(width: 20, height: 20)
+                .foregroundColor(Color.accentColor)
         })
         .progressViewStyle(CircularProgressViewStyle(tint: .accentColor))
         
