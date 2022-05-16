@@ -14,7 +14,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getComplicationDescriptors(handler: @escaping ([CLKComplicationDescriptor]) -> Void) {
         let descriptors = [
-            CLKComplicationDescriptor(identifier: "complication", displayName: "Woof", supportedFamilies: [CLKComplicationFamily.graphicCircular])
+            CLKComplicationDescriptor(identifier: "complication", displayName: "Woof", supportedFamilies: [CLKComplicationFamily.graphicCircular, CLKComplicationFamily.circularSmall, CLKComplicationFamily.extraLarge, CLKComplicationFamily.modularSmall, CLKComplicationFamily.modularLarge, CLKComplicationFamily.utilitarianSmall, CLKComplicationFamily.utilitarianSmallFlat, CLKComplicationFamily.utilitarianLarge, CLKComplicationFamily.graphicCorner, CLKComplicationFamily.graphicBezel, CLKComplicationFamily.graphicRectangular])
             // Multiple complication support can be added here with more descriptors
         ]
         
@@ -51,16 +51,55 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getComplicationTemplate(for complication: CLKComplication, using date: Date) -> CLKComplicationTemplate? {
+        @AppStorage("dog.name") var dogsName: String?
         @AppStorage("dog.todaysExercise") var todaysExercise: Int?
         @AppStorage("dog.goal") var goal: Int?
         let currentFraction: Double = (Double(todaysExercise ?? 0) / Double(goal ?? 30))
         print("Current fraction in getComplicationTemplate: \(currentFraction)")
-        let pawprintImage = Image("Pawprint").resizable().scaledToFit().frame(width: 20, height: 20).foregroundColor(Color.accentColor)
-        
+
         switch complication.family {
         case .graphicCircular:
+            let pawprintImage = Image("Pawprint").resizable().scaledToFit().frame(width: 20, height: 20).foregroundColor(Color.accentColor)
             let gaugeProvider = CLKSimpleGaugeProvider(style: .ring, gaugeColor: UIColor(Color.accentColor), fillFraction: Float(currentFraction))
             return CLKComplicationTemplateGraphicCircularClosedGaugeView(gaugeProvider: gaugeProvider, label: pawprintImage)
+        case .circularSmall:
+            let imageProvider = CLKImageProvider(onePieceImage: UIImage(imageLiteralResourceName: "Pawprint"))
+            return CLKComplicationTemplateCircularSmallRingImage(imageProvider: imageProvider, fillFraction: Float(currentFraction), ringStyle: .closed)
+        case .extraLarge:
+            let imageProvider = CLKImageProvider(onePieceImage: UIImage(imageLiteralResourceName: "Pawprint"))
+            return CLKComplicationTemplateExtraLargeRingImage(imageProvider: imageProvider, fillFraction: Float(currentFraction), ringStyle: .closed)
+        case .modularSmall:
+            let imageProvider = CLKImageProvider(onePieceImage: UIImage(imageLiteralResourceName: "Pawprint"))
+            return CLKComplicationTemplateModularSmallRingImage(imageProvider: imageProvider, fillFraction: Float(currentFraction), ringStyle: .closed)
+        case .modularLarge:
+            let headerTextProvider = CLKSimpleTextProvider(text: "\(dogsName ?? "Dog")'s Exercise")
+            let bodyTextProvider = CLKSimpleTextProvider(text: "\(todaysExercise ?? 0) Min")
+            return CLKComplicationTemplateModularLargeTallBody(headerTextProvider: headerTextProvider, bodyTextProvider: bodyTextProvider)
+        case .utilitarianSmall:
+            let textProvider = CLKSimpleTextProvider(text: "\(todaysExercise ?? 0) Min")
+            return CLKComplicationTemplateUtilitarianSmallFlat(textProvider: textProvider)
+        case .utilitarianSmallFlat:
+            let textProvider = CLKSimpleTextProvider(text: "\(todaysExercise ?? 0) Min")
+            return CLKComplicationTemplateUtilitarianSmallFlat(textProvider: textProvider)
+        case .utilitarianLarge:
+            let textProvider = CLKSimpleTextProvider(text: "\(todaysExercise ?? 0)/\(goal ?? 30) Min")
+            return CLKComplicationTemplateUtilitarianLargeFlat(textProvider: textProvider)
+        case .graphicCorner:
+            let gaugeProvider = CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(.accentColor), fillFraction: Float(currentFraction))
+            let outerTextProvider = CLKSimpleTextProvider(text: "\(dogsName ?? "Woof")")
+            return CLKComplicationTemplateGraphicCornerGaugeText(gaugeProvider: gaugeProvider, outerTextProvider: outerTextProvider)
+        case .graphicBezel:
+            let pawprintImage = Image("Pawprint").resizable().scaledToFit().frame(width: 20, height: 20).foregroundColor(Color.accentColor)
+            let gaugeProvider = CLKSimpleGaugeProvider(style: .ring, gaugeColor: UIColor(Color.accentColor), fillFraction: Float(currentFraction))
+            let circularTemplate = CLKComplicationTemplateGraphicCircularClosedGaugeView(gaugeProvider: gaugeProvider, label: pawprintImage)
+            let textProvider = CLKSimpleTextProvider(text: "\(dogsName ?? "Your Dog")'s Exercise")
+            return CLKComplicationTemplateGraphicBezelCircularText(circularTemplate: circularTemplate, textProvider: textProvider)
+        case .graphicRectangular:
+            let pawprintImage = Image("Pawprint").foregroundColor(Color.accentColor)
+            let headerTextProvider = CLKSimpleTextProvider(text: "\(dogsName ?? "Your Dog")")
+            let bodyTextProvider = CLKSimpleTextProvider(text: "\(todaysExercise ?? 0) Min")
+            let gaugeProvider = CLKSimpleGaugeProvider(style: .ring, gaugeColor: UIColor(Color.accentColor), fillFraction: Float(currentFraction))
+            return CLKComplicationTemplateGraphicRectangularTextGaugeView(headerLabel: pawprintImage, headerTextProvider: headerTextProvider, bodyTextProvider: bodyTextProvider, gaugeProvider: gaugeProvider)
         default:
             return nil
         }
