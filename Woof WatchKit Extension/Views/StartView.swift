@@ -8,6 +8,7 @@
 import Combine
 import SwiftUI
 import HealthKit
+import ClockKit
 
 struct StartView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -62,6 +63,13 @@ struct StartView: View {
         .onAppear {
             workoutManager.requestAuthorization()
             updateStreak(recentExerciseMinutes: 0.0)
+            let complicationServer = CLKComplicationServer.sharedInstance()
+            
+            if let activeComplications = complicationServer.activeComplications {
+                for complication in activeComplications {
+                    complicationServer.reloadTimeline(for: complication)
+                }
+            }
         }
         
     }

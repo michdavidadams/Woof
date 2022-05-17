@@ -14,7 +14,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getComplicationDescriptors(handler: @escaping ([CLKComplicationDescriptor]) -> Void) {
         let descriptors = [
-            CLKComplicationDescriptor(identifier: "complication", displayName: "Woof", supportedFamilies: [CLKComplicationFamily.graphicCircular, CLKComplicationFamily.circularSmall, CLKComplicationFamily.extraLarge, CLKComplicationFamily.modularSmall, CLKComplicationFamily.modularLarge, CLKComplicationFamily.utilitarianSmall, CLKComplicationFamily.utilitarianSmallFlat, CLKComplicationFamily.utilitarianLarge, CLKComplicationFamily.graphicCorner, CLKComplicationFamily.graphicBezel, CLKComplicationFamily.graphicRectangular])
+            // Complications with today's exercise minutes displayed
+            CLKComplicationDescriptor(identifier: "complication", displayName: "Today's Exercise", supportedFamilies: [CLKComplicationFamily.graphicCircular, CLKComplicationFamily.circularSmall, CLKComplicationFamily.extraLarge, CLKComplicationFamily.modularSmall, CLKComplicationFamily.modularLarge, CLKComplicationFamily.utilitarianSmall, CLKComplicationFamily.utilitarianSmallFlat, CLKComplicationFamily.utilitarianLarge, CLKComplicationFamily.graphicCorner, CLKComplicationFamily.graphicBezel, CLKComplicationFamily.graphicRectangular])
             // Multiple complication support can be added here with more descriptors
         ]
         
