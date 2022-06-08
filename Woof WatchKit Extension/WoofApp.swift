@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct WoofApp: App {
+    let persistenceController = PersistenceController.shared
     @StateObject var workoutManager = WorkoutManager()
     @StateObject var dog = DogViewModel()
     
@@ -20,6 +21,7 @@ struct WoofApp: App {
             .sheet(isPresented: $workoutManager.showingSummaryView) {
                 SummaryView()
             }
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
             .environmentObject(workoutManager)
         }
         

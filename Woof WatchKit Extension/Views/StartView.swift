@@ -9,9 +9,10 @@ import Combine
 import SwiftUI
 import HealthKit
 import ClockKit
+import CoreData
 
 struct StartView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var workoutManager: WorkoutManager
     @AppStorage("dog.name") var name: String?
     
@@ -73,11 +74,14 @@ struct StartView: View {
         }
         
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         StartView().environmentObject(WorkoutManager())
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+
     }
 }
 

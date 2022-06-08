@@ -28,6 +28,8 @@
 		5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A25A2773E7DC002847DF /* SettingsView.swift */; };
 		7609BFB428185B320093EC15 /* Update Streak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7609BFB328185B320093EC15 /* Update Streak.swift */; };
 		7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7619005E27A9D9C9006E3C6A /* DogStatsView.swift */; };
+		761A58362850FA2000F8B1F0 /* Workout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 761A58342850FA2000F8B1F0 /* Workout.xcdatamodeld */; };
+		761A58382850FA8000F8B1F0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761A58372850FA8000F8B1F0 /* Persistence.swift */; };
 		762A405427F36716007A8250 /* PlayMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762A405327F36716007A8250 /* PlayMetricsView.swift */; };
 		7635964F27FDED810031B560 /* TotalTimeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635964E27FDED810031B560 /* TotalTimeProgressView.swift */; };
 		76D6AD7C2774E79D00B464E8 /* DogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D6AD7B2774E79D00B464E8 /* DogModel.swift */; };
@@ -101,6 +103,9 @@
 		5807A25A2773E7DC002847DF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7609BFB328185B320093EC15 /* Update Streak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Update Streak.swift"; sourceTree = "<group>"; };
 		7619005E27A9D9C9006E3C6A /* DogStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogStatsView.swift; sourceTree = "<group>"; };
+		761A58352850FA2000F8B1F0 /* Workout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Workout.xcdatamodel; sourceTree = "<group>"; };
+		761A58372850FA8000F8B1F0 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		761A58392850FB4700F8B1F0 /* Woof WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Woof WatchKit App.entitlements"; sourceTree = "<group>"; };
 		762A405327F36716007A8250 /* PlayMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMetricsView.swift; sourceTree = "<group>"; };
 		7635964E27FDED810031B560 /* TotalTimeProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTimeProgressView.swift; sourceTree = "<group>"; };
 		76D6AD7B2774E79D00B464E8 /* DogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogModel.swift; sourceTree = "<group>"; };
@@ -141,6 +146,7 @@
 		5807A21627716076002847DF /* Woof WatchKit App */ = {
 			isa = PBXGroup;
 			children = (
+				761A58392850FB4700F8B1F0 /* Woof WatchKit App.entitlements */,
 				5807A21727716080002847DF /* Assets.xcassets */,
 			);
 			path = "Woof WatchKit App";
@@ -199,6 +205,8 @@
 			isa = PBXGroup;
 			children = (
 				76D6AD7B2774E79D00B464E8 /* DogModel.swift */,
+				761A58342850FA2000F8B1F0 /* Workout.xcdatamodeld */,
+				761A58372850FA8000F8B1F0 /* Persistence.swift */,
 				5807A24E27716572002847DF /* WorkoutManager.swift */,
 				7609BFB328185B320093EC15 /* Update Streak.swift */,
 			);
@@ -345,12 +353,14 @@
 			files = (
 				5807A24727716398002847DF /* SessionPagingView.swift in Sources */,
 				5807A22727716080002847DF /* NotificationController.swift in Sources */,
+				761A58362850FA2000F8B1F0 /* Workout.xcdatamodeld in Sources */,
 				5807A22527716080002847DF /* StartView.swift in Sources */,
 				7609BFB428185B320093EC15 /* Update Streak.swift in Sources */,
 				5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */,
 				5807A24F27716572002847DF /* WorkoutManager.swift in Sources */,
 				7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */,
 				5807A2562771679D002847DF /* SummaryView.swift in Sources */,
+				761A58382850FA8000F8B1F0 /* Persistence.swift in Sources */,
 				5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */,
 				5807A22B27716080002847DF /* ComplicationController.swift in Sources */,
 				5807A22327716080002847DF /* WoofApp.swift in Sources */,
@@ -574,6 +584,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Woof WatchKit App/Woof WatchKit App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5SVL2L4EZ6;
@@ -600,6 +611,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Woof WatchKit App/Woof WatchKit App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5SVL2L4EZ6;
@@ -686,6 +698,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		761A58342850FA2000F8B1F0 /* Workout.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				761A58352850FA2000F8B1F0 /* Workout.xcdatamodel */,
+			);
+			currentVersion = 761A58352850FA2000F8B1F0 /* Workout.xcdatamodel */;
+			path = Workout.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5807A20827716075002847DF /* Project object */;
 }
