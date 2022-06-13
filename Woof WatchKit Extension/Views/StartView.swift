@@ -9,10 +9,8 @@ import Combine
 import SwiftUI
 import HealthKit
 import ClockKit
-import CoreData
 
 struct StartView: View {
-    @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var workoutManager: WorkoutManager
     @AppStorage("dog.name") var name: String?
     
@@ -40,6 +38,15 @@ struct StartView: View {
                         Text("Play")
                         Spacer()
                         Image("tennisBall")
+                            .foregroundColor(.accentColor)
+                    }
+                }
+                .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
+                NavigationLink(destination: ManualAddView()) {
+                    HStack {
+                        Text("Add Time")
+                        Spacer()
+                        Image(systemName: "Pawprint")
                             .foregroundColor(.accentColor)
                     }
                 }
@@ -80,7 +87,6 @@ struct StartView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         StartView().environmentObject(WorkoutManager())
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 
     }
 }
