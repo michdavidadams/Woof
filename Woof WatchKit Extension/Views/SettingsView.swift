@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
-import Combine
 
 struct SettingsView: View {
-    @AppStorage("dog.name") var name: String = "Dog name"
-    @AppStorage("dog.goal") var goal: Int = 30
+    @AppStorage("name") var name: String = "Dog name"
+    @AppStorage("goal") var goal: Int = 30
     
     var body: some View {
             ScrollView {

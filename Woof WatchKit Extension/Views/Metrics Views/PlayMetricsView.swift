@@ -10,8 +10,8 @@ import HealthKit
 
 struct PlayMetricsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @AppStorage("dog.goal") var goal: Int?
-    @AppStorage("dog.todaysExercise") var todaysExercise: Int?
+    @AppStorage("goal") var goal: Int?
+    @AppStorage("todaysExercise") var todaysExercise: Int?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -35,9 +35,6 @@ struct PlayMetricsView: View {
                 .ignoresSafeArea(edges: .bottom)
                 .scenePadding()
             }
-        }
-        .onAppear {
-            updateStreak(recentExerciseMinutes: 0.0)
         }
     }
 }

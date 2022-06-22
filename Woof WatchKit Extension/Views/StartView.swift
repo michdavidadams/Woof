@@ -5,10 +5,8 @@
 //  Created by Michael Adams on 12/20/21.
 //
 
-import Combine
 import SwiftUI
 import HealthKit
-import ClockKit
 
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
@@ -37,16 +35,7 @@ struct StartView: View {
                     HStack {
                         Text("Play")
                         Spacer()
-                        Image("tennisBall")
-                            .foregroundColor(.accentColor)
-                    }
-                }
-                .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
-                NavigationLink(destination: ManualAddView()) {
-                    HStack {
-                        Text("Add Time")
-                        Spacer()
-                        Image(systemName: "Pawprint")
+                        Image("tennisball")
                             .foregroundColor(.accentColor)
                     }
                 }
@@ -70,14 +59,7 @@ struct StartView: View {
         }
         .onAppear {
             workoutManager.requestAuthorization()
-            updateStreak(recentExerciseMinutes: 0.0)
-            let complicationServer = CLKComplicationServer.sharedInstance()
             
-            if let activeComplications = complicationServer.activeComplications {
-                for complication in activeComplications {
-                    complicationServer.reloadTimeline(for: complication)
-                }
-            }
         }
         
     }

@@ -52,9 +52,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getComplicationTemplate(for complication: CLKComplication, using date: Date) -> CLKComplicationTemplate? {
-        @AppStorage("dog.name") var dogsName: String?
-        @AppStorage("dog.todaysExercise") var todaysExercise: Int?
-        @AppStorage("dog.goal") var goal: Int?
+        @AppStorage("name") var dogsName: String?
+        @AppStorage("todaysExercise") var todaysExercise: Int?
+        @AppStorage("goal") var goal: Int?
         let currentFraction: Double = (Double(todaysExercise ?? 0) / Double(goal ?? 30))
         print("Current fraction in getComplicationTemplate: \(currentFraction)")
 

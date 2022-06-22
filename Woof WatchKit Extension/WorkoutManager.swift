@@ -10,7 +10,6 @@ import HealthKit
 import SwiftUI
 import CoreLocation
 import CoreMotion
-import Combine
 import ClockKit
 
 class WorkoutManager: NSObject, ObservableObject {
@@ -112,6 +111,102 @@ class WorkoutManager: NSObject, ObservableObject {
         locationManager?.requestWhenInUseAuthorization()
     }
     
+    // MARK: Load past workouts
+    var walkingWorkouts: [HKWorkout] = []
+    var playWorkouts: [HKWorkout] = []
+    
+    func loadWalkingWorkouts() {
+        //1. Get all workouts with the "Walking" activity type.
+        let workoutPredicate = HKQuery.predicateForWorkouts(with: .walking)
+        
+        //2. Get all workouts that only came from this app.
+        let sourcePredicate = HKQuery.predicateForObjects(from: .default())
+        
+        //3. Combine the predicates into a single predicate.
+        let compound = NSCompoundPredicate(andPredicateWithSubpredicates:
+          [workoutPredicate, sourcePredicate])
+        
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
+                                              ascending: true)
+        
+        let query = HKSampleQuery(
+          sampleType: .workoutType(),
+          predicate: compound,
+          limit: 0,
+          sortDescriptors: [sortDescriptor]) { (query, samples, error) in
+            DispatchQueue.main.async {
+              guard
+                let samples = samples as? [HKWorkout],
+                error == nil
+                else {
+                  return
+              }
+                self.walkingWorkouts = samples
+            }
+          }
+        HKHealthStore().execute(query)
+    }
+    
+    func loadPlayWorkouts() {
+        //1. Get all workouts with the "Play" activity type.
+        let workoutPredicate = HKQuery.predicateForWorkouts(with: .play)
+        
+        //2. Get all workouts that only came from this app.
+        let sourcePredicate = HKQuery.predicateForObjects(from: .default())
+        
+        //3. Combine the predicates into a single predicate.
+        let compound = NSCompoundPredicate(andPredicateWithSubpredicates:
+          [workoutPredicate, sourcePredicate])
+        
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
+                                              ascending: true)
+        
+        let query = HKSampleQuery(
+          sampleType: .workoutType(),
+          predicate: compound,
+          limit: 0,
+          sortDescriptors: [sortDescriptor]) { (query, samples, error) in
+            DispatchQueue.main.async {
+              guard
+                let samples = samples as? [HKWorkout],
+                error == nil
+                else {
+                  return
+              }
+                self.playWorkouts = samples
+            }
+          }
+        HKHealthStore().execute(query)
+    }
+    
+    @Published var todaysExercise: Int = 0
+    @AppStorage("todaysExercise") var todaysExerciseComplication: Int = 0
+    func getTodaysExercise() {
+        self.loadWalkingWorkouts()
+        self.loadPlayWorkouts()
+        var todaysExerciseTemp: Int = 0
+        self.playWorkouts.forEach { workout in
+            if Calendar.current.isDateInToday(workout.startDate) {
+                todaysExerciseTemp += Int(workout.endDate.timeIntervalSince(workout.startDate) / 60)
+            }
+        }
+        self.walkingWorkouts.forEach { workout in
+            if Calendar.current.isDateInToday(workout.startDate) {
+                todaysExerciseTemp += Int(workout.endDate.timeIntervalSince(workout.startDate) / 60)
+            }
+        }
+        print("Today's exercise: \(todaysExercise) minutes")
+        todaysExercise = todaysExerciseTemp
+        todaysExerciseComplication = todaysExerciseTemp
+        let complicationServer = CLKComplicationServer.sharedInstance()
+        
+        if let activeComplications = complicationServer.activeComplications {
+            for complication in activeComplications {
+                complicationServer.reloadTimeline(for: complication)
+            }
+        }
+    }
+    
     // MARK: - Session State Control
     
     // The app's workout state.
@@ -134,7 +229,6 @@ class WorkoutManager: NSObject, ObservableObject {
     }
     
     func endWorkout() {
-        updateStreak(recentExerciseMinutes: Date().timeIntervalSince(self.builder?.startDate ?? Date.now))
         session?.end()
         if workout?.workoutActivityType == .walking {
             if workout != nil {

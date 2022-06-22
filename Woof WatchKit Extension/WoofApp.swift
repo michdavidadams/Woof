@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct WoofApp: App {
     @StateObject var workoutManager = WorkoutManager()
-    @StateObject var dog = DogViewModel()
     
     @SceneBuilder var body: some Scene {
         WindowGroup {

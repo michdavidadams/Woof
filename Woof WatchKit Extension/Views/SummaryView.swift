@@ -19,9 +19,8 @@ struct SummaryView: View {
         formatter.zeroFormattingBehavior = .pad
         return formatter
     }()
-    @AppStorage("dog.name") var name: String?
-    @AppStorage("dog.todaysExercise") var todaysExercise: Int?
-    @AppStorage("dog.goal") var goal: Int?
+    @AppStorage("name") var name: String?
+    @AppStorage("goal") var goal: Int?
     
     var body: some View {
         if workoutManager.workout == nil {
@@ -49,7 +48,7 @@ struct SummaryView: View {
                                                                 numberFormatStyle: .number.precision(.fractionLength(0)))))
                         .foregroundStyle(.red)
                     SummaryMetricView(title: "\(name ?? "Dog")'s Goal",
-                                      value: "\(todaysExercise ?? 0)/\(goal ?? 30) Min")
+                                      value: "\(workoutManager.todaysExercise)/\(goal ?? 30) Min")
                     .foregroundStyle(Color.accentColor)
                     Text("Activity Rings")
                     ActivityRingsView(healthStore: workoutManager.healthStore)

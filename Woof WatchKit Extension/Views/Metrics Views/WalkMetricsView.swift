@@ -10,7 +10,7 @@ import HealthKit
 
 struct WalkMetricsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @AppStorage("dog.todaysExercise") var todaysExercise: Int?
+    @AppStorage("todaysExercise") var todaysExercise: Int?
     
     var body: some View {
         
@@ -34,9 +34,6 @@ struct WalkMetricsView: View {
                 .ignoresSafeArea(edges: .bottom)
                 .scenePadding()
             }
-        }
-        .onAppear {
-            updateStreak(recentExerciseMinutes: 0.0)
         }
         
     }
