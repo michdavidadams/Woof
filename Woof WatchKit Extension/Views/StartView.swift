@@ -10,7 +10,6 @@ import HealthKit
 
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @AppStorage("dog.name") var name: String?
     
     var workoutTypes: [HKWorkoutActivityType] = [.walking, .play]
     
@@ -51,9 +50,8 @@ struct StartView: View {
                 .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
                 
             }
-            .navigationTitle("\(name ?? "Woof")")
+            .navigationTitle("Woof")
             .navigationBarHidden(false)
-            .navigationBarTitleDisplayMode(.large)
             .navigationViewStyle(.automatic)
             .listStyle(.carousel)
         }

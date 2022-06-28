@@ -12,9 +12,15 @@ struct DogStatsView: View {
     
     @EnvironmentObject var workoutManager: WorkoutManager
     @AppStorage("goal") var goal: Int = 30
+    @AppStorage("todaysExercise") var todaysExercise: Int = 0
+    @AppStorage("name") var name: String = "Your Dog"
     
     var body: some View {
         VStack(alignment: .leading) {
+            Text("\(name)")
+                .font(.system(size: 20))
+                .fontWeight(.semibold)
+                .foregroundColor(Color.white)
             VStack(alignment: .leading) {
                 HStack {
                     Text("🐶")
@@ -24,11 +30,11 @@ struct DogStatsView: View {
                     VStack(alignment: .leading) {
                         Text("Exercise")
                             .font(.system(.footnote, design: .default).lowercaseSmallCaps())
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color.gray)
                             .multilineTextAlignment(.leading)
                             .lineLimit(1)
                             .textCase(.uppercase)
-                        Text("\(workoutManager.todaysExercise)/\(goal) Min")
+                        Text("\(todaysExercise)/\(goal) Min")
                             .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .fontWeight(.semibold)
                             .foregroundColor(.accentColor)
@@ -38,7 +44,7 @@ struct DogStatsView: View {
             }
         }
         .onAppear {
-            workoutManager.getTodaysExercise()
+            todaysExercise = workoutManager.getTodaysExercise()
         }
         
     }

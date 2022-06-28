@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("name") var name: String = "Dog name"
+    @AppStorage("name") var name: String = "Your Dog"
     @AppStorage("goal") var goal: Int = 30
     
     var body: some View {

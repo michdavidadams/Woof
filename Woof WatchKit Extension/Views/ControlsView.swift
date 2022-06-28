@@ -15,7 +15,6 @@ struct ControlsView: View {
             VStack {
                 Button {
                     workoutManager.endWorkout()
-                    workoutManager.getTodaysExercise()
                     WKInterfaceDevice.current().play(.success)
                 } label: {
                     Image(systemName: "xmark")
