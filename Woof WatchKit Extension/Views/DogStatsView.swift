@@ -11,9 +11,9 @@ import HealthKit
 struct DogStatsView: View {
     
     @EnvironmentObject var workoutManager: WorkoutManager
-    @AppStorage("goal") var goal: Int = 30
-    @AppStorage("todaysExercise") var todaysExercise: Int = 0
-    @AppStorage("name") var name: String = "Your Dog"
+    @AppStorage("goal", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var goal: Int = 30
+    @AppStorage("todaysExercise", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var todaysExercise: Int = 0
+    @AppStorage("name", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var name: String = "Your Dog"
     
     var body: some View {
         VStack(alignment: .leading) {

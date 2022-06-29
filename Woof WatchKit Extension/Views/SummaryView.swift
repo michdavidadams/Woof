@@ -19,8 +19,8 @@ struct SummaryView: View {
         formatter.zeroFormattingBehavior = .pad
         return formatter
     }()
-    @AppStorage("name") var name: String?
-    @AppStorage("goal") var goal: Int?
+    @AppStorage("name", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var name: String?
+    @AppStorage("goal", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var goal: Int?
     
     var body: some View {
         if workoutManager.workout == nil {

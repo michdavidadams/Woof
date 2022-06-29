@@ -12,7 +12,7 @@ import ClockKit
 struct TotalTimeProgressView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     var current: TimeInterval
-    @AppStorage("goal") var maxValue: Int?
+    @AppStorage("goal", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var maxValue: Int?
     var selectedWorkout: HKWorkoutActivityType?
     
     var body: some View {

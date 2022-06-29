@@ -10,12 +10,12 @@ import HealthKit
 
 struct PlayMetricsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @AppStorage("goal") var goal: Int?
+    @AppStorage("todaysExercise", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var todaysExercise: Int = 0
     
     var body: some View {
         VStack(alignment: .leading) {
             // Displays total workout time; combines today's exercise variable with current workout time
-            TotalTimeProgressView(current: (Date.now.timeIntervalSince(workoutManager.builder?.startDate ?? Date.now) + Double(workoutManager.getTodaysExercise())), selectedWorkout: workoutManager.selectedWorkout)
+            TotalTimeProgressView(current: (Date.now.timeIntervalSince(workoutManager.builder?.startDate ?? Date.now) + Double(todaysExercise * 60)), selectedWorkout: workoutManager.selectedWorkout)
                 .padding()
                 .scenePadding()
             TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date())) { context in

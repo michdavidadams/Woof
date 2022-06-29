@@ -55,8 +55,10 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       notificationPayloadFile = "Woof WatchKit Extension/PushNotificationPayload.apns">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/Woof">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5807A21127716076002847DF"
@@ -64,7 +66,7 @@
             BlueprintName = "Woof WatchKit App"
             ReferencedContainer = "container:Woof.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -73,8 +75,10 @@
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
       notificationPayloadFile = "Woof WatchKit Extension/PushNotificationPayload.apns">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/Woof">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5807A21127716076002847DF"
@@ -82,7 +86,16 @@
             BlueprintName = "Woof WatchKit App"
             ReferencedContainer = "container:Woof.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "5807A21127716076002847DF"
+            BuildableName = "Woof WatchKit App.app"
+            BlueprintName = "Woof WatchKit App"
+            ReferencedContainer = "container:Woof.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
