@@ -42,22 +42,15 @@ class HealthStore: ObservableObject {
     @Published var playWorkouts: [HKWorkout] = []
     
     func loadWalkingWorkouts() {
-        //1. Get all workouts with the "Walking" activity type.
+        // Get all workouts with the "Walking" activity type.
         let workoutPredicate = HKQuery.predicateForWorkouts(with: .walking)
-        
-        //2. Get all workouts that only came from this app.
-        let sourcePredicate = HKQuery.predicateForObjects(from: .default())
-        
-        //3. Combine the predicates into a single predicate.
-        let compound = NSCompoundPredicate(andPredicateWithSubpredicates:
-          [workoutPredicate, sourcePredicate])
-        
+
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate,
                                               ascending: true)
         
         let query = HKSampleQuery(
           sampleType: .workoutType(),
-          predicate: compound,
+          predicate: workoutPredicate,
           limit: 0,
           sortDescriptors: [sortDescriptor]) { (query, samples, error) in
             DispatchQueue.main.async {
@@ -67,7 +60,14 @@ class HealthStore: ObservableObject {
                 else {
                   return
               }
-                self.walkingWorkouts = samples
+                var samplesTemp: [HKWorkout] = []
+                samples.forEach { sample in
+                    if sample.sourceRevision.source.bundleIdentifier.contains("Woof") {
+                        samplesTemp.append(sample)
+                    }
+                }
+                self.walkingWorkouts = samplesTemp
+                print(samplesTemp)
             }
           }
         HKHealthStore().execute(query)
@@ -108,6 +108,7 @@ class HealthStore: ObservableObject {
     func getTodaysExercise() -> Int {
         self.loadWalkingWorkouts()
         self.loadPlayWorkouts()
+        
         var todaysExercise: Int = 0
         self.playWorkouts.forEach { workout in
             if Calendar.current.isDateInToday(workout.startDate) {
@@ -123,5 +124,23 @@ class HealthStore: ObservableObject {
         
         return todaysExercise
     }
+    
+    @Published var allWorkouts: [HKWorkout] = []
+    func getRecentExercises() {
+        self.loadWalkingWorkouts()
+        self.loadPlayWorkouts()
+        
+        var allWorkoutsTemp: [HKWorkout] = []
+        walkingWorkouts.forEach { walk in
+            allWorkoutsTemp.append(walk)
+        }
+        playWorkouts.forEach { play in
+            allWorkoutsTemp.append(play)
+        }
+        allWorkoutsTemp.sort(by: { $0.startDate < $1.startDate })
+
+        allWorkouts = allWorkoutsTemp
+    }
+    
     
 }
