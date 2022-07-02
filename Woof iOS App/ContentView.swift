@@ -27,7 +27,33 @@ struct ContentView: View {
             
             Section {
                 if recentWorkout != nil {
-                    Text("\(recentWorkout?.startDate ?? Date.now)")
+                    VStack(alignment: .leading) {
+                        
+                        HStack {
+                            recentWorkout?.workoutActivityType.image
+                                .font(.largeTitle)
+                                .foregroundColor(.accentColor)
+                            VStack(alignment: .leading) {
+                                Text("\(recentWorkout!.workoutActivityType.name)")
+                                    .font(.headline)
+                                HStack {
+                                    let totalDistance: String = String(format: "%.2f", recentWorkout?.totalDistance?.doubleValue(for: .mile()) ?? 0.0)
+                                    Text("\(totalDistance) mi")
+                                        .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                        .foregroundColor(.accentColor)
+                                    Spacer()
+                                    Text(recentWorkout!.startDate, style: .date)
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                    
+                                }
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                    .padding()
                 } else {
                     Text("No workouts.")
                 }
@@ -40,10 +66,12 @@ struct ContentView: View {
                     Spacer()
                     
                     NavigationLink(destination: AllWorkoutsView(allWorkouts: healthStore.allWorkouts), label: {
-                        Text("More")
+                        Text("Show More")
+                            .font(.footnote)
                     })
                 }
             }
+            .headerProminence(.increased)
             
         }
         .listStyle(.insetGrouped)

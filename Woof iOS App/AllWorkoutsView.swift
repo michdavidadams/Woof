@@ -12,13 +12,39 @@ struct AllWorkoutsView: View {
     @State var allWorkouts: [HKWorkout]
     
     var body: some View {
-        ScrollView {
-            List(allWorkouts, id: \.self) { workout in
+        List(allWorkouts, id: \.self) { workout in
+            VStack(alignment: .leading) {
+                
                 HStack {
-                    Text("\(workout.startDate)")
+                    workout.workoutActivityType.image
+                        .font(.largeTitle)
+                        .foregroundColor(.accentColor)
+                    VStack(alignment: .leading) {
+                        Text("\(workout.workoutActivityType.name)")
+                            .font(.headline)
+                        HStack {
+                            let totalDistance: String = String(format: "%.2f", workout.totalDistance?.doubleValue(for: .mile()) ?? 0.0)
+                            Text("\(totalDistance) mi")
+                                .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                .foregroundColor(.accentColor)
+                            Spacer()
+                            Text(workout.startDate, style: .date)
+                                .font(.footnote)
+                                .foregroundColor(.gray)
+                            
+                        }
+                    }
+                    
+                    
                 }
+                
             }
+            .padding()
+            .navigationBarTitle("Workouts")
+            .navigationBarTitleDisplayMode(.large)
         }
+        .listStyle(.insetGrouped)
+        
     }
 }
 
@@ -27,3 +53,31 @@ struct AllWorkoutsView: View {
 //        AllWorkoutsView()
 //    }
 //}
+
+extension HKWorkoutActivityType: Identifiable {
+    public var id: UInt {
+        rawValue
+    }
+    
+    var name: String {
+        switch self {
+        case .walking:
+            return "Walk"
+        case .play:
+            return "Play"
+        default:
+            return ""
+        }
+    }
+    
+    var image: Image {
+        switch self {
+        case .walking:
+            return Image("Pawprint")
+        case .play:
+            return Image("tennisBall")
+        default:
+            return Image("Pawprint")
+        }
+    }
+}

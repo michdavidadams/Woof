@@ -137,7 +137,7 @@ class HealthStore: ObservableObject {
         playWorkouts.forEach { play in
             allWorkoutsTemp.append(play)
         }
-        allWorkoutsTemp.sort(by: { $0.startDate < $1.startDate })
+        allWorkoutsTemp.sort(by: { $0.startDate > $1.startDate })
 
         allWorkouts = allWorkoutsTemp
     }
