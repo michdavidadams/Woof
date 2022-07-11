@@ -9,16 +9,15 @@ import SwiftUI
 
 @main
 struct Woof_iOS_AppApp: App {
-    @StateObject var healthStore = HealthStore()
+    let healthStore = HealthStore()
     
     var body: some Scene {
         WindowGroup {
                 NavigationView {
                     ContentView()
-                    
                 }
-                .environmentObject(healthStore)
                 .preferredColorScheme(.dark)
+                .environmentObject(healthStore)
         }
     }
 }

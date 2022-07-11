@@ -142,6 +142,7 @@ class WorkoutManager: NSObject, ObservableObject {
                   return
               }
                 self.walkingWorkouts = samples
+                self.loadPlayWorkouts()
             }
           }
         HKHealthStore().execute(query)
@@ -174,26 +175,30 @@ class WorkoutManager: NSObject, ObservableObject {
                   return
               }
                 self.playWorkouts = samples
+                self.getTodaysExercise()
             }
           }
         HKHealthStore().execute(query)
     }
     
-    func getTodaysExercise() -> Int {
-        self.loadWalkingWorkouts()
-        self.loadPlayWorkouts()
-        var todaysExercise: Int = 0
+    @Published var todaysExercise: Int = 0
+    
+    func getTodaysExercise() {
+        @AppStorage("todaysExercise", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var todaysExerciseComp: Int?
+        
+        var todaysExerciseTemp: Int = 0
         self.playWorkouts.forEach { workout in
             if Calendar.current.isDateInToday(workout.startDate) {
-                todaysExercise += Int(workout.endDate.timeIntervalSince(workout.startDate) / 60)
+                todaysExerciseTemp += Int(workout.endDate.timeIntervalSince(workout.startDate) / 60)
             }
         }
         self.walkingWorkouts.forEach { workout in
             if Calendar.current.isDateInToday(workout.startDate) {
-                todaysExercise += Int(workout.endDate.timeIntervalSince(workout.startDate) / 60)
+                todaysExerciseTemp += Int(workout.endDate.timeIntervalSince(workout.startDate) / 60)
             }
         }
-        print("Today's exercise: \(todaysExercise) minutes")
+        print("Today's exercise: \(todaysExerciseTemp) minutes")
+        todaysExerciseComp = todaysExerciseTemp
         let complicationServer = CLKComplicationServer.sharedInstance()
         
         if let activeComplications = complicationServer.activeComplications {
@@ -202,7 +207,7 @@ class WorkoutManager: NSObject, ObservableObject {
             }
         }
         
-        return todaysExercise
+        todaysExercise = todaysExerciseTemp
     }
     
     // MARK: - Session State Control
@@ -302,6 +307,7 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
                 self.builder?.finishWorkout { (workout, error) in
                     DispatchQueue.main.async {
                         self.workout = workout
+                        self.loadWalkingWorkouts()
                     }
                 }
             }

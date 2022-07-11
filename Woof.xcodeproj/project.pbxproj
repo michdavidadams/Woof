@@ -37,6 +37,7 @@
 		76AF9447286CEBE500B3F5E7 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76AF9446286CEBE500B3F5E7 /* HealthKit.framework */; };
 		76AF9449286CF07900B3F5E7 /* DogStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF9448286CF07900B3F5E7 /* DogStatsView.swift */; };
 		76DF72782870BCF800F301BD /* AllWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DF72772870BCF800F301BD /* AllWorkoutsView.swift */; };
+		76DF727A2872318D00F301BD /* RecentWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DF72792872318D00F301BD /* RecentWorkoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 		76AF9446286CEBE500B3F5E7 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		76AF9448286CF07900B3F5E7 /* DogStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogStatsView.swift; sourceTree = "<group>"; };
 		76DF72772870BCF800F301BD /* AllWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWorkoutsView.swift; sourceTree = "<group>"; };
+		76DF72792872318D00F301BD /* RecentWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWorkoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +243,7 @@
 				76AF9444286CE5BB00B3F5E7 /* Woof-iOS-App-Info.plist */,
 				76AF9436286CE22800B3F5E7 /* Woof_iOS_AppApp.swift */,
 				76AF9438286CE22800B3F5E7 /* ContentView.swift */,
+				76DF72792872318D00F301BD /* RecentWorkoutView.swift */,
 				76DF72772870BCF800F301BD /* AllWorkoutsView.swift */,
 				76AF9448286CF07900B3F5E7 /* DogStatsView.swift */,
 				76AF9442286CE26700B3F5E7 /* HealthStore.swift */,
@@ -443,6 +446,7 @@
 				76AF9449286CF07900B3F5E7 /* DogStatsView.swift in Sources */,
 				76AF9443286CE26700B3F5E7 /* HealthStore.swift in Sources */,
 				76AF9437286CE22800B3F5E7 /* Woof_iOS_AppApp.swift in Sources */,
+				76DF727A2872318D00F301BD /* RecentWorkoutView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

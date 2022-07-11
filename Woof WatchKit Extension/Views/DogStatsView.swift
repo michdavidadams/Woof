@@ -12,7 +12,6 @@ struct DogStatsView: View {
     
     @EnvironmentObject var workoutManager: WorkoutManager
     @AppStorage("goal", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var goal: Int = 30
-    @AppStorage("todaysExercise", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var todaysExercise: Int = 0
     @AppStorage("name", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var name: String = "Your Dog"
     
     var body: some View {
@@ -34,7 +33,7 @@ struct DogStatsView: View {
                             .multilineTextAlignment(.leading)
                             .lineLimit(1)
                             .textCase(.uppercase)
-                        Text("\(todaysExercise)/\(goal) Min")
+                        Text("\(workoutManager.todaysExercise)/\(goal) Min")
                             .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .fontWeight(.semibold)
                             .foregroundColor(.accentColor)
@@ -44,7 +43,7 @@ struct DogStatsView: View {
             }
         }
         .onAppear {
-            todaysExercise = workoutManager.getTodaysExercise()
+            workoutManager.loadWalkingWorkouts()
         }
         
     }

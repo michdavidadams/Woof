@@ -11,7 +11,6 @@ import HealthKit
 struct ContentView: View {
     @EnvironmentObject var healthStore: HealthStore
     @AppStorage("name", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var name: String = "Your Dog"
-    @State var recentWorkout: HKWorkout?
     
     var body: some View {
         List {
@@ -26,42 +25,40 @@ struct ContentView: View {
             .headerProminence(.increased)
             
             Section {
-                if recentWorkout != nil {
-                    VStack(alignment: .leading) {
-                        
-                        HStack {
-                            recentWorkout?.workoutActivityType.image
-                                .font(.largeTitle)
-                                .foregroundColor(.accentColor)
-                            VStack(alignment: .leading) {
-                                Text("\(recentWorkout!.workoutActivityType.name)")
-                                    .font(.headline)
-                                HStack {
-                                    let totalDistance: String = String(format: "%.2f", recentWorkout?.totalDistance?.doubleValue(for: .mile()) ?? 0.0)
-                                    Text("\(totalDistance) mi")
-                                        .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                                        .foregroundColor(.accentColor)
-                                    Spacer()
-                                    Text(recentWorkout!.startDate, style: .date)
-                                        .font(.footnote)
-                                        .foregroundColor(.gray)
-                                    
-                                }
+                
+                VStack(alignment: .leading) {
+                    
+                    HStack {
+                        healthStore.recentWorkout?.workoutActivityType.image
+                            .font(.largeTitle)
+                            .foregroundColor(.accentColor)
+                        VStack(alignment: .leading) {
+                            Text("\(healthStore.recentWorkout?.workoutActivityType.name ?? HKWorkoutActivityType.walking.name)")
+                                .font(.headline)
+                            HStack {
+                                let totalDistance: String = String(format: "%.2f", healthStore.recentWorkout?.totalDistance?.doubleValue(for: .mile()) ?? 0.0)
+                                Text("\(totalDistance) mi")
+                                    .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                    .foregroundColor(.accentColor)
+                                Spacer()
+                                Text(healthStore.recentWorkout?.startDate ?? Date.distantPast, style: .date)
+                                    .font(.footnote)
+                                    .foregroundColor(.gray)
+                                
                             }
-                            
-                            
                         }
                         
+                        
                     }
-                    .padding()
-                } else {
-                    Text("No workouts.")
+                    
                 }
+                    .padding()
+                
             } header: {
                 HStack {
-                Text("Workouts")
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
+                    Text("Workouts")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.white)
                     
                     Spacer()
                     
@@ -76,21 +73,13 @@ struct ContentView: View {
         }
         .listStyle(.insetGrouped)
         .listRowBackground(Color.gray.opacity(0.2))
-        .refreshable {
-            healthStore.getRecentExercises()
-            if healthStore.allWorkouts.first != nil {
-                recentWorkout = healthStore.allWorkouts.last
-            }
-        }
         
         .navigationTitle("Woof")
         .navigationBarTitleDisplayMode(.large)
         .onAppear {
             healthStore.requestAuthorization()
-            healthStore.getRecentExercises()
-            if healthStore.allWorkouts.first != nil {
-                recentWorkout = healthStore.allWorkouts.last
-            }
+            healthStore.loadWalkingWorkouts()
+            
         }
     }
     
@@ -98,6 +87,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(HealthStore())
     }
 }

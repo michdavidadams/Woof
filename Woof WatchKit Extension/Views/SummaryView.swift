@@ -48,7 +48,7 @@ struct SummaryView: View {
                                                                 numberFormatStyle: .number.precision(.fractionLength(0)))))
                         .foregroundStyle(.red)
                     SummaryMetricView(title: "\(name ?? "Dog")'s Goal",
-                                      value: "\(workoutManager.getTodaysExercise())/\(goal ?? 30) Min")
+                                      value: "\(workoutManager.todaysExercise)/\(goal ?? 30) Min")
                     .foregroundStyle(Color.accentColor)
                     Text("Activity Rings")
                     ActivityRingsView(healthStore: workoutManager.healthStore)

@@ -10,7 +10,13 @@ import HealthKit
 
 class HealthStore: ObservableObject {
     
-    let healthStore = HKHealthStore()
+    var healthStore: HKHealthStore?
+    init() {
+            if HKHealthStore.isHealthDataAvailable() {
+                self.requestAuthorization()
+                healthStore = HKHealthStore()
+            }
+        }
     
     // Request authorization to access HealthKit and location.
     func requestAuthorization() {
@@ -31,7 +37,7 @@ class HealthStore: ObservableObject {
         ]
         
         // Request authorization for those quantity types.
-        healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { (success, error) in
+        self.healthStore?.requestAuthorization(toShare: typesToShare, read: typesToRead) { (success, error) in
             // Handle error.
         }
         
@@ -67,10 +73,12 @@ class HealthStore: ObservableObject {
                     }
                 }
                 self.walkingWorkouts = samplesTemp
-                print(samplesTemp)
+                print("Walking workouts loaded")
+                self.loadPlayWorkouts()
             }
           }
-        HKHealthStore().execute(query)
+        self.healthStore?.execute(query)
+        //HKHealthStore().execute(query)
     }
     
     func loadPlayWorkouts() {
@@ -100,14 +108,15 @@ class HealthStore: ObservableObject {
                   return
               }
                 self.playWorkouts = samples
+                print("Play workouts loaded")
+                self.getRecentExercises()
             }
           }
-        HKHealthStore().execute(query)
+        self.healthStore?.execute(query)
+        //HKHealthStore().execute(query)
     }
     
     func getTodaysExercise() -> Int {
-        self.loadWalkingWorkouts()
-        self.loadPlayWorkouts()
         
         var todaysExercise: Int = 0
         self.playWorkouts.forEach { workout in
@@ -126,20 +135,32 @@ class HealthStore: ObservableObject {
     }
     
     @Published var allWorkouts: [HKWorkout] = []
+    @Published var recentWorkout: HKWorkout?
+    
     func getRecentExercises() {
-        self.loadWalkingWorkouts()
-        self.loadPlayWorkouts()
         
-        var allWorkoutsTemp: [HKWorkout] = []
-        walkingWorkouts.forEach { walk in
-            allWorkoutsTemp.append(walk)
-        }
-        playWorkouts.forEach { play in
-            allWorkoutsTemp.append(play)
-        }
-        allWorkoutsTemp.sort(by: { $0.startDate > $1.startDate })
-
-        allWorkouts = allWorkoutsTemp
+//            self.loadWalkingWorkouts()
+//            self.loadPlayWorkouts()
+            
+            var allWorkoutsTemp: [HKWorkout] = []
+            self.walkingWorkouts.forEach { walk in
+                allWorkoutsTemp.append(walk)
+            }
+            self.playWorkouts.forEach { play in
+                allWorkoutsTemp.append(play)
+            }
+            allWorkoutsTemp.sort(by: { $0.startDate > $1.startDate })
+            
+            self.allWorkouts = allWorkoutsTemp
+            
+            if self.allWorkouts.first != nil {
+                self.recentWorkout = self.allWorkouts.first
+                print("First workout not nil")
+            } else {
+                print("First workout nil")
+            }
+        
+        
     }
     
     
