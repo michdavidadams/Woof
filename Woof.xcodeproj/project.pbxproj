@@ -29,6 +29,7 @@
 		7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7619005E27A9D9C9006E3C6A /* DogStatsView.swift */; };
 		762A405427F36716007A8250 /* PlayMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762A405327F36716007A8250 /* PlayMetricsView.swift */; };
 		7635964F27FDED810031B560 /* TotalTimeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635964E27FDED810031B560 /* TotalTimeProgressView.swift */; };
+		765D9A412884ADE200A74801 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765D9A402884ADE200A74801 /* SettingsView.swift */; };
 		76AF9437286CE22800B3F5E7 /* Woof_iOS_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF9436286CE22800B3F5E7 /* Woof_iOS_AppApp.swift */; };
 		76AF9439286CE22800B3F5E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF9438286CE22800B3F5E7 /* ContentView.swift */; };
 		76AF943B286CE22F00B3F5E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76AF943A286CE22F00B3F5E7 /* Assets.xcassets */; };
@@ -110,6 +111,7 @@
 		761A58392850FB4700F8B1F0 /* Woof WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Woof WatchKit App.entitlements"; sourceTree = "<group>"; };
 		762A405327F36716007A8250 /* PlayMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMetricsView.swift; sourceTree = "<group>"; };
 		7635964E27FDED810031B560 /* TotalTimeProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTimeProgressView.swift; sourceTree = "<group>"; };
+		765D9A402884ADE200A74801 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		76AF9434286CE22800B3F5E7 /* Woof iOS App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Woof iOS App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76AF9436286CE22800B3F5E7 /* Woof_iOS_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Woof_iOS_AppApp.swift; sourceTree = "<group>"; };
 		76AF9438286CE22800B3F5E7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				76AF9444286CE5BB00B3F5E7 /* Woof-iOS-App-Info.plist */,
 				76AF9436286CE22800B3F5E7 /* Woof_iOS_AppApp.swift */,
 				76AF9438286CE22800B3F5E7 /* ContentView.swift */,
+				765D9A402884ADE200A74801 /* SettingsView.swift */,
 				76DF72792872318D00F301BD /* RecentWorkoutView.swift */,
 				76DF72772870BCF800F301BD /* AllWorkoutsView.swift */,
 				76AF9448286CF07900B3F5E7 /* DogStatsView.swift */,
@@ -441,6 +444,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				765D9A412884ADE200A74801 /* SettingsView.swift in Sources */,
 				76DF72782870BCF800F301BD /* AllWorkoutsView.swift in Sources */,
 				76AF9439286CE22800B3F5E7 /* ContentView.swift in Sources */,
 				76AF9449286CF07900B3F5E7 /* DogStatsView.swift in Sources */,

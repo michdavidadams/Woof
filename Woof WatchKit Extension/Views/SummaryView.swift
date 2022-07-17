@@ -21,6 +21,7 @@ struct SummaryView: View {
     }()
     @AppStorage("name", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var name: String?
     @AppStorage("goal", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var goal: Int?
+    @AppStorage("todaysExercise", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var todaysExercise: Int?
     
     var body: some View {
         if workoutManager.workout == nil {
@@ -48,7 +49,7 @@ struct SummaryView: View {
                                                                 numberFormatStyle: .number.precision(.fractionLength(0)))))
                         .foregroundStyle(.red)
                     SummaryMetricView(title: "\(name ?? "Dog")'s Goal",
-                                      value: "\(workoutManager.todaysExercise)/\(goal ?? 30) Min")
+                                      value: "\(todaysExercise ?? 0)/\(goal ?? 30) Min")
                     .foregroundStyle(Color.accentColor)
                     Text("Activity Rings")
                     ActivityRingsView(healthStore: workoutManager.healthStore)

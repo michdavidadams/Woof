@@ -73,11 +73,11 @@ extension HKWorkoutActivityType: Identifiable {
     var image: Image {
         switch self {
         case .walking:
-            return Image("Pawprint")
+            return Image("pawprint")
         case .play:
-            return Image("tennisBall")
+            return Image("tennisball")
         default:
-            return Image("Pawprint")
+            return Image("pawprint")
         }
     }
 }

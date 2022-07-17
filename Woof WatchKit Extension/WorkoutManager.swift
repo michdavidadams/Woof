@@ -181,10 +181,9 @@ class WorkoutManager: NSObject, ObservableObject {
         HKHealthStore().execute(query)
     }
     
-    @Published var todaysExercise: Int = 0
     
     func getTodaysExercise() {
-        @AppStorage("todaysExercise", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var todaysExerciseComp: Int?
+        @AppStorage("todaysExercise", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var todaysExercise: Int?
         
         var todaysExerciseTemp: Int = 0
         self.playWorkouts.forEach { workout in
@@ -198,7 +197,7 @@ class WorkoutManager: NSObject, ObservableObject {
             }
         }
         print("Today's exercise: \(todaysExerciseTemp) minutes")
-        todaysExerciseComp = todaysExerciseTemp
+        todaysExercise = todaysExerciseTemp
         let complicationServer = CLKComplicationServer.sharedInstance()
         
         if let activeComplications = complicationServer.activeComplications {
@@ -206,8 +205,6 @@ class WorkoutManager: NSObject, ObservableObject {
                 complicationServer.reloadTimeline(for: complication)
             }
         }
-        
-        todaysExercise = todaysExerciseTemp
     }
     
     // MARK: - Session State Control

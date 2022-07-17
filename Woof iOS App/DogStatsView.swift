@@ -37,7 +37,7 @@ struct DogStatsView: View {
                     
                     ZStack {
                     CircularProgressView(progress: Double(todaysExercise/goal))
-                        Image("Pawprint")
+                        Image("pawprint")
                             .foregroundColor(Color.accentColor)
                             .font(.system(size: 25))
                     }.frame(width: 40, height: 40)
