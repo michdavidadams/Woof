@@ -12,20 +12,20 @@ struct SettingsView: View {
     @AppStorage("goal", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var goal: Int = 30
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                
-                VStack {
-                    Text("DOG NAME")
+            List {
+                Section(content: {
                     TextField("Dog name", text: $name)
-                }
-                .padding()
+                }, header: {
+                    Text("Dog name")
+
+                })
                 
-                VStack {
-                    Text("EXERCISE GOAL")
+                Section(content: {
                     HStack {
-                        Button("-") {
+                        Button(action: {
                             goal -= 5
+                        }) {
+                            Image(systemName: "minus.circle.fill")
                         }
                         Text("\(goal)")
                             .font(.title3)
@@ -33,22 +33,23 @@ struct SettingsView: View {
                             .multilineTextAlignment(.center)
                             .lineLimit(1)
                             .padding(.horizontal)
-                        Button("+") {
+                        Button(action: {
                             goal += 5
+                        }) {
+                            Image(systemName: "plus.circle.fill")
                         }
                     }
-                }
-                .padding()
+                }, header: {
+                    Text("Exercise Goal")
+                })
                 
-                VStack {
                     Button("Save") {
                         name = name
                         goal = goal
                     }
-                }
-                .padding()
+                
             }
-        }
+        
     
     .navigationTitle(Text("Settings"))
     }

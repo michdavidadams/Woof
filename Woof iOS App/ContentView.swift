@@ -69,7 +69,6 @@ struct ContentView: View {
                 }
             }
             .headerProminence(.increased)
-            
         }
         .listStyle(.insetGrouped)
         .listRowBackground(Color.gray.opacity(0.2))
@@ -79,7 +78,14 @@ struct ContentView: View {
         .onAppear {
             healthStore.requestAuthorization()
             healthStore.loadWalkingWorkouts()
-            
+        }
+        
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(destination: SettingsView()) {
+                    Image(systemName: "gear").foregroundColor(.accentColor)
+                }
+            }
         }
     }
     
