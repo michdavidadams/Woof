@@ -24,8 +24,10 @@ struct StartView: View {
                 NavigationLink(destination: SessionPagingView(), tag: .walking, selection: $workoutManager.selectedWorkout) {
                     HStack {
                         Text("Walk")
+                            .fontWeight(.semibold)
                         Spacer()
                         Image("pawprint")
+                            .imageScale(.large)
                             .foregroundColor(.accentColor)
                     }
                 }
@@ -33,8 +35,10 @@ struct StartView: View {
                 NavigationLink(destination: SessionPagingView(), tag: .play, selection: $workoutManager.selectedWorkout) {
                     HStack {
                         Text("Play")
+                            .fontWeight(.semibold)
                         Spacer()
                         Image("tennisball")
+                            .imageScale(.large)
                             .foregroundColor(.accentColor)
                     }
                 }
@@ -42,8 +46,10 @@ struct StartView: View {
                 NavigationLink(destination: SettingsView()) {
                     HStack {
                         Text("Settings")
+                            .fontWeight(.semibold)
                         Spacer()
                         Image(systemName: "gearshape.fill")
+                            .imageScale(.large)
                             .foregroundColor(.accentColor)
                     }
                 }

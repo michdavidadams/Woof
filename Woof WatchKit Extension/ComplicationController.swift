@@ -60,7 +60,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 
         switch complication.family {
         case .graphicCircular:
-            let pawprintImage = Image("Pawprint").resizable().scaledToFit().frame(width: 20, height: 20).foregroundColor(Color.accentColor)
+            let pawprintImage = Image("pawprint").resizable().scaledToFit().frame(width: 20, height: 20).foregroundColor(Color.accentColor)
             let gaugeProvider = CLKSimpleGaugeProvider(style: .ring, gaugeColor: UIColor(Color.accentColor), fillFraction: Float(currentFraction))
             return CLKComplicationTemplateGraphicCircularClosedGaugeView(gaugeProvider: gaugeProvider, label: pawprintImage)
         case .circularSmall:

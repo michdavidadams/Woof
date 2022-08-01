@@ -13,11 +13,11 @@ struct SettingsView: View {
     
     var body: some View {
             List {
+                
                 Section(content: {
                     TextField("Dog name", text: $name)
                 }, header: {
                     Text("Dog name")
-
                 })
                 
                 Section(content: {

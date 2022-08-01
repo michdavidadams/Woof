@@ -56,6 +56,13 @@
 			remoteGlobalIDString = 5807A21C27716080002847DF;
 			remoteInfo = "Woof Walk WatchKit Extension";
 		};
+		769FC43928983537006D85C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5807A20827716075002847DF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 76AF9433286CE22800B3F5E7;
+			remoteInfo = "Woof iOS App";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -277,6 +284,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				769FC43A28983537006D85C2 /* PBXTargetDependency */,
 				5807A21527716076002847DF /* PBXTargetDependency */,
 			);
 			name = Woof;
@@ -466,6 +474,11 @@
 			isa = PBXTargetDependency;
 			target = 5807A21C27716080002847DF /* Woof WatchKit Extension */;
 			targetProxy = 5807A21F27716080002847DF /* PBXContainerItemProxy */;
+		};
+		769FC43A28983537006D85C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 76AF9433286CE22800B3F5E7 /* Woof iOS App */;
+			targetProxy = 769FC43928983537006D85C2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -765,7 +778,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.michdavidadams.Woof-iOS-App";
+				PRODUCT_BUNDLE_IDENTIFIER = com.michdavidadams.Woof.iOSapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -800,7 +813,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.michdavidadams.Woof-iOS-App";
+				PRODUCT_BUNDLE_IDENTIFIER = com.michdavidadams.Woof.iOSapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
