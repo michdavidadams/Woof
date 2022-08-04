@@ -14,8 +14,13 @@ struct ControlsView: View {
         HStack {
             VStack {
                 Button {
+                    
+                    // End workout
                     workoutManager.endWorkout()
+                    
+                    // Play completion sound
                     WKInterfaceDevice.current().play(.success)
+                    
                 } label: {
                     Image(systemName: "xmark")
                 }

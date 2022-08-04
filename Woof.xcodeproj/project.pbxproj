@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5807A21327716076002847DF /* Woof WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5807A21227716076002847DF /* Woof WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5807A21827716080002847DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5807A21727716080002847DF /* Assets.xcassets */; };
 		5807A21E27716080002847DF /* Woof WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5807A21D27716080002847DF /* Woof WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5807A22327716080002847DF /* WoofApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807A22227716080002847DF /* WoofApp.swift */; };
@@ -29,39 +28,15 @@
 		7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7619005E27A9D9C9006E3C6A /* DogStatsView.swift */; };
 		762A405427F36716007A8250 /* PlayMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762A405327F36716007A8250 /* PlayMetricsView.swift */; };
 		7635964F27FDED810031B560 /* TotalTimeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635964E27FDED810031B560 /* TotalTimeProgressView.swift */; };
-		765D9A412884ADE200A74801 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765D9A402884ADE200A74801 /* SettingsView.swift */; };
-		76AF9437286CE22800B3F5E7 /* Woof_iOS_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF9436286CE22800B3F5E7 /* Woof_iOS_AppApp.swift */; };
-		76AF9439286CE22800B3F5E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF9438286CE22800B3F5E7 /* ContentView.swift */; };
-		76AF943B286CE22F00B3F5E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76AF943A286CE22F00B3F5E7 /* Assets.xcassets */; };
-		76AF943E286CE22F00B3F5E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76AF943D286CE22F00B3F5E7 /* Preview Assets.xcassets */; };
-		76AF9443286CE26700B3F5E7 /* HealthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF9442286CE26700B3F5E7 /* HealthStore.swift */; };
-		76AF9447286CEBE500B3F5E7 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76AF9446286CEBE500B3F5E7 /* HealthKit.framework */; };
-		76AF9449286CF07900B3F5E7 /* DogStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF9448286CF07900B3F5E7 /* DogStatsView.swift */; };
-		76DF72782870BCF800F301BD /* AllWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DF72772870BCF800F301BD /* AllWorkoutsView.swift */; };
-		76DF727A2872318D00F301BD /* RecentWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DF72792872318D00F301BD /* RecentWorkoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5807A21427716076002847DF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5807A20827716075002847DF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5807A21127716076002847DF;
-			remoteInfo = "Woof Walk WatchKit App";
-		};
 		5807A21F27716080002847DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5807A20827716075002847DF /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 5807A21C27716080002847DF;
 			remoteInfo = "Woof Walk WatchKit Extension";
-		};
-		769FC43928983537006D85C2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5807A20827716075002847DF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 76AF9433286CE22800B3F5E7;
-			remoteInfo = "Woof iOS App";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -77,21 +52,9 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5807A23C27716081002847DF /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-				5807A21327716076002847DF /* Woof WatchKit App.app in Embed Watch Content */,
-			);
-			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5807A20E27716075002847DF /* Woof.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Woof.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5807A21227716076002847DF /* Woof WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Woof WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5807A21727716080002847DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5807A21D27716080002847DF /* Woof WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Woof WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,19 +81,7 @@
 		761A58392850FB4700F8B1F0 /* Woof WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Woof WatchKit App.entitlements"; sourceTree = "<group>"; };
 		762A405327F36716007A8250 /* PlayMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMetricsView.swift; sourceTree = "<group>"; };
 		7635964E27FDED810031B560 /* TotalTimeProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTimeProgressView.swift; sourceTree = "<group>"; };
-		765D9A402884ADE200A74801 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		76AF9434286CE22800B3F5E7 /* Woof iOS App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Woof iOS App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		76AF9436286CE22800B3F5E7 /* Woof_iOS_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Woof_iOS_AppApp.swift; sourceTree = "<group>"; };
-		76AF9438286CE22800B3F5E7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		76AF943A286CE22F00B3F5E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		76AF943D286CE22F00B3F5E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		76AF9442286CE26700B3F5E7 /* HealthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStore.swift; sourceTree = "<group>"; };
-		76AF9444286CE5BB00B3F5E7 /* Woof-iOS-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Woof-iOS-App-Info.plist"; sourceTree = SOURCE_ROOT; };
-		76AF9445286CEBE500B3F5E7 /* Woof iOS App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Woof iOS App.entitlements"; sourceTree = "<group>"; };
 		76AF9446286CEBE500B3F5E7 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
-		76AF9448286CF07900B3F5E7 /* DogStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogStatsView.swift; sourceTree = "<group>"; };
-		76DF72772870BCF800F301BD /* AllWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWorkoutsView.swift; sourceTree = "<group>"; };
-		76DF72792872318D00F301BD /* RecentWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWorkoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,14 +93,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		76AF9431286CE22800B3F5E7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				76AF9447286CEBE500B3F5E7 /* HealthKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -158,7 +101,6 @@
 			children = (
 				5807A21627716076002847DF /* Woof WatchKit App */,
 				5807A22127716080002847DF /* Woof WatchKit Extension */,
-				76AF9435286CE22800B3F5E7 /* Woof iOS App */,
 				5807A20F27716075002847DF /* Products */,
 				5807A2432771611B002847DF /* Frameworks */,
 			);
@@ -167,10 +109,8 @@
 		5807A20F27716075002847DF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5807A20E27716075002847DF /* Woof.app */,
 				5807A21227716076002847DF /* Woof WatchKit App.app */,
 				5807A21D27716080002847DF /* Woof WatchKit Extension.appex */,
-				76AF9434286CE22800B3F5E7 /* Woof iOS App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -245,53 +185,9 @@
 			path = "Metrics Views";
 			sourceTree = "<group>";
 		};
-		76AF9435286CE22800B3F5E7 /* Woof iOS App */ = {
-			isa = PBXGroup;
-			children = (
-				76AF9445286CEBE500B3F5E7 /* Woof iOS App.entitlements */,
-				76AF9444286CE5BB00B3F5E7 /* Woof-iOS-App-Info.plist */,
-				76AF9436286CE22800B3F5E7 /* Woof_iOS_AppApp.swift */,
-				76AF9438286CE22800B3F5E7 /* ContentView.swift */,
-				765D9A402884ADE200A74801 /* SettingsView.swift */,
-				76DF72792872318D00F301BD /* RecentWorkoutView.swift */,
-				76DF72772870BCF800F301BD /* AllWorkoutsView.swift */,
-				76AF9448286CF07900B3F5E7 /* DogStatsView.swift */,
-				76AF9442286CE26700B3F5E7 /* HealthStore.swift */,
-				76AF943A286CE22F00B3F5E7 /* Assets.xcassets */,
-				76AF943C286CE22F00B3F5E7 /* Preview Content */,
-			);
-			path = "Woof iOS App";
-			sourceTree = "<group>";
-		};
-		76AF943C286CE22F00B3F5E7 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				76AF943D286CE22F00B3F5E7 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5807A20D27716075002847DF /* Woof */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5807A23D27716081002847DF /* Build configuration list for PBXNativeTarget "Woof" */;
-			buildPhases = (
-				5807A20C27716075002847DF /* Resources */,
-				5807A23C27716081002847DF /* Embed Watch Content */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				769FC43A28983537006D85C2 /* PBXTargetDependency */,
-				5807A21527716076002847DF /* PBXTargetDependency */,
-			);
-			name = Woof;
-			productName = "Woof Walk";
-			productReference = 5807A20E27716075002847DF /* Woof.app */;
-			productType = "com.apple.product-type.application.watchapp2-container";
-		};
 		5807A21127716076002847DF /* Woof WatchKit App */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5807A23927716081002847DF /* Build configuration list for PBXNativeTarget "Woof WatchKit App" */;
@@ -326,23 +222,6 @@
 			productReference = 5807A21D27716080002847DF /* Woof WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
-		76AF9433286CE22800B3F5E7 /* Woof iOS App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 76AF9441286CE22F00B3F5E7 /* Build configuration list for PBXNativeTarget "Woof iOS App" */;
-			buildPhases = (
-				76AF9430286CE22800B3F5E7 /* Sources */,
-				76AF9431286CE22800B3F5E7 /* Frameworks */,
-				76AF9432286CE22800B3F5E7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Woof iOS App";
-			productName = "Woof iOS App";
-			productReference = 76AF9434286CE22800B3F5E7 /* Woof iOS App.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -353,17 +232,11 @@
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
-					5807A20D27716075002847DF = {
-						CreatedOnToolsVersion = 13.2.1;
-					};
 					5807A21127716076002847DF = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
 					5807A21C27716080002847DF = {
 						CreatedOnToolsVersion = 13.2.1;
-					};
-					76AF9433286CE22800B3F5E7 = {
-						CreatedOnToolsVersion = 13.4.1;
 					};
 				};
 			};
@@ -380,22 +253,13 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5807A20D27716075002847DF /* Woof */,
 				5807A21127716076002847DF /* Woof WatchKit App */,
 				5807A21C27716080002847DF /* Woof WatchKit Extension */,
-				76AF9433286CE22800B3F5E7 /* Woof iOS App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		5807A20C27716075002847DF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5807A21027716076002847DF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -410,15 +274,6 @@
 			files = (
 				5807A23027716081002847DF /* Preview Assets.xcassets in Resources */,
 				5807A22D27716081002847DF /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		76AF9432286CE22800B3F5E7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				76AF943E286CE22F00B3F5E7 /* Preview Assets.xcassets in Resources */,
-				76AF943B286CE22F00B3F5E7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,37 +303,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		76AF9430286CE22800B3F5E7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				765D9A412884ADE200A74801 /* SettingsView.swift in Sources */,
-				76DF72782870BCF800F301BD /* AllWorkoutsView.swift in Sources */,
-				76AF9439286CE22800B3F5E7 /* ContentView.swift in Sources */,
-				76AF9449286CF07900B3F5E7 /* DogStatsView.swift in Sources */,
-				76AF9443286CE26700B3F5E7 /* HealthStore.swift in Sources */,
-				76AF9437286CE22800B3F5E7 /* Woof_iOS_AppApp.swift in Sources */,
-				76DF727A2872318D00F301BD /* RecentWorkoutView.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5807A21527716076002847DF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5807A21127716076002847DF /* Woof WatchKit App */;
-			targetProxy = 5807A21427716076002847DF /* PBXContainerItemProxy */;
-		};
 		5807A22027716080002847DF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5807A21C27716080002847DF /* Woof WatchKit Extension */;
 			targetProxy = 5807A21F27716080002847DF /* PBXContainerItemProxy */;
-		};
-		769FC43A28983537006D85C2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 76AF9433286CE22800B3F5E7 /* Woof iOS App */;
-			targetProxy = 769FC43928983537006D85C2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -537,9 +368,10 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = watchos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
 			};
 			name = Debug;
 		};
@@ -590,10 +422,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = watchos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
 			};
 			name = Release;
 		};
@@ -611,11 +444,11 @@
 				INFOPLIST_FILE = "Woof WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Woof;
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Woof_WatchKit_Extension.ComplicationController;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "For reading your workout metrics.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For recording your workouts to Health.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Allows Woof to read your workout information.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Allows Woof to save your workouts.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "So you can record your walking routes.";
-				INFOPLIST_KEY_NSMotionUsageDescription = "So your walks can automatically pause when you stop moving.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allows Woof to record your walking route.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "Allows Woof to automatically pause walking workouts when you stand still.";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -626,7 +459,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.michdavidadams.Woof.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -648,11 +481,11 @@
 				INFOPLIST_FILE = "Woof WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Woof;
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Woof_WatchKit_Extension.ComplicationController;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "For reading your workout metrics.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For recording your workouts to Health.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Allows Woof to read your workout information.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Allows Woof to save your workouts.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "So you can record your walking routes.";
-				INFOPLIST_KEY_NSMotionUsageDescription = "So your walks can automatically pause when you stop moving.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allows Woof to record your walking route.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "Allows Woof to automatically pause walking workouts when you stand still.";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -663,7 +496,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.michdavidadams.Woof.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -690,7 +523,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.michdavidadams.Woof.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -717,107 +550,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.michdavidadams.Woof.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 8.5;
-			};
-			name = Release;
-		};
-		5807A23E27716081002847DF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5SVL2L4EZ6;
-				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.michdavidadams.Woof;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		5807A23F27716081002847DF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5SVL2L4EZ6;
-				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.michdavidadams.Woof;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		76AF943F286CE22F00B3F5E7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Woof iOS App/Woof iOS App.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Woof iOS App/Preview Content\"";
-				DEVELOPMENT_TEAM = 5SVL2L4EZ6;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Woof-iOS-App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Woof;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "For reading your workout metrics.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For recording your workouts to Health.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.michdavidadams.Woof.iOSapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		76AF9440286CE22F00B3F5E7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Woof iOS App/Woof iOS App.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Woof iOS App/Preview Content\"";
-				DEVELOPMENT_TEAM = 5SVL2L4EZ6;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Woof-iOS-App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Woof;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "For reading your workout metrics.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "For recording your workouts to Health.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.michdavidadams.Woof.iOSapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -847,24 +584,6 @@
 			buildConfigurations = (
 				5807A23A27716081002847DF /* Debug */,
 				5807A23B27716081002847DF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5807A23D27716081002847DF /* Build configuration list for PBXNativeTarget "Woof" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5807A23E27716081002847DF /* Debug */,
-				5807A23F27716081002847DF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		76AF9441286CE22F00B3F5E7 /* Build configuration list for PBXNativeTarget "Woof iOS App" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				76AF943F286CE22F00B3F5E7 /* Debug */,
-				76AF9440286CE22F00B3F5E7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

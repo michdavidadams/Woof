@@ -181,9 +181,12 @@ class WorkoutManager: NSObject, ObservableObject {
         HKHealthStore().execute(query)
     }
     
-    
+    // MARK: Today's Exercise Minutes & Streak
     func getTodaysExercise() {
         @AppStorage("todaysExercise", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var todaysExercise: Int?
+        @AppStorage("goal", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var goal: Int?
+        @AppStorage("streak", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var streak: Int = 0
+        @AppStorage("goalMetToday", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var goalMetToday: Bool = false
         
         var todaysExerciseTemp: Int = 0
         self.playWorkouts.forEach { workout in
@@ -203,6 +206,53 @@ class WorkoutManager: NSObject, ObservableObject {
         if let activeComplications = complicationServer.activeComplications {
             for complication in activeComplications {
                 complicationServer.reloadTimeline(for: complication)
+            }
+        }
+        
+        // Streak
+        var streakEndReached = false
+        var streakDate = Calendar.current.date(byAdding: .day, value: -1, to: Date()) // Yesterday
+        var streakTemp = 0
+        
+        while !streakEndReached {
+            var daysExerciseSeconds: TimeInterval = 0
+            // Loop workouts to find workouts for date, sum exercise seconds, then compare to goal to see if streak reached
+            walkingWorkouts.forEach { walk in
+                if Calendar.current.isDate(walk.startDate, inSameDayAs: streakDate!) {
+                    daysExerciseSeconds += walk.duration
+                }
+            }
+            playWorkouts.forEach { play in
+                if Calendar.current.isDate(play.startDate, inSameDayAs: streakDate!) {
+                    daysExerciseSeconds += play.duration
+                }
+            }
+            // If goal met, increase streak and continue
+            if ((Int(daysExerciseSeconds) / 60) >= (goal ?? 30)) {
+                streakTemp += 1
+                streakDate = Calendar.current.date(byAdding: .day, value: -1, to: streakDate!)
+            } else {
+                // If goal has been met today, add 1 to streak. Otherwise, make note of it and display streak count as faded green
+                daysExerciseSeconds = 0
+                walkingWorkouts.forEach { walk in
+                    if Calendar.current.isDateInToday(walk.startDate) {
+                        daysExerciseSeconds += walk.duration
+                    }
+                }
+                playWorkouts.forEach { play in
+                    if Calendar.current.isDateInToday(play.startDate) {
+                        daysExerciseSeconds += play.duration
+                    }
+                }
+                if ((Int(daysExerciseSeconds) / 60) >= (goal ?? 30)) {
+                    streakTemp += 1
+                    goalMetToday = true
+                } else {
+                    goalMetToday = false
+                }
+                
+                streak = streakTemp
+                streakEndReached = true
             }
         }
     }

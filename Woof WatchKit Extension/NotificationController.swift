@@ -31,3 +31,32 @@ class NotificationController: WKUserNotificationHostingController<NotificationVi
         
     }
 }
+
+func scheduleNotifications() {
+    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { success, error in
+        if success {
+            print("Notification authorization successful")
+        } else if let error = error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    let content = UNMutableNotificationContent()
+    
+    @AppStorage("goal", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var goal: Int?
+    @AppStorage("name", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var name: String?
+    @AppStorage("todaysExercise", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var todaysExercise: Int?
+    
+    content.title = "\(name ?? "Your Dog")'s Exercise"
+    content.body = "\(todaysExercise ?? 0)/\(goal ?? 30) minutes"
+    content.sound = UNNotificationSound.default
+    
+    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+    
+    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+    
+    UNUserNotificationCenter.current().add(request)
+    
+    print("Notification scheduled")
+}

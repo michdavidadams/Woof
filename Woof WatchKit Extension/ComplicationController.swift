@@ -56,7 +56,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         @AppStorage("todaysExercise", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var todaysExercise: Int?
         @AppStorage("goal", store: UserDefaults(suiteName: "group.com.michdavidadams.WoofWorkout")) var goal: Int?
         let currentFraction: Double = (Double(todaysExercise ?? 0) / Double(goal ?? 30))
-        print("Current fraction in getComplicationTemplate: \(currentFraction)")
 
         switch complication.family {
         case .graphicCircular:
