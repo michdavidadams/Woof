@@ -104,3 +104,5 @@ extension HKWorkoutActivityType: Identifiable {
         }
     }
 }
+
+

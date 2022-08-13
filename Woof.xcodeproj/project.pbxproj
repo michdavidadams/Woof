@@ -28,6 +28,8 @@
 		7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7619005E27A9D9C9006E3C6A /* DogStatsView.swift */; };
 		762A405427F36716007A8250 /* PlayMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762A405327F36716007A8250 /* PlayMetricsView.swift */; };
 		7635964F27FDED810031B560 /* TotalTimeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635964E27FDED810031B560 /* TotalTimeProgressView.swift */; };
+		7676D5B6289ED3510011AE78 /* ScheduleNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7676D5B5289ED3510011AE78 /* ScheduleNotifications.swift */; };
+		76BB061D28A180BF00665C3A /* ExerciseGoalEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BB061C28A180BF00665C3A /* ExerciseGoalEditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +83,9 @@
 		761A58392850FB4700F8B1F0 /* Woof WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Woof WatchKit App.entitlements"; sourceTree = "<group>"; };
 		762A405327F36716007A8250 /* PlayMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMetricsView.swift; sourceTree = "<group>"; };
 		7635964E27FDED810031B560 /* TotalTimeProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTimeProgressView.swift; sourceTree = "<group>"; };
+		7676D5B5289ED3510011AE78 /* ScheduleNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleNotifications.swift; sourceTree = "<group>"; };
 		76AF9446286CEBE500B3F5E7 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		76BB061C28A180BF00665C3A /* ExerciseGoalEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGoalEditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +134,7 @@
 				5807A2422771611B002847DF /* Woof WatchKit Extension.entitlements */,
 				5807A22227716080002847DF /* WoofApp.swift */,
 				5807A24E27716572002847DF /* WorkoutManager.swift */,
+				7676D5B5289ED3510011AE78 /* ScheduleNotifications.swift */,
 				5807A25027716619002847DF /* Views */,
 				5807A22627716080002847DF /* NotificationController.swift */,
 				5807A22827716080002847DF /* NotificationView.swift */,
@@ -166,6 +171,7 @@
 				5807A22427716080002847DF /* StartView.swift */,
 				7619005E27A9D9C9006E3C6A /* DogStatsView.swift */,
 				5807A25A2773E7DC002847DF /* SettingsView.swift */,
+				76BB061C28A180BF00665C3A /* ExerciseGoalEditView.swift */,
 				5807A24627716398002847DF /* SessionPagingView.swift */,
 				5807A24C27716503002847DF /* ControlsView.swift */,
 				5807A2532771678C002847DF /* ActivityRingsView.swift */,
@@ -289,6 +295,7 @@
 				5807A22527716080002847DF /* StartView.swift in Sources */,
 				5807A2542771678C002847DF /* ActivityRingsView.swift in Sources */,
 				5807A24F27716572002847DF /* WorkoutManager.swift in Sources */,
+				7676D5B6289ED3510011AE78 /* ScheduleNotifications.swift in Sources */,
 				7619005F27A9D9C9006E3C6A /* DogStatsView.swift in Sources */,
 				5807A2562771679D002847DF /* SummaryView.swift in Sources */,
 				5807A25B2773E7DC002847DF /* SettingsView.swift in Sources */,
@@ -296,6 +303,7 @@
 				5807A22327716080002847DF /* WoofApp.swift in Sources */,
 				762A405427F36716007A8250 /* PlayMetricsView.swift in Sources */,
 				7635964F27FDED810031B560 /* TotalTimeProgressView.swift in Sources */,
+				76BB061D28A180BF00665C3A /* ExerciseGoalEditView.swift in Sources */,
 				5807A24927716425002847DF /* WalkMetricsView.swift in Sources */,
 				5807A24B277164E9002847DF /* ElapsedTimeView.swift in Sources */,
 				5807A24D27716503002847DF /* ControlsView.swift in Sources */,
